@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1499221342381" clover="3.2.0">
+  <project timestamp="1499221342381" name="All files">
+    <metrics statements="106" coveredstatements="106" conditionals="59" coveredconditionals="59" methods="42" coveredmethods="42" elements="207" coveredelements="207" complexity="0" loc="106" ncloc="106" packages="1" files="5" classes="5">
+      <file name="apiActionCreator.js" path="/Users/viniciusdacal/github/redux-arc/src/apiActionCreator.js">
+        <metrics statements="36" coveredstatements="36" conditionals="35" coveredconditionals="35" methods="7" coveredmethods="7"/>
+        <line num="11" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="21" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="25" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="29" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="33" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="37" count="6" type="stmt"/>
+        <line num="40" count="6" type="stmt"/>
+        <line num="46" count="6" type="stmt"/>
+        <line num="50" count="10" type="stmt"/>
+        <line num="51" count="7" type="stmt"/>
+        <line num="52" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="55" count="6" type="stmt"/>
+        <line num="60" count="7" type="stmt"/>
+        <line num="61" count="9" type="stmt"/>
+        <line num="62" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="64" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="69" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="74" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="79" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="86" count="3" type="cond" truecount="5" falsecount="0"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="94" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
+      </file>
+      <file name="asyncActionHelpers.js" path="/Users/viniciusdacal/github/redux-arc/src/asyncActionHelpers.js">
+        <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
+        <line num="16" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="7" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="23" count="6" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+      </file>
+      <file name="helpers.js" path="/Users/viniciusdacal/github/redux-arc/src/helpers.js">
+        <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="10" type="stmt"/>
+        <line num="2" count="5" type="cond" truecount="2" falsecount="0"/>
+      </file>
+      <file name="middleware.js" path="/Users/viniciusdacal/github/redux-arc/src/middleware.js">
+        <metrics statements="30" coveredstatements="30" conditionals="14" coveredconditionals="14" methods="13" coveredmethods="13"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="25" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="40" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="51" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="58" count="6" type="stmt"/>
+        <line num="59" count="6" type="stmt"/>
+        <line num="61" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="65" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="69" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="73" count="3" type="stmt"/>
+        <line num="74" count="3" type="stmt"/>
+        <line num="76" count="3" type="stmt"/>
+        <line num="80" count="9" type="stmt"/>
+        <line num="82" count="3" type="stmt"/>
+        <line num="83" count="3" type="stmt"/>
+      </file>
+      <file name="polices.js" path="/Users/viniciusdacal/github/redux-arc/src/polices.js">
+        <metrics statements="25" coveredstatements="25" conditionals="6" coveredconditionals="6" methods="12" coveredmethods="12"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+      </file>
+    </metrics>
+  </project>
+</coverage>
