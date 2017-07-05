@@ -2,10 +2,11 @@
 Redux Arc is a dependency free, 3kb, 100% tested lib to handle async requests in redux.
 
 ## Why
-Many applications are built with redux, and api calls are critical to this. With the available alternatives (sagas, observables, etc...), you end up writing and repeating to much code. With a declarative way, you write less code and it leads you to have less bug.
+Many applications are built with redux, and api calls are critical to this. With the available alternatives (sagas, observables, etc...), you end up writing and repeating to much code.
+With a declarative way, you can write less code and make it easier to understand and maintain. All of it leads you to have less bugs and have a better code base.
 
 **Say no more to having a bunch of files just to talk with your api.**
-with redux-arc, you can turn a bunch of code in a few lines, take a look:
+with redux-arc, you can turn a lot of files in a few lines, take a look:
 
 ```js
 import { createAsyncActions } from 'redux-arc';
@@ -62,7 +63,7 @@ const store = createStore(
 );
 ```
 
-> We let you perform the request. This way, you can use any request lib you like.
+> We leave you perform the request. This way, you can use any request lib you like.
 
 And now, you can use `createAsyncActions` to define your action creators and types.
 
@@ -107,8 +108,8 @@ Our middleware will intercept that action, and will dispatch actions
 `MY_RESOURCE_LIST_REQUEST` and `MY_RESOURCE_LIST_RESPONSE` in the respective time.
 
 To perform the request, the middleware uses the function you provide (`asyncTask`). It will execute the asyncTask passing `store => done => options`,
-  - store: if you like, you can access the state through the store, only using `store.getState()`:
-  - done: the function you must call with the err and response `done(err, response)` when the request finishes
+  - store: if you like, you can access the state through the `store.getState()`
+  - done: the function you must call with the `err` and `response`:  `done(err, response)` when the request finishes
   - options: the object containing information regarding to the request, as the example bellow:
 
 ```js
@@ -122,7 +123,7 @@ To perform the request, the middleware uses the function you provide (`asyncTask
 > If you provide extra params in the actionCreator call, all of them will be under the options object.
 
 ## Types
-When you call `createAsyncActions`, you also receive types. types is just an object that contains all your action types, including request and response.
+When you call `createAsyncActions`, you also receive types. Types is just an object that contains all your action types, including request and response.
 
 Basically, what we do, is converting to uppercase the name you gave for your action creators. So, if you provide a name like `list`, you will have
 `types.LIST`, which is and object containing `REQUEST` and `RESPONSE`
@@ -132,7 +133,7 @@ so, in your reducers, you could use `types.LIST.REQUEST` to check for an action 
 # Polices
 We know there are sometimes when you need perform operations changing a request or response. For those cases, you can use polices.
 
-A police is basically, another middleware, as the follow example:
+A police is basically another middleware, as the follow example:
 
 ```js
 const police store => done => (action, error, response) =>
@@ -145,7 +146,7 @@ A police must have an applyPoint attribute, so:
 police.applyPoint = 'beforeRequest' // (beforeRequest, onResponse)
 ```
 
-You can imagine, that if your police has an applyPoint 'beforeRequest', you would only have access to action object, unless another police create and error or response in the `beforeRequest` chain
+You can imagine, in the cases your police has an applyPoint 'beforeRequest', you would only have access to  `action` object, unless another police create and error or response in the `beforeRequest` chain
 
 To use a police, you do as the follow;
 
@@ -175,7 +176,7 @@ polices.register('omitId', omitId)
 
 ```
 
-> Usually, for 'beforeRequest' you would change only the action and for `onResponse`, you would change only the response. But feel free to change the action inside 'onResponse' cycle if that makes sense.
+> Usually, for 'beforeRequest' you would change only the action, and for `onResponse`, you would change only the response. But feel free to change the action inside 'onResponse' cycle if that makes sense.
 
 If you need, you can provide polices when you are calling the action creator, just like this:
 
