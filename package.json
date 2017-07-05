@@ -1,5 +1,5 @@
 {
-  "name": "redux-arc",
+  "name": "redux-hamal",
   "version": "0.1.0",
   "description": "Declarative way to make api calls in redux",
   "main": "lib/index.js",
@@ -13,7 +13,7 @@
   ],
   "keywords": [
     "redux",
-    "redux-arc",
+    "redux-hamal",
     "react",
     "async"
   ],

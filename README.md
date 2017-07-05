@@ -1,15 +1,15 @@
-# redux-arc
-Redux Arc is a dependency free, 3kb, 100% tested lib to handle async requests in redux.
+# Hamal
+Hamal is a dependency free, 3kb lib to handle async requests in redux.
 
 ## Why
 Many applications are built with redux, and api calls are critical to this. With the available alternatives (sagas, observables, etc...), you end up writing and repeating to much code.
 With a declarative way, you can write less code and make it easier to understand and maintain. All of it leads you to have less bugs and have a better code base.
 
 **Say no more to having a bunch of files just to talk with your api.**
-with redux-arc, you can turn a lot of files in a few lines, take a look:
+with hamal, you can turn a lot of files in a few lines, take a look:
 
 ```js
-import { createAsyncActions } from 'redux-arc';
+import { createAsyncActions } from 'redux-hamal';
 
 const { creators, types } = createAsyncActions(
   {
@@ -35,17 +35,17 @@ types.LIST.RESPONSE // MY_RESOURCE_LIST_RESPONSE
 
 # Getting started
 ```bash
-yarn add redux-arc
+yarn add redux-hamal
 ```
 or
 ```bash
-npm i --save redux-arc
+npm i --save redux-hamal
 ```
 
 In your store config file, you must configure the middleware:
 
 ```js
-import { createAsyncMiddleware } from 'redux-arc';
+import { createAsyncMiddleware } from 'redux-hamal';
 
 const asyncTask = store => done => (options) => {
   // options is an object containing url and payload. We can have more, we will see it further.
@@ -68,7 +68,7 @@ const store = createStore(
 And now, you can use `createAsyncActions` to define your action creators and types.
 
 ```js
-import { createAsyncActions } from 'redux-arc';
+import { createAsyncActions } from 'redux-hamal';
 
 const { creators, types } = createAsyncActions(
   {
@@ -151,7 +151,7 @@ You can imagine, in the cases your police has an applyPoint 'beforeRequest', you
 To use a police, you do as the follow;
 
 ```js
-import { createAsyncActions, polices } from 'redux-arc';
+import { createAsyncActions, polices } from 'redux-hamal';
 
 const { creators, types } = createAsyncActions(
   {
@@ -183,3 +183,8 @@ If you need, you can provide polices when you are calling the action creator, ju
 ```js
 dispatch(creators.read({ id: '123', polices: ['omitId'] }))
 ```
+
+
+
+### License
+MIT
