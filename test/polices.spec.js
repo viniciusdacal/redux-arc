@@ -50,9 +50,10 @@ describe('register', () => {
 });
 
 describe('getActionPolices', () => {
+  const SINGULAR_VALUE = 'SINGULAR_VALUE';
   test('should get the police runner for the given police array', (done) => {
-    const police = store => done => (action, error, response) => {
-      done({ ...action, myPoliceWasHere: true }, error, response);
+    const police = store => next => (action, error, response) => {
+      return next({ ...action, myPoliceWasHere: true }, error, response);
     };
     police.applyPoint = 'beforeRequest';
     register('mypolice', police);
@@ -61,9 +62,12 @@ describe('getActionPolices', () => {
     const runner = getActionPolices(['mypolice']);
     const callback = (action) => {
       expect(action.myPoliceWasHere).toBe(true);
+
       done();
+      return SINGULAR_VALUE;
     };
     const result = runner('beforeRequest')({})(callback)(myAction, null, null);
+    expect(result).toBe(SINGULAR_VALUE);
   });
 
   test('should run even without polices registered', (done) => {
@@ -72,8 +76,10 @@ describe('getActionPolices', () => {
     const callback = (action) => {
       expect(action).toBe(myAction);
       done();
+      return SINGULAR_VALUE;
     };
     const result = runner('beforeRequest')({})(callback)(myAction, null, null);
+    expect(result).toBe(SINGULAR_VALUE);
   });
 });
 

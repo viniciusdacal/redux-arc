@@ -2,12 +2,6 @@ import { createStore, applyMiddleware } from 'redux';
 import polices from '../src/polices';
 import { createAsyncMiddleware } from '../src/middleware';
 
-const API_RESPONSE = 'API_RESPONSE';
-
-const asyncTask = store => done => (action) => {
-  done(null, API_RESPONSE);
-  return API_RESPONSE;
-};
 
 describe('Testing middleware on redux', () => {
   const SINGULAR_RESPONSE = 'SINGULAR_RESPONSE';
