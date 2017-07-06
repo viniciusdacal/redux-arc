@@ -1,6 +1,6 @@
 {
   "name": "redux-arc",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Declarative way to make api calls in redux",
   "main": "lib/index.js",
   "module": "es/index.js",
