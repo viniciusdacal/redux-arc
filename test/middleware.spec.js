@@ -1,14 +1,14 @@
 /* eslint-disable import/first */
-jest.mock('../src/polices', () => ({
-  globalPolices: {},
+jest.mock('../src/policies', () => ({
+  globalPolicies: {},
   onCallApply: jest.fn((applyPoint) => store => done =>
   (action, error, response) => done(action, error, response))
 }));
-const polices = require('../src/polices');
-const get = policeNames => polices.onCallApply;
-polices.getActionPolices = jest.fn((polices) => {
-  if (Array.isArray(polices)) {
-    return get(polices);
+const policies = require('../src/policies');
+const get = policeNames => policies.onCallApply;
+policies.getActionPolicies = jest.fn((policies) => {
+  if (Array.isArray(policies)) {
+    return get(policies);
   }
   return get([]);
 });
@@ -16,7 +16,7 @@ polices.getActionPolices = jest.fn((polices) => {
 
 // eslint-disable-next-line import/first
 import { createAsyncMiddleware } from '../src/middleware';
-import policesMock from '../src/polices';
+import policiesMock from '../src/policies';
 
 const storeApi = {
   dispatch: jest.fn(() => {}),
@@ -64,49 +64,49 @@ describe('createAsyncMiddleware', () => {
     expect(() => apiMiddleware({ type: ['REGULAR_ACTION', '2'] })).toThrow();
   });
 
-  it('should get actionPolices passing the proper argument', () => {
+  it('should get actionPolicies passing the proper argument', () => {
     const nextMock = jest.fn();
     const apiMiddleware = createAsyncMiddleware(asyncTask)(storeApi)(nextMock);
-    const polices = ['mypolice'];
+    const policies = ['mypolice'];
     apiMiddleware({
       type: ['REQUEST_ACTION', 'RESPONSE_ACTION'],
       meta: {
-        polices,
+        policies,
       },
     });
-    expect(policesMock.getActionPolices.mock.calls.length).toBe(1);
-    expect(policesMock.getActionPolices.mock.calls[0][0]).toBe(polices);
-    policesMock.getActionPolices.mockClear();
-    policesMock.onCallApply.mockClear();
+    expect(policiesMock.getActionPolicies.mock.calls.length).toBe(1);
+    expect(policiesMock.getActionPolicies.mock.calls[0][0]).toBe(policies);
+    policiesMock.getActionPolicies.mockClear();
+    policiesMock.onCallApply.mockClear();
     storeApi.dispatch.mockClear();
   });
 
-  it('should execute the polices in the sequence', () => {
+  it('should execute the policies in the sequence', () => {
     const nextMock = jest.fn();
     const apiMiddleware = createAsyncMiddleware(asyncTask)(storeApi)(nextMock);
-    const polices = ['mypolice'];
+    const policies = ['mypolice'];
     const returnValue = apiMiddleware({
       type: ['REQUEST_ACTION', 'RESPONSE_ACTION'],
       meta: {
-        polices,
+        policies,
       },
     });
 
     expect(returnValue).toBe(API_RESPONSE);
-    expect(policesMock.onCallApply.mock.calls.length).toBe(2);
-    expect(policesMock.onCallApply.mock.calls[0][0]).toBe('beforeRequest');
-    expect(policesMock.onCallApply.mock.calls[1][0]).toBe('onResponse');
+    expect(policiesMock.onCallApply.mock.calls.length).toBe(2);
+    expect(policiesMock.onCallApply.mock.calls[0][0]).toBe('beforeRequest');
+    expect(policiesMock.onCallApply.mock.calls[1][0]).toBe('onResponse');
     storeApi.dispatch.mockClear();
   });
 
   it('should dispatch an action with error when get error from the asyncTask', () => {
     const nextMock = jest.fn();
     const apiMiddleware = createAsyncMiddleware(asyncErrorTask)(storeApi)(nextMock);
-    const polices = ['mypolice'];
+    const policies = ['mypolice'];
     const returnValue = apiMiddleware({
       type: ['REQUEST_ACTION', 'RESPONSE_ACTION'],
       meta: {
-        polices,
+        policies,
       },
     });
 

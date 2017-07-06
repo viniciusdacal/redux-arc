@@ -10,7 +10,7 @@ import { apiActionCreatorFactory } from '../src/apiActionCreator';
 const baseConfigs = {
   list: { url: 'endpoint', method: 'get' },
   read: { url: 'endpoint/:id', method: 'put' },
-  readWithExtras: { url: 'endpoint/:id', method: 'put', polices: ['police'], schema: 'schema' },
+  readWithExtras: { url: 'endpoint/:id', method: 'put', policies: ['police'], schema: 'schema' },
 };
 
 const baseTypes = {
@@ -88,7 +88,7 @@ describe('createCreators', () => {
         url: 'endpoint/123',
         method: 'put',
         id: '123',
-        polices: ['police'],
+        policies: ['police'],
         schema: 'schema',
       },
     });

@@ -1,33 +1,33 @@
 import {
-  globalPolices,
+  globalPolicies,
   register,
   reset,
-  getActionPolices,
-} from '../src/polices';
+  getActionPolicies,
+} from '../src/policies';
 
 beforeEach(() => {
   reset();
 });
 
 describe('reset', () => {
-  it('should reset the globalPolices', () => {
+  it('should reset the globalPolicies', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
     police.applyPoint = 'beforeRequest';
     register('mypolice', police);
 
-    expect(globalPolices.mypolice).not.toBe(undefined);
+    expect(globalPolicies.mypolice).not.toBe(undefined);
     reset();
-    expect(globalPolices.mypolice).toBe(undefined);
+    expect(globalPolicies.mypolice).toBe(undefined);
   });
 })
 
 describe('register', () => {
-  it('should register a police into global polices', () => {
+  it('should register a police into global policies', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
     police.applyPoint = 'beforeRequest';
     register('mypolice', police);
 
-    expect(globalPolices.mypolice).toBe(police);
+    expect(globalPolicies.mypolice).toBe(police);
   });
 
   it('should throw when try to register a police more than once', () => {
@@ -49,7 +49,7 @@ describe('register', () => {
   });
 });
 
-describe('getActionPolices', () => {
+describe('getActionPolicies', () => {
   const SINGULAR_VALUE = 'SINGULAR_VALUE';
   test('should get the police runner for the given police array', (done) => {
     const police = store => next => (action, error, response) => {
@@ -59,7 +59,7 @@ describe('getActionPolices', () => {
     register('mypolice', police);
 
     const myAction = { type: 'REQUEST' };
-    const runner = getActionPolices(['mypolice']);
+    const runner = getActionPolicies(['mypolice']);
     const callback = (action) => {
       expect(action.myPoliceWasHere).toBe(true);
 
@@ -70,9 +70,9 @@ describe('getActionPolices', () => {
     expect(result).toBe(SINGULAR_VALUE);
   });
 
-  test('should run even without polices registered', (done) => {
+  test('should run even without policies registered', (done) => {
     const myAction = { type: 'REQUEST' }
-    const runner = getActionPolices(undefined);
+    const runner = getActionPolicies(undefined);
     const callback = (action) => {
       expect(action).toBe(myAction);
       done();

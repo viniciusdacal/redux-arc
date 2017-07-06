@@ -30,8 +30,8 @@ export function apiActionCreatorFactory(config, types, prefix) {
       action.meta.schema = config.schema;
     }
 
-    if (config.polices) {
-      action.meta.polices = config.polices;
+    if (config.policies) {
+      action.meta.policies = config.policies;
     }
 
     return action;

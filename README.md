@@ -4,7 +4,7 @@ Arc is a dependency free, 2kb lib to handle async requests in redux.
 [![build status](https://img.shields.io/travis/viniciusdacal/redux-arc/master.svg?style=flat-square)](https://travis-ci.org/viniciusdacal/redux-arc) [![npm version](https://img.shields.io/npm/v/redux-arc.svg?style=flat-square)](https://www.npmjs.com/package/redux-arc)
 
 ## Why
-Many applications are built with react and redux. Api calls are critical to this process. With the available alternatives (sagas, observables, etc...), you end up writing and repeating to much code.
+Many applications are built with react and redux and api calls are critical to this process. With the available alternatives, you end up writing and repeating code a lot.
 
 With a declarative way, you can write less code and make it easier to understand and maintain. All of it leads you to have less bugs and have a better code base. This is powerful and flexible. **We make things easier for you for the most common cases, and we allow you to take full control when you need!**
 
@@ -142,40 +142,40 @@ so, in your reducers, you could use `types.LIST.REQUEST` to check for an action 
 `'MY_RESOURCE_LIST_REQUEST'`. Remember we provided a prefix option (`MY_RESOURCE_`)? This helps you avoid conflicts across the application.
 
 # Polices
-We know there are sometimes when you need perform operations changing a request or response. For those cases, you can use polices.
+We know there are sometimes when you need perform operations changing a request or response. For those cases, you can use policies.
 
-A police is basically another middleware, as the follow example:
+A policy is basically another middleware, as the follow example:
 
 ```js
-const police store => done => (action, error, response) =>
+const policy store => done => (action, error, response) =>
   done(action, error, response);
 ```
 
-A police must have an applyPoint attribute, so:
+A policy must have an applyPoint attribute, so:
 
 ```js
-police.applyPoint = 'beforeRequest' // (beforeRequest, onResponse)
+policy.applyPoint = 'beforeRequest' // (beforeRequest, onResponse)
 ```
 
-You can imagine, in the cases your police has an applyPoint `'beforeRequest'`, you would only have access to  `action` object, unless another police create and  `error` or `response` in the ``beforeRequest` chain.
+You can imagine, in the cases your policy has an applyPoint `'beforeRequest'`, you would only have access to  `action` object, unless another policy create and  `error` or `response` in the ``beforeRequest` chain.
 
-To use a police, you do as the follow:
+To use a policy, you do as the follow:
 
 ```js
-import { createApiActions, polices } from 'redux-arc';
+import { createApiActions, policies } from 'redux-arc';
 
 const { creators, types } = createApiActions(
   {
     update: {
       url: 'path/to/resource/:id',
       method: 'put',
-      polices: ['omitId'], // define polices in your config.
+      policies: ['omitId'], // define policies in your config.
     },
   },
   { prefix: 'MY_RESOURCE_'},
 );
 
-// this is the police
+// this is the policy
 function omitId(options) {
   return store => done => (action, ...params) => {
     const { id, ...restAction } = action;
@@ -184,20 +184,20 @@ function omitId(options) {
 }
 omitId.applyPoint = 'beforeRequest';
 
-// you must register your police using polices.register, passing the name and the police.
-polices.register('omitId', omitId);
+// you must register your policy using policies.register, passing the name and the policy.
+policies.register('omitId', omitId);
 
 ```
 
 > Usually, for `beforeRequest` you would change only the action value, and for `onResponse`, you would change only the response. But feel free to change the action inside  `onResponse` cycle if that makes sense.
 
 
-The best way to use a police, is defining it in the action creators config, as we saw above, but if you **need**, you can provide polices when you are calling the action creator, just like this:
+The best way to use a policy, is defining it in the action creators config, as we saw above, but if you **need**, you can provide policies when you are calling the action creator, just like this:
 
 ```js
 dispatch(creators.read({
   id: '123',
-  polices: ['omitId'],
+  policies: ['omitId'],
 }));
 ```
 

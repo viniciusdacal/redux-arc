@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import polices from '../src/polices';
+import policies from '../src/policies';
 import { createAsyncMiddleware } from '../src/middleware';
 
 
@@ -44,7 +44,7 @@ describe('Testing middleware on redux', () => {
     })
   });
 
-  it('should perform polices over the actions', (done) => {
+  it('should perform policies over the actions', (done) => {
     mockReducer.mockClear();
 
     const beforeRequestPolice = store => done => (action, error, response) =>
@@ -63,13 +63,13 @@ describe('Testing middleware on redux', () => {
 
     onResponsePolice.applyPoint = 'onResponse';
 
-    polices.register('beforeRequestPolice', beforeRequestPolice)
-    polices.register('onResponsePolice', onResponsePolice)
+    policies.register('beforeRequestPolice', beforeRequestPolice)
+    policies.register('onResponsePolice', onResponsePolice)
 
     const returnedValue = store.dispatch({
       type: ['REQUEST_ACTION', 'RESPONSE_ACTION'],
       payload: {},
-      meta: { url: 'test', polices: ['beforeRequestPolice', 'onResponsePolice'], extras: true },
+      meta: { url: 'test', policies: ['beforeRequestPolice', 'onResponsePolice'], extras: true },
     });
 
     expect(mockReducer.mock.calls[0][1]).toEqual({
@@ -79,7 +79,7 @@ describe('Testing middleware on redux', () => {
 
     expect(mockReducer.mock.calls[1][1]).toEqual({
       type: 'RESPONSE_ACTION',
-      meta: { extras: true, onResponse: true, onRequest: true }, // Passed through both polices
+      meta: { extras: true, onResponse: true, onRequest: true }, // Passed through both policies
       payload: SINGULAR_RESPONSE,
     });
 

@@ -1,6 +1,6 @@
 import { checkAction } from './helpers';
 import { compose } from 'redux';
-import { getActionPolices } from './polices';
+import { getActionPolicies } from './policies';
 
 /**
 * This is a standard Redux middleware that listens for async actions
@@ -18,7 +18,7 @@ import { getActionPolices } from './polices';
 * @param {Object} asyncTask - function that executes the async task
 */
 
-const fieldsToClean = ['polices', 'url', 'method']
+const fieldsToClean = ['policies', 'url', 'method']
 const cleanMeta = (meta) => Object.keys(meta)
   .filter((key) => fieldsToClean.indexOf(key) < 0)
   .reduce((acc, key) => ({
@@ -80,13 +80,13 @@ export function createAsyncMiddleware(asyncTask) {
       throw new Error('Expected meta to be an object');
     }
 
-    const actionPolices = getActionPolices(action.meta.polices);
+    const actionPolicies = getActionPolicies(action.meta.policies);
     const [requestType, responseType] = action.type;
 
     const chain = [
-      actionPolices('beforeRequest'),
+      actionPolicies('beforeRequest'),
       execAsyncTask(requestType, asyncTask),
-      actionPolices('onResponse'),
+      actionPolicies('onResponse'),
     ].map(middleware => middleware(store));
 
     const done = handleResponse(responseType)(store);
