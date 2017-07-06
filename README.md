@@ -1,5 +1,5 @@
-# Hamal
-Hamal is a dependency free, 3kb lib to handle async requests in redux.
+# Arc
+Arc is a dependency free, 3kb lib to handle async requests in redux.
 
 ## Why
 Many applications are built with redux, and api calls are critical to this. With the available alternatives (sagas, observables, etc...), you end up writing and repeating to much code.
@@ -9,7 +9,7 @@ With a declarative way, you can write less code and make it easier to understand
 with hamal, you can turn a lot of files in a few lines, take a look:
 
 ```js
-import { createAsyncActions } from 'redux-hamal';
+import { createAsyncActions } from 'redux-arc';
 
 const { creators, types } = createAsyncActions(
   {
@@ -35,17 +35,17 @@ types.LIST.RESPONSE // MY_RESOURCE_LIST_RESPONSE
 
 # Getting started
 ```bash
-yarn add redux-hamal
+yarn add redux-arc
 ```
 or
 ```bash
-npm i --save redux-hamal
+npm i --save redux-arc
 ```
 
 In your store config file, you must configure the middleware:
 
 ```js
-import { createAsyncMiddleware } from 'redux-hamal';
+import { createAsyncMiddleware } from 'redux-arc';
 
 const asyncTask = store => done => (options) => {
   // options is an object containing url and payload. We can have more, we will see it further.
@@ -68,7 +68,7 @@ const store = createStore(
 And now, you can use `createAsyncActions` to define your action creators and types.
 
 ```js
-import { createAsyncActions } from 'redux-hamal';
+import { createAsyncActions } from 'redux-arc';
 
 const { creators, types } = createAsyncActions(
   {
@@ -151,7 +151,7 @@ You can imagine, in the cases your police has an applyPoint 'beforeRequest', you
 To use a police, you do as the follow;
 
 ```js
-import { createAsyncActions, polices } from 'redux-hamal';
+import { createAsyncActions, polices } from 'redux-arc';
 
 const { creators, types } = createAsyncActions(
   {
