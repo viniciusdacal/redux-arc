@@ -41,6 +41,7 @@
     "babel-eslint": "^7.0.0",
     "babel-jest": "^20.0.3",
     "babel-plugin-check-es2015-constants": "^6.3.13",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-es2015-arrow-functions": "^6.3.13",
     "babel-plugin-transform-es2015-block-scoped-functions": "^6.3.13",
     "babel-plugin-transform-es2015-block-scoping": "^6.3.13",
@@ -63,7 +64,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.3.13",
     "babel-register": "^6.3.13",
     "cross-env": "^5.0.1",
-    "eslint": "^4.0.0",
+    "eslint": "^3.19.0",
     "eslint-config-react-app": "^1.0.4",
     "eslint-plugin-flowtype": "^2.29.2",
     "eslint-plugin-import": "^2.2.0",
@@ -72,6 +73,7 @@
     "gitbook-cli": "^2.3.0",
     "glob": "^7.1.1",
     "jest": "^20.0.4",
+    "redux": "^3.7.1",
     "rimraf": "^2.3.4",
     "rollup": "^0.43.0",
     "rollup-plugin-babel": "^2.7.1",
@@ -86,7 +88,8 @@
   "jest": {
     "testRegex": "(/test/.*\\.spec.js)$"
   },
-  "dependencies": {
+  "dependencies": {},
+  "peerDependencies": {
     "redux": "^3.7.1"
   }
 }

@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import polices from '../src/polices';
-import createAsyncMiddleware from '../src/middleware';
+import { createAsyncMiddleware } from '../src/middleware';
 
 const API_RESPONSE = 'API_RESPONSE';
 

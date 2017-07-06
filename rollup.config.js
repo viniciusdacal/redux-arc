@@ -7,16 +7,21 @@ var env = process.env.NODE_ENV
 var config = {
   format: 'umd',
   moduleName: 'ReduxArc',
+  external: ['redux'],
+  globals: { 'redux': 'Redux' },
   plugins: [
     nodeResolve({
       jsnext: true
     }),
     babel({
-      exclude: 'node_modules/**'
+      exclude: [
+        '**/node_modules/**',
+        'src/__mocks__/**',
+      ],
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify(env)
-    })
+    }),
   ]
 }
 

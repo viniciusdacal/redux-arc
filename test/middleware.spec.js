@@ -1,8 +1,21 @@
 /* eslint-disable import/first */
-jest.mock('../src/polices');
+jest.mock('../src/polices', () => ({
+  globalPolices: {},
+  onCallApply: jest.fn((applyPoint) => store => done =>
+  (action, error, response) => done(action, error, response))
+}));
+const polices = require('../src/polices');
+const get = policeNames => polices.onCallApply;
+polices.getActionPolices = jest.fn((polices) => {
+  if (Array.isArray(polices)) {
+    return get(polices);
+  }
+  return get([]);
+});
+
 
 // eslint-disable-next-line import/first
-import createAsyncMiddleware from '../src/middleware';
+import { createAsyncMiddleware } from '../src/middleware';
 import policesMock from '../src/polices';
 
 const storeApi = {
