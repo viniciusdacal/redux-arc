@@ -15,9 +15,9 @@ With a declarative way, you can write less code and make it easier to understand
 with Arc, you can turn a lot of files in a few lines, take a look:
 
 ```js
-import { createAsyncActions } from 'redux-arc';
+import { createApiActions } from 'redux-arc';
 
-const { creators, types } = createAsyncActions(
+const { creators, types } = createApiActions(
   {
     list: { url: 'path/to/resource', method: 'get' },
     read: { url: 'path/to/resource/:id', method: 'get' },
@@ -74,12 +74,12 @@ const store = createStore(
 
 > We let the request with you. This way, you can use whatever you want: promises, generators, etc...
 
-And now, you can use `createAsyncActions` to define your action creators and types.
+And now, you can use `createApiActions` to define your action creators and types.
 
 ```js
-import { createAsyncActions } from 'redux-arc';
+import { createApiActions } from 'redux-arc';
 
-const { creators, types } = createAsyncActions(
+const { creators, types } = createApiActions(
   {
     list: { url: 'path/to/resource', method: 'get' },
     read: { url: 'path/to/resource/:id', method: 'get' },
@@ -134,7 +134,7 @@ To perform the request, the middleware uses the function you provide (`asyncTask
 > If you provide extra params in the actionCreator call, all of them will be under the options object.
 
 ## Types
-When you call `createAsyncActions`, you also receive types. Types is just an object that contains all your action types, including request and response.
+When you call `createApiActions`, you also receive types. Types is just an object that contains all your action types, including request and response.
 
 Basically, what we do, is converting to uppercase the name you gave for your action creators. So, if you provide a name like `list`, you will have
 `types.LIST`, which is and object containing `REQUEST` and `RESPONSE`
@@ -162,9 +162,9 @@ You can imagine, in the cases your police has an applyPoint `'beforeRequest'`, y
 To use a police, you do as the follow:
 
 ```js
-import { createAsyncActions, polices } from 'redux-arc';
+import { createApiActions, polices } from 'redux-arc';
 
-const { creators, types } = createAsyncActions(
+const { creators, types } = createApiActions(
   {
     update: {
       url: 'path/to/resource/:id',
