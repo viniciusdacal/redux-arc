@@ -88,7 +88,7 @@ export function validateConfig(configs, options) {
   }
 }
 
-export default function createApiActions(config, options) {
+export function createApiActions(config, options) {
   validateConfig(config, options);
   const actionKeys = Object.keys(config);
   const actionTypes = createTypes(actionKeys, options && options.prefix);
@@ -99,3 +99,10 @@ export default function createApiActions(config, options) {
     types: reduceActionTypes(actionTypes),
   };
 }
+
+export default {
+  createApiActions,
+  apiActionCreatorFactory,
+  parseUrl,
+  validateConfig,
+};

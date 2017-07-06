@@ -1,7 +1,7 @@
-// eslint-disable import-first
+/* eslint-disable import/first */
 jest.mock('../src/polices');
 
-import { createStore, applyMiddleware } from 'redux';
+// eslint-disable-next-line import/first
 import createAsyncMiddleware from '../src/middleware';
 import policesMock from '../src/polices';
 

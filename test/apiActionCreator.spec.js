@@ -1,4 +1,5 @@
-import createApiActions, {
+import {
+  createApiActions,
   parseUrl,
   validateConfig,
 } from '../src/apiActionCreator';

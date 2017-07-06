@@ -52,7 +52,7 @@ describe('register', () => {
 describe('getActionPolices', () => {
   test('should get the police runner for the given police array', (done) => {
     const police = store => done => (action, error, response) => {
-      done({ action, myPoliceWasHere: true }, error, response);
+      done({ ...action, myPoliceWasHere: true }, error, response);
     };
     police.applyPoint = 'beforeRequest';
     register('mypolice', police);

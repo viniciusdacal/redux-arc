@@ -4,8 +4,6 @@
   "description": "Declarative way to make api calls in redux",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "jsnext:main": "es/index.js",
-  "typings": "./index.d.ts",
   "files": [
     "dist",
     "lib",

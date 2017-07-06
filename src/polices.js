@@ -2,11 +2,12 @@ import { compose } from 'redux';
 
 /**
 * This is a police manager, which is used to register,
-* get and execute polices into actions and responses
+* get and run polices over actions and responses
 *
 * A police is a middleware, and it should follow the signature bellow
 * store => done => (action, error, response) => done(action, error, response);
-*
+* A police must have a applyPoint property. The available apply points are:
+* 'beforeRequest', 'onResponse'
 */
 
 const applyPoints = ['beforeRequest', 'onResponse'];

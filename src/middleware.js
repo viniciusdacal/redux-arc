@@ -18,9 +18,17 @@ import { getActionPolices } from './polices';
 * @param {Object} asyncTask - function that executes the async task
 */
 
+const fieldsToClean = ['polices', 'url', 'method']
+const cleanMeta = (meta) => Object.keys(meta)
+  .filter((key) => fieldsToClean.indexOf(key) < 0)
+  .reduce((acc, key) => ({
+    ...acc,
+    [key]: meta[key]
+  }), {});
+
 function execAsyncTask(requestType, asyncTask) {
   return store => next => (action) => {
-    store.dispatch({ type: requestType, meta: action.meta });
+    store.dispatch({ type: requestType, meta: cleanMeta(action.meta) });
 
     const done = (err, response) => err
       ? next(action, err, null)
@@ -36,7 +44,7 @@ function handleResponse(responseType) {
   return store => (action, err, response) => {
     const responseAction = {
       type: responseType,
-      meta: action.meta,
+      meta: cleanMeta(action.meta),
       payload: response,
     };
     if (err) {
