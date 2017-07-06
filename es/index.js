@@ -1,6 +1,6 @@
 import asyncActionHelpers from './asyncActionHelpers';
-import polices from './polices';
+import policies from './policies';
 import { createApiActions } from './apiActionCreator';
 import { createAsyncMiddleware } from './middleware';
 
-export { asyncActionHelpers, polices, createApiActions, createAsyncMiddleware };
+export { asyncActionHelpers, policies, createApiActions, createAsyncMiddleware };

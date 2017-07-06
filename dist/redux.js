@@ -61,52 +61,52 @@ var asyncActionHelpers = {
 };
 
 /**
-* This is a police manager, which is used to register,
-* get and run polices over actions and responses
+* This is a policy manager, which is used to register,
+* get and run policies over actions and responses
 *
-* A police is a middleware, and it should follow the signature bellow
+* A policy is a middleware, and it should follow the signature bellow
 * store => done => (action, error, response) => done(action, error, response);
-* A police must have a applyPoint property. The available apply points are:
+* A policy must have a applyPoint property. The available apply points are:
 * 'beforeRequest', 'onResponse'
 */
 
 var applyPoints = ['beforeRequest', 'onResponse'];
 
-var globalPolices = {};
+var globalPolicies = {};
 
 var reset = function reset() {
-  Object.keys(globalPolices).forEach(function (key) {
-    delete globalPolices[key];
+  Object.keys(globalPolicies).forEach(function (key) {
+    delete globalPolicies[key];
   });
 };
 
-var register = function register(name, police) {
+var register = function register(name, policy) {
   var _Object$assign;
 
-  if (globalPolices[name]) {
-    throw new Error('Called register with police: ' + name + ' more than once');
+  if (globalPolicies[name]) {
+    throw new Error('Called register with policy: ' + name + ' more than once');
   }
 
-  if (applyPoints.indexOf(police.applyPoint) < 0) {
-    var invalid = 'Invalid applyPoint: ' + police.applyPoint + ', provided with police: ' + name + '.';
+  if (applyPoints.indexOf(policy.applyPoint) < 0) {
+    var invalid = 'Invalid applyPoint: ' + policy.applyPoint + ', provided with policy: ' + name + '.';
     var available = 'The apply points available are: ' + applyPoints.join(', ');
     throw new Error(invalid + ' ' + available);
   }
-  Object.assign(globalPolices, (_Object$assign = {}, _Object$assign[name] = police, _Object$assign));
+  Object.assign(globalPolicies, (_Object$assign = {}, _Object$assign[name] = policy, _Object$assign));
 };
 
-var get = function get(policeNames) {
+var get = function get(policyNames) {
   return function (applyPoint) {
-    var polices = policeNames.map(function (name) {
-      return globalPolices[name];
-    }).filter(function (police) {
-      return police.applyPoint === applyPoint;
+    var policies = policyNames.map(function (name) {
+      return globalPolicies[name];
+    }).filter(function (policy) {
+      return policy.applyPoint === applyPoint;
     });
 
     return function (store) {
       return function (done) {
-        var chain = polices.map(function (police) {
-          return police(store);
+        var chain = policies.map(function (policy) {
+          return policy(store);
         });
         return redux.compose.apply(undefined, chain)(done);
       };
@@ -114,20 +114,20 @@ var get = function get(policeNames) {
   };
 };
 
-var getActionPolices = function getActionPolices(polices) {
-  if (Array.isArray(polices)) {
-    var policeNames = Object.keys(globalPolices).filter(function (key) {
-      return polices.indexOf(key) >= 0;
+var getActionPolicies = function getActionPolicies(policies) {
+  if (Array.isArray(policies)) {
+    var policyNames = Object.keys(globalPolicies).filter(function (key) {
+      return policies.indexOf(key) >= 0;
     });
-    return get(policeNames);
+    return get(policyNames);
   }
   return get([]);
 };
 
-var polices = {
-  globalPolices: globalPolices,
+var policies = {
+  globalPolicies: globalPolicies,
   register: register,
-  getActionPolices: getActionPolices,
+  getActionPolicies: getActionPolicies,
   reset: reset
 };
 
@@ -161,8 +161,8 @@ function apiActionCreatorFactory(config, types, prefix) {
       action.meta.schema = config.schema;
     }
 
-    if (config.polices) {
-      action.meta.polices = config.polices;
+    if (config.policies) {
+      action.meta.policies = config.policies;
     }
 
     return action;
@@ -244,7 +244,7 @@ var _extends$2 = Object.assign || function (target) { for (var i = 1; i < argume
 * @param {Object} asyncTask - function that executes the async task
 */
 
-var fieldsToClean = ['polices', 'url', 'method'];
+var fieldsToClean = ['policies', 'url', 'method'];
 var cleanMeta = function cleanMeta(meta) {
   return Object.keys(meta).filter(function (key) {
     return fieldsToClean.indexOf(key) < 0;
@@ -318,13 +318,13 @@ function createAsyncMiddleware(asyncTask) {
           throw new Error('Expected meta to be an object');
         }
 
-        var actionPolices = getActionPolices(action.meta.polices);
+        var actionPolicies = getActionPolicies(action.meta.policies);
         var _action$type = action.type,
             requestType = _action$type[0],
             responseType = _action$type[1];
 
 
-        var chain = [actionPolices('beforeRequest'), execAsyncTask(requestType, asyncTask), actionPolices('onResponse')].map(function (middleware) {
+        var chain = [actionPolicies('beforeRequest'), execAsyncTask(requestType, asyncTask), actionPolicies('onResponse')].map(function (middleware) {
           return middleware(store);
         });
 
@@ -336,7 +336,7 @@ function createAsyncMiddleware(asyncTask) {
 }
 
 exports.asyncActionHelpers = asyncActionHelpers;
-exports.polices = polices;
+exports.policies = policies;
 exports.createApiActions = createApiActions;
 exports.createAsyncMiddleware = createAsyncMiddleware;
 

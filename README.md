@@ -60,7 +60,8 @@ const asyncTask = store => done => (options) => {
   // do your request and call done(err, response) when you are ready
   done(err, response);
 
-  // if you like, return the respective value to create a chain. The value you return here, will be passed as the result of an action dispatch.
+  // if you like, return the respective value to create a chain. The value you
+  // return here, will be passed as the result of an action dispatch.
   return response;
 };
 

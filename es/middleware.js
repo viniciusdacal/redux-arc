@@ -2,7 +2,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 import { checkAction } from './helpers';
 import { compose } from 'redux';
-import { getActionPolices } from './polices';
+import { getActionPolicies } from './policies';
 
 /**
 * This is a standard Redux middleware that listens for async actions
@@ -20,7 +20,7 @@ import { getActionPolices } from './polices';
 * @param {Object} asyncTask - function that executes the async task
 */
 
-var fieldsToClean = ['polices', 'url', 'method'];
+var fieldsToClean = ['policies', 'url', 'method'];
 var cleanMeta = function cleanMeta(meta) {
   return Object.keys(meta).filter(function (key) {
     return fieldsToClean.indexOf(key) < 0;
@@ -94,13 +94,13 @@ export function createAsyncMiddleware(asyncTask) {
           throw new Error('Expected meta to be an object');
         }
 
-        var actionPolices = getActionPolices(action.meta.polices);
+        var actionPolicies = getActionPolicies(action.meta.policies);
         var _action$type = action.type,
             requestType = _action$type[0],
             responseType = _action$type[1];
 
 
-        var chain = [actionPolices('beforeRequest'), execAsyncTask(requestType, asyncTask), actionPolices('onResponse')].map(function (middleware) {
+        var chain = [actionPolicies('beforeRequest'), execAsyncTask(requestType, asyncTask), actionPolicies('onResponse')].map(function (middleware) {
           return middleware(store);
         });
 
