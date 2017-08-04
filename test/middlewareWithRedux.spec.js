@@ -29,12 +29,12 @@ describe('Testing middleware on redux', () => {
 
     expect(mockReducer.mock.calls[0][1]).toEqual({
       type: 'REQUEST_ACTION',
-      meta: {},
+      meta: { url: 'test' },
     });
 
     expect(mockReducer.mock.calls[1][1]).toEqual({
       type: 'RESPONSE_ACTION',
-      meta: {},
+      meta: { url: 'test' },
       payload: SINGULAR_RESPONSE,
     });
 
@@ -74,12 +74,21 @@ describe('Testing middleware on redux', () => {
 
     expect(mockReducer.mock.calls[0][1]).toEqual({
       type: 'REQUEST_ACTION',
-      meta: { extras: true, onRequest: true },
+      meta: {
+        url: 'test',
+        policies: ['beforeRequestPolice', 'onResponsePolice'],
+        extras: true,
+        onRequest: true,
+      },
     });
 
     expect(mockReducer.mock.calls[1][1]).toEqual({
       type: 'RESPONSE_ACTION',
-      meta: { extras: true, onResponse: true, onRequest: true }, // Passed through both policies
+      meta: {
+        url: 'test',
+        policies: ['beforeRequestPolice', 'onResponsePolice'],
+        extras: true, onResponse: true, onRequest: true,
+      }, // Passed through both policies
       payload: SINGULAR_RESPONSE,
     });
 

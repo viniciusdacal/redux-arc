@@ -18,23 +18,14 @@ import { getActionPolicies } from './policies';
 * @param {Object} asyncTask - function that executes the async task
 */
 
-const fieldsToClean = ['policies', 'url', 'method']
-const cleanMeta = (meta) => Object.keys(meta)
-  .filter((key) => fieldsToClean.indexOf(key) < 0)
-  .reduce((acc, key) => ({
-    ...acc,
-    [key]: meta[key]
-  }), {});
-
 function execAsyncTask(requestType, asyncTask) {
   return store => next => (action) => {
-    store.dispatch({ type: requestType, meta: cleanMeta(action.meta) });
+    store.dispatch({ type: requestType, meta: action.meta });
 
     const done = (err, response) => err
       ? next(action, err, null)
       : next(action, null, response);
 
-    // flatten the action
     const options = { payload: action.payload, ...action.meta };
     return asyncTask({ getState: store.getState })(done)(options);
   };
@@ -44,7 +35,7 @@ function handleResponse(responseType) {
   return store => (action, err, response) => {
     const responseAction = {
       type: responseType,
-      meta: cleanMeta(action.meta),
+      meta: action.meta,
       payload: response,
     };
     if (err) {
