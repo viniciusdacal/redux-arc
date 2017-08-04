@@ -5,5 +5,5 @@ script:
   - npm run lint
   - npm run test:cov
 after_success:
-  - npm run coverage
+  - npm run coveralls
 cache: yarn

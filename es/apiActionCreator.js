@@ -67,11 +67,9 @@ export function validateConfig(namespace, configs) {
       throw new Error('Invalid url, ' + config.url + ', provided for ' + configName + ', you cannot use payload as a param');
     }
     if (typeof config.method !== 'string' || !config.method.length) {
-      console.log('TEST');
       throw new Error('Invalid method,  ' + config.method + ', provided for ' + configName + ', it should be a string');
     }
     if (config.modifier && typeof config.modifier !== 'function') {
-      console.log('TEST');
       throw new Error('Invalid modifier handler, ' + config.modifier + ', provided for ' + configName + ', it should be a function');
     }
   });

@@ -21,6 +21,7 @@
     "test": "cross-env BABEL_ENV=commonjs jest",
     "test:watch": "yarn test -- --watch",
     "test:cov": "yarn test -- --coverage",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
     "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -i src/index.js -o dist/redux.js",
@@ -86,6 +87,7 @@
   ],
   "license": "MIT",
   "jest": {
+    "coverageDirectory": "./coverage",
     "testRegex": "(/test/.*\\.spec.js)$"
   },
   "dependencies": {},

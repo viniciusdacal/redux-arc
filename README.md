@@ -3,6 +3,7 @@
 Arc is a dependency free, 2kb lib to handle async requests in redux.
 
 [![build status](https://img.shields.io/travis/viniciusdacal/redux-arc/master.svg?style=flat-square)](https://travis-ci.org/viniciusdacal/redux-arc) [![npm version](https://img.shields.io/npm/v/redux-arc.svg?style=flat-square)](https://www.npmjs.com/package/redux-arc)
+[![Coverage Status](https://coveralls.io/repos/github/viniciusdacal/redux-arc/badge.svg?branch=master)](https://coveralls.io/github/viniciusdacal/redux-arc?branch=master)
 
 ## Why
 Many applications are built with react and redux, and api calls are critical to this process. With the available alternatives, you end up writing and repeating code a lot.
