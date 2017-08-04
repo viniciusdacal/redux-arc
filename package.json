@@ -64,6 +64,7 @@
     "babel-plugin-transform-es3-property-literals": "^6.5.0",
     "babel-plugin-transform-object-rest-spread": "^6.3.13",
     "babel-register": "^6.3.13",
+    "coveralls": "^2.13.1",
     "cross-env": "^5.0.1",
     "eslint": "^3.19.0",
     "eslint-config-react-app": "^1.0.4",
