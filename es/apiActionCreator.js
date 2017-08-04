@@ -4,7 +4,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 import { reduceActionTypes, parseToUppercase, createTypes, createCreators, parseOptions } from './asyncActionHelpers';
 
-export function apiActionCreatorFactory(config, types, prefix) {
+export function apiActionCreatorFactory(config, types, namespace) {
   function apiCreator(options) {
     var _ref = parseOptions(options, config) || {},
         payload = _ref.payload,
@@ -37,7 +37,10 @@ export function apiActionCreatorFactory(config, types, prefix) {
     return action;
   }
 
-  Object.defineProperty(apiCreator, 'name', { value: '' + prefix + types.uppercaseName + ' apiCreator', writable: false });
+  Object.defineProperty(apiCreator, 'name', {
+    value: namespace + '_' + types.uppercaseName + ' apiCreator',
+    writable: false
+  });
 
   return apiCreator;
 }
@@ -52,10 +55,10 @@ export function parseUrl(url, params) {
   });
 }
 
-export function validateConfig(configs, options) {
+export function validateConfig(namespace, configs) {
   Object.keys(configs).forEach(function (creatorName) {
     var config = configs[creatorName];
-    var configName = '' + (options && options.prefix) + parseToUppercase(creatorName);
+    var configName = namespace + '_' + parseToUppercase(creatorName);
 
     if (typeof config.url !== 'string') {
       throw new Error('Invalid url, ' + config.url + ', provided for ' + configName + ', it should be a string');
@@ -71,16 +74,17 @@ export function validateConfig(configs, options) {
     }
   });
 
-  if (options && options.prefix && typeof options.prefix !== 'string') {
-    throw new Error('Invalid prefix provided to options: ' + options.prefix + ', it should be a string');
+  if (!namespace || typeof namespace !== 'string') {
+    throw new Error('Invalid namespace provided: ' + namespace + ', it should be a string');
   }
 }
 
-export function createApiActions(config, options) {
-  validateConfig(config, options);
+export function createApiActions(namespace, config, options) {
+  var upNamespace = parseToUppercase(namespace);
+  validateConfig(upNamespace, config);
   var actionKeys = Object.keys(config);
-  var actionTypes = createTypes(actionKeys, options && options.prefix);
-  var creators = createCreators(config, actionTypes, options.prefix, apiActionCreatorFactory);
+  var actionTypes = createTypes(actionKeys, upNamespace);
+  var creators = createCreators(config, actionTypes, upNamespace, apiActionCreatorFactory);
 
   return {
     creators: creators,

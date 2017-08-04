@@ -6,15 +6,15 @@ export var parseToUppercase = function parseToUppercase(str) {
   return str.replace(/([A-Z])/g, '_$1').toUpperCase();
 };
 
-export var createTypes = function createTypes(actionKeys, prefix) {
+export var createTypes = function createTypes(actionKeys, namespace) {
   return actionKeys.reduce(function (acc, actionName) {
     var _extends2;
 
     var uppercaseName = parseToUppercase(actionName);
     return _extends({}, acc, (_extends2 = {}, _extends2[actionName] = {
       uppercaseName: uppercaseName,
-      REQUEST: '' + prefix + uppercaseName + '_REQUEST',
-      RESPONSE: '' + prefix + uppercaseName + '_RESPONSE'
+      REQUEST: namespace + '_' + uppercaseName + '_REQUEST',
+      RESPONSE: namespace + '_' + uppercaseName + '_RESPONSE'
     }, _extends2));
   }, {});
 };
@@ -26,11 +26,11 @@ export function parseOptions(options, config) {
   return options;
 }
 
-export var createCreators = function createCreators(config, actionTypes, prefix, factory) {
+export var createCreators = function createCreators(config, actionTypes, namespace, factory) {
   return Object.keys(config).reduce(function (acc, creatorName) {
     var _extends3;
 
-    return _extends({}, acc, (_extends3 = {}, _extends3[creatorName] = factory(config[creatorName], actionTypes[creatorName], prefix), _extends3));
+    return _extends({}, acc, (_extends3 = {}, _extends3[creatorName] = factory(config[creatorName], actionTypes[creatorName], namespace), _extends3));
   }, {});
 };
 
@@ -42,6 +42,9 @@ var reduceActionTypes = function reduceActionTypes(actionTypes) {
         uppercaseName = _actionTypes$key.uppercaseName,
         asyncTypes = _objectWithoutProperties(_actionTypes$key, ['uppercaseName']);
 
+    var action = {
+      actionTypes: actionTypes
+    };
     return _extends({}, acc, (_extends4 = {}, _extends4[uppercaseName] = asyncTypes, _extends4));
   }, {});
 };

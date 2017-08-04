@@ -1,6 +1,6 @@
 {
   "name": "redux-arc",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Declarative way to make api calls in redux",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -90,6 +90,6 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "redux": "^3.7.1"
+    "redux": ">= 3.7.1"
   }
 }

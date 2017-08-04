@@ -12,15 +12,15 @@ var parseToUppercase = function parseToUppercase(str) {
   return str.replace(/([A-Z])/g, '_$1').toUpperCase();
 };
 
-var createTypes = function createTypes(actionKeys, prefix) {
+var createTypes = function createTypes(actionKeys, namespace) {
   return actionKeys.reduce(function (acc, actionName) {
     var _extends2;
 
     var uppercaseName = parseToUppercase(actionName);
     return _extends({}, acc, (_extends2 = {}, _extends2[actionName] = {
       uppercaseName: uppercaseName,
-      REQUEST: '' + prefix + uppercaseName + '_REQUEST',
-      RESPONSE: '' + prefix + uppercaseName + '_RESPONSE'
+      REQUEST: namespace + '_' + uppercaseName + '_REQUEST',
+      RESPONSE: namespace + '_' + uppercaseName + '_RESPONSE'
     }, _extends2));
   }, {});
 };
@@ -32,11 +32,11 @@ function parseOptions(options, config) {
   return options;
 }
 
-var createCreators = function createCreators(config, actionTypes, prefix, factory) {
+var createCreators = function createCreators(config, actionTypes, namespace, factory) {
   return Object.keys(config).reduce(function (acc, creatorName) {
     var _extends3;
 
-    return _extends({}, acc, (_extends3 = {}, _extends3[creatorName] = factory(config[creatorName], actionTypes[creatorName], prefix), _extends3));
+    return _extends({}, acc, (_extends3 = {}, _extends3[creatorName] = factory(config[creatorName], actionTypes[creatorName], namespace), _extends3));
   }, {});
 };
 
@@ -48,6 +48,9 @@ var reduceActionTypes = function reduceActionTypes(actionTypes) {
         uppercaseName = _actionTypes$key.uppercaseName,
         asyncTypes = _objectWithoutProperties(_actionTypes$key, ['uppercaseName']);
 
+    var action = {
+      actionTypes: actionTypes
+    };
     return _extends({}, acc, (_extends4 = {}, _extends4[uppercaseName] = asyncTypes, _extends4));
   }, {});
 };
@@ -135,7 +138,7 @@ var _extends$1 = Object.assign || function (target) { for (var i = 1; i < argume
 
 function _objectWithoutProperties$1(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-function apiActionCreatorFactory(config, types, prefix) {
+function apiActionCreatorFactory(config, types, namespace) {
   function apiCreator(options) {
     var _ref = parseOptions(options, config) || {},
         payload = _ref.payload,
@@ -168,7 +171,10 @@ function apiActionCreatorFactory(config, types, prefix) {
     return action;
   }
 
-  Object.defineProperty(apiCreator, 'name', { value: '' + prefix + types.uppercaseName + ' apiCreator', writable: false });
+  Object.defineProperty(apiCreator, 'name', {
+    value: namespace + '_' + types.uppercaseName + ' apiCreator',
+    writable: false
+  });
 
   return apiCreator;
 }
@@ -183,10 +189,10 @@ function parseUrl(url, params) {
   });
 }
 
-function validateConfig(configs, options) {
+function validateConfig(namespace, configs) {
   Object.keys(configs).forEach(function (creatorName) {
     var config = configs[creatorName];
-    var configName = '' + (options && options.prefix) + parseToUppercase(creatorName);
+    var configName = namespace + '_' + parseToUppercase(creatorName);
 
     if (typeof config.url !== 'string') {
       throw new Error('Invalid url, ' + config.url + ', provided for ' + configName + ', it should be a string');
@@ -202,16 +208,17 @@ function validateConfig(configs, options) {
     }
   });
 
-  if (options && options.prefix && typeof options.prefix !== 'string') {
-    throw new Error('Invalid prefix provided to options: ' + options.prefix + ', it should be a string');
+  if (!namespace || typeof namespace !== 'string') {
+    throw new Error('Invalid namespace provided: ' + namespace + ', it should be a string');
   }
 }
 
-function createApiActions(config, options) {
-  validateConfig(config, options);
+function createApiActions(namespace, config, options) {
+  var upNamespace = parseToUppercase(namespace);
+  validateConfig(upNamespace, config);
   var actionKeys = Object.keys(config);
-  var actionTypes = createTypes(actionKeys, options && options.prefix);
-  var creators = createCreators(config, actionTypes, options.prefix, apiActionCreatorFactory);
+  var actionTypes = createTypes(actionKeys, upNamespace);
+  var creators = createCreators(config, actionTypes, upNamespace, apiActionCreatorFactory);
 
   return {
     creators: creators,
@@ -244,28 +251,16 @@ var _extends$2 = Object.assign || function (target) { for (var i = 1; i < argume
 * @param {Object} asyncTask - function that executes the async task
 */
 
-var fieldsToClean = ['policies', 'url', 'method'];
-var cleanMeta = function cleanMeta(meta) {
-  return Object.keys(meta).filter(function (key) {
-    return fieldsToClean.indexOf(key) < 0;
-  }).reduce(function (acc, key) {
-    var _extends2;
-
-    return _extends$2({}, acc, (_extends2 = {}, _extends2[key] = meta[key], _extends2));
-  }, {});
-};
-
 function execAsyncTask(requestType, asyncTask) {
   return function (store) {
     return function (next) {
       return function (action) {
-        store.dispatch({ type: requestType, meta: cleanMeta(action.meta) });
+        store.dispatch({ type: requestType, meta: action.meta });
 
         var done = function done(err, response) {
           return err ? next(action, err, null) : next(action, null, response);
         };
 
-        // flatten the action
         var options = _extends$2({ payload: action.payload }, action.meta);
         return asyncTask({ getState: store.getState })(done)(options);
       };
@@ -278,7 +273,7 @@ function handleResponse(responseType) {
     return function (action, err, response) {
       var responseAction = {
         type: responseType,
-        meta: cleanMeta(action.meta),
+        meta: action.meta,
         payload: response
       };
       if (err) {
