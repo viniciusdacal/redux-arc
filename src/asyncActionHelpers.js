@@ -28,10 +28,6 @@ export const createCreators = (config, actionTypes, namespace, factory) =>
 export const reduceActionTypes = actionTypes =>
   Object.keys(actionTypes).reduce((acc, key) => {
     const { uppercaseName, ...asyncTypes } = actionTypes[key];
-
-    const action = {
-      actionTypes: actionTypes
-    };
     return {
       ...acc,
       [uppercaseName]: asyncTypes,
