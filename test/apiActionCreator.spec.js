@@ -25,20 +25,20 @@ describe('parseUrl', () => {
 
 describe('validateConfig', () => {
   it('throws when not provide an url', () => {
-    expect(() => validateConfig({ list: { method: 'get' } })).toThrow();
+    expect(() => validateConfig('my', { list: { method: 'get' } })).toThrow();
   });
 
   it('throws when provide payload as a url param', () => {
-    expect(() => validateConfig({ list: { url: 'path/:payload', method: 'get' } })).toThrow();
+    expect(() => validateConfig('my', { list: { url: 'path/:payload', method: 'get' } })).toThrow();
   });
 
   it('throws when not provide a method', () => {
-    expect(() => validateConfig({ list: { url: 'path/:id' } })).toThrow();
+    expect(() => validateConfig('my', { list: { url: 'path/:id' } })).toThrow();
   });
 
   it('throws when modifier is not a function', () => {
     expect(() =>
-      validateConfig({ list: { url: 'path/:id', method: 'save', modifier: {} } })
+      validateConfig('my', { list: { url: 'path/:id', method: 'save', modifier: {} } })
     ).toThrow();
   });
 
