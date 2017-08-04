@@ -6,7 +6,7 @@ import {
   parseOptions,
 } from './asyncActionHelpers';
 
-export function apiActionCreatorFactory(config, types, prefix) {
+export function apiActionCreatorFactory(config, types, namespace) {
   function apiCreator(options) {
     const { payload, ...params } = parseOptions(options, config) || {};
     const action = {
@@ -40,7 +40,10 @@ export function apiActionCreatorFactory(config, types, prefix) {
   Object.defineProperty(
     apiCreator,
     'name',
-    { value: `${prefix}${types.uppercaseName} apiCreator`, writable: false },
+    {
+      value: `${namespace}_${types.uppercaseName} apiCreator`,
+      writable: false
+    },
   );
 
   return apiCreator;
@@ -56,10 +59,10 @@ export function parseUrl(url, params) {
   });
 }
 
-export function validateConfig(configs, options) {
+export function validateConfig(namespace, configs) {
   Object.keys(configs).forEach((creatorName) => {
     const config = configs[creatorName];
-    const configName = `${options && options.prefix}${parseToUppercase(creatorName)}`;
+    const configName = `${namespace}_${parseToUppercase(creatorName)}`;
 
     if (typeof config.url !== 'string') {
       throw new Error(
@@ -83,16 +86,17 @@ export function validateConfig(configs, options) {
     }
   });
 
-  if (options && options.prefix && typeof options.prefix !== 'string') {
-    throw new Error(`Invalid prefix provided to options: ${options.prefix}, it should be a string`);
+  if (!namespace || typeof namespace !== 'string') {
+    throw new Error(`Invalid namespace provided: ${namespace}, it should be a string`);
   }
 }
 
-export function createApiActions(config, options) {
-  validateConfig(config, options);
+export function createApiActions(namespace, config, options) {
+  const upNamespace = parseToUppercase(namespace);
+  validateConfig(upNamespace, config);
   const actionKeys = Object.keys(config);
-  const actionTypes = createTypes(actionKeys, options && options.prefix);
-  const creators = createCreators(config, actionTypes, options.prefix, apiActionCreatorFactory);
+  const actionTypes = createTypes(actionKeys, upNamespace);
+  const creators = createCreators(config, actionTypes, upNamespace, apiActionCreatorFactory);
 
   return {
     creators,

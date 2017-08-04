@@ -15,6 +15,7 @@ describe('parseUrl', () => {
     expect(parseUrl('endpoint', null)).toBe('endpoint');
     expect(parseUrl('endpoint/:id', { id: '123' })).toBe('endpoint/123');
     expect(parseUrl('endpoint/:id', { id: 123 })).toBe('endpoint/123');
+    expect(parseUrl('endpoint/:id/:otherId', { id: 123, otherId: 456 })).toBe('endpoint/123/456');
   });
 
   it('should throw when it has an invalid parameter', () => {
@@ -41,23 +42,23 @@ describe('validateConfig', () => {
     ).toThrow();
   });
 
-  it('throws when prefix is not a string', () => {
+  it('throws when namespace is not a string', () => {
     expect(() =>
-      validateConfig({
+      validateConfig(1, {
         list: { url: 'path/:id', method: 'save', modifier: '' }
-      }, { prefix: 1 })
+      })
     ).toThrow();
   });
 
   it('should not throw when provide a valid config', () => {
     expect(() =>
-      validateConfig({ list: { url: 'path/:id', method: 'save', modifier: () => {} } })
+      validateConfig('my', { list: { url: 'path/:id', method: 'save', modifier: () => {} } })
     ).not.toThrow();
   });
 });
 
 describe('createApiActions', () => {
-  const { types, creators } = createApiActions(baseConfigs, { prefix: 'MY_' });
+  const { types, creators } = createApiActions('my', baseConfigs);
   const expectedTypes = {
     LIST: {
       REQUEST: 'MY_LIST_REQUEST',

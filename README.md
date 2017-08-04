@@ -17,14 +17,11 @@ with Arc, you can turn a lot of files in a few lines, take a look:
 ```js
 import { createApiActions } from 'redux-arc';
 
-const { creators, types } = createApiActions(
-  {
-    list: { url: 'path/to/resource', method: 'get' },
-    read: { url: 'path/to/resource/:id', method: 'get' },
-    create: { url: 'path/to/resource', method: 'post' },
-  },
-  { prefix: 'MY_RESOURCE_'}
-);
+const { creators, types } = createApiActions('myResource', {
+  list: { url: 'path/to/resource', method: 'get' },
+  read: { url: 'path/to/resource/:id', method: 'get' },
+  create: { url: 'path/to/resource', method: 'post' },
+});
 
 // dispatch the actions using creators
 dispatch(creators.list());
@@ -53,16 +50,13 @@ npm i --save redux-arc
 In your store config file, you must configure the middleware:
 
 ```js
+import axios from 'axios';
 import { createAsyncMiddleware } from 'redux-arc';
 
 const asyncTask = store => done => (options) => {
-  // optoins = { url, method, payload }
-  // do your request and call done(err, response) when you are ready
-  done(err, response);
-
-  // if you like, return the respective value to create a chain. The value you
-  // return here, will be passed as the result of an action dispatch.
-  return response;
+  const { method, url, payload } = options;
+  const params = method === 'get' ? { params: payload } : payload;
+  axios[method](url, params).then((error, response) => done(error, response));
 };
 
 // create the async middleware
@@ -75,6 +69,8 @@ const store = createStore(
 );
 ```
 
+In the example above, we are using axios, but you can use whatever you want to perform the request, just make sure to call done passing error and response when the request ends.
+
 > We let the request with you. This way, you can use whatever you want: promises, generators, etc...
 
 And now, you can use `createApiActions` to define your action creators and types.
@@ -82,15 +78,12 @@ And now, you can use `createApiActions` to define your action creators and types
 ```js
 import { createApiActions } from 'redux-arc';
 
-const { creators, types } = createApiActions(
-  {
-    list: { url: 'path/to/resource', method: 'get' },
-    read: { url: 'path/to/resource/:id', method: 'get' },
-    create: { url: 'path/to/resource', method: 'post' },
-    update: { url: 'path/to/resource/:id', method: 'put' },
-  },
-  { prefix: 'MY_RESOURCE_'}
-);
+const { creators, types } = createApiActions('myResource', {
+  list: { url: 'path/to/resource', method: 'get' },
+  read: { url: 'path/to/resource/:id', method: 'get' },
+  create: { url: 'path/to/resource', method: 'post' },
+  update: { url: 'path/to/resource/:id', method: 'put' },
+});
 ```
 > The action creators name is up to you! We only care about the config inside it. You can create a `softDelete`, for example.
 
@@ -139,12 +132,86 @@ To perform the request, the middleware uses the function you provide (`asyncTask
 ## Types
 When you call `createApiActions`, you also receive types. Types is just an object that contains all your action types, including request and response.
 
-Basically, what we do, is converting to uppercase the name you gave for your action creators. So, if you provide a name like `list`, you will have
+Basically, what we do, is converting to uppercase the name you gave for your namespace and action creators. So, if you provide to the action creator a name like `list`, you will have
 `types.LIST`, which is and object containing `REQUEST` and `RESPONSE`
 so, in your reducers, you could use `types.LIST.REQUEST` to check for an action type. The respective type, has a value like this:
-`'MY_RESOURCE_LIST_REQUEST'`. Remember we provided a prefix option (`MY_RESOURCE_`)? This helps you avoid conflicts across the application.
+`'MY_RESOURCE_LIST_REQUEST'`.
+The types will always follow the pattern:
+`NAMESPACE_ACTION_REQUEST` and `NAMESPACE_ACTION_RESPONSE`
 
-# Polices
+## Response action:
+When the request is done, an action with the response will be dispatched. Considering the list example, the response action would look like this:
+
+```js
+{
+  type: 'MY_RESOURCE_LIST_RESPONSE', // types.LIST.RESPONSE,
+  meta: {
+    url: 'path/to/resource',
+    method: 'get',
+  },
+  payload: [
+    // resource list
+  ],
+}
+```
+
+
+## Error handling
+The above example is a a response with success, when the request fails, the `action.error` will be `true` and the `action.payload` will be the error itself. Just like in the bellow example:
+
+```js
+{
+  type: 'MY_RESOURCE_LIST_RESPONSE', // types.LIST.RESPONSE,
+  meta: {
+    url: 'path/to/resource',
+    method: 'get',
+  },
+  payload: new Error('the request error'),
+  error: true,
+}
+```
+
+
+## Updating the state
+Considering the list example, your reducers would look like this:
+
+```js
+import { types } from './arcs';
+
+const INITIAL_STATE = {
+  listResult: [],
+  listError: null,
+  listIsLoading: false,
+};
+
+function myReducer(state = INITIAL_STATE, action) {
+  if (action.type === types.LIST.REQUEST) {
+    return {
+      ...state,
+      listIsLoading: true,
+      listError: INITIAL_STATE.listError,
+      listResult: INITIAL_STATE.listResult,
+    };
+  }
+
+  if (action.type === types.LIST.RESPONSE) {
+    if (action.error) {
+      return {
+        ...state,
+        listIsLoading: INITIAL_STATE.listIsLoading,
+        listError: action.payload,
+      };
+    }
+    return {
+      ...state,
+      listIsLoading: INITIAL_STATE.listIsLoading,
+      listResult: action.payload,
+    };
+  }
+}
+```
+
+# Policies
 We know there are sometimes when you need perform operations changing a request or response. For those cases, you can use policies.
 
 A policy is basically another middleware, as the follow example:
@@ -167,16 +234,13 @@ To use a policy, you do as the follow:
 ```js
 import { createApiActions, policies } from 'redux-arc';
 
-const { creators, types } = createApiActions(
-  {
-    update: {
-      url: 'path/to/resource/:id',
-      method: 'put',
-      policies: ['omitId'], // define policies in your config.
-    },
+const { creators, types } = createApiActions('myResource', {
+  update: {
+    url: 'path/to/resource/:id',
+    method: 'put',
+    policies: ['omitId'], // define policies in your config.
   },
-  { prefix: 'MY_RESOURCE_'},
-);
+});
 
 // this is the policy
 function omitId(options) {

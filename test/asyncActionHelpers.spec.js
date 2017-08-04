@@ -33,7 +33,7 @@ const baseTypes = {
 
 describe('createTypes', () => {
   it('should return an object with the respective action types', () => {
-    const actionTypes = createTypes(['list', 'softDelete'], 'MY_');
+    const actionTypes = createTypes(['list', 'softDelete'], 'MY');
     expect(actionTypes).toEqual({
       list: {
         uppercaseName: 'LIST',
@@ -63,7 +63,7 @@ describe('parseOptions', () => {
 describe('createCreators', () => {
   it('should return an action creator', () => {
 
-    const creators = createCreators(baseConfigs, baseTypes, 'MY_', apiActionCreatorFactory);
+    const creators = createCreators(baseConfigs, baseTypes, 'MY', apiActionCreatorFactory);
 
     expect(creators.list()).toEqual({
       type: [baseTypes.list.REQUEST, baseTypes.list.RESPONSE],
