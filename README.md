@@ -70,11 +70,11 @@ const store = createStore(
 );
 ```
 
-In the example above, we are using axios, but you can use whatever you want to perform the request, just make sure to call done passing error and response when the request ends.
+In the above example, we are using axios, but you can use whatever you want to perform the request, just make sure you call `done`, passing **error** and **response** when the request ends.
 
-> We let the request with you. This way, you can use whatever you want: promises, generators, etc...
+> The request process is up to you. This way, you can use whatever you want: promises, generators, etc...
 
-And now, you can use `createApiActions` to define your action creators and types.
+Then, you can use `createApiActions` to create your **action creators** and **types**.
 
 ```js
 import { createApiActions } from 'redux-arc';
@@ -86,13 +86,13 @@ const { creators, types } = createApiActions('myResource', {
   update: { url: 'path/to/resource/:id', method: 'put' },
 });
 ```
-> The action creators name is up to you! We only care about the config inside it. You can create a `softDelete`, for example.
+> The action creators name is up to you! We only care about the config inside it. You can create one named `softDelete`, for example.
 
 ## Action Creators
-`creators` is just an object that contains the action creators you defined (`list`, `read`, `create`, `update`).
+The `creators` is an object that contains the **action creators** you configured (`list`, `read`, `create`, `update`).
 
 
-you can execute any of them passing an object, which can contain a `payload`, used in the request, and any other value, that will be used to parse the url params that you declare, and will be forwarded to `asyncTask`
+you can execute any of them passing an object, which can contain a `payload`, used in the request, and any other value, that will be used to parse the url params that you declare, and will be kept in the action, under the **meta**.
 
 ```js
 dispatch(creators.read({ id: '123'}));
@@ -110,15 +110,15 @@ The above code, would dispatch an action like this:
 }
 ```
 
-> If you don't like using asyncActionCreator, you can always create and dispatch an object as the above, it will work out of the box.
+> If you don't like using `createApiAction`, you can always create and dispatch an object as the above, it will work out of the box.
 
 Our middleware will intercept that action, and will dispatch actions
 `MY_RESOURCE_LIST_REQUEST` and `MY_RESOURCE_LIST_RESPONSE` in the respective time.
 
-To perform the request, the middleware uses the function you provide (`asyncTask`). It will execute the asyncTask passing `store => done => options`,
-  - store: if you like, you can access the state through the `store.getState()`.
-  - done: the function you must call with the `err` and `response`:  `done(err, response)` when the request finishes.
-  - options: the object containing information regarding to the request, as the example bellow:
+To perform the request, the middleware uses the function you provide (`asyncTask`). It will execute the `asyncTask` passing `store => done => options`,
+  - **store**: if you like, you can access the state through the `store.getState()`.
+  - **done**: the function you must call with the `err` and `response`:  `done(err, response)` when the request finishes.
+  - **options**: the object containing information regarding to the request, as the example bellow:
 
 ```js
 {
@@ -128,20 +128,21 @@ To perform the request, the middleware uses the function you provide (`asyncTask
 }
 ```
 
-> If you provide extra params in the actionCreator call, all of them will be under the options object.
+> If you provide extra params in the actionCreator call, all of them will be under the meta object.
 
 ## Types
 When you call `createApiActions`, you also receive types. Types is just an object that contains all your action types, including request and response.
 
 Basically, what we do, is converting to uppercase the name you gave for your namespace and action creators. So, if you provide to the action creator a name like `list`, you will have
-`types.LIST`, which is and object containing `REQUEST` and `RESPONSE`
-so, in your reducers, you could use `types.LIST.REQUEST` to check for an action type. The respective type, has a value like this:
+`types.LIST`, which is an object containing `REQUEST` and `RESPONSE`.
+So, in your reducers, you could use `types.LIST.REQUEST` to check for an action type, the respective type has a value like this:
 `'MY_RESOURCE_LIST_REQUEST'`.
+
 The types will always follow the pattern:
 `NAMESPACE_ACTION_REQUEST` and `NAMESPACE_ACTION_RESPONSE`
 
 ## Response action:
-When the request is done, an action with the response will be dispatched. Considering the list example, the response action would look like this:
+When the request is done, an action with the response will be dispatched. Considering the **list** example, the response action would look like this:
 
 ```js
 {
@@ -158,7 +159,7 @@ When the request is done, an action with the response will be dispatched. Consid
 
 
 ## Error handling
-The above example is a a response with success, when the request fails, the `action.error` will be `true` and the `action.payload` will be the error itself. Just like in the bellow example:
+The above example is a a response with success, when the request fails, the `action.error` will be `true` and the `action.payload` will be the error itself. Just like the bellow example:
 
 ```js
 {
@@ -174,7 +175,7 @@ The above example is a a response with success, when the request fails, the `act
 
 
 ## Updating the state
-Considering the list example, your reducers would look like this:
+Considering the **list** example, your reducers would look like this:
 
 ```js
 import { types } from './arcs';
@@ -213,7 +214,7 @@ function myReducer(state = INITIAL_STATE, action) {
 ```
 
 # Policies
-We know there are sometimes when you need perform operations changing a request or response. For those cases, you can use policies.
+We know there are sometimes when you need perform operations, changing a request or response. For those cases, you can use policies.
 
 A policy is basically another middleware, as the follow example:
 
@@ -222,15 +223,15 @@ const policy store => done => (action, error, response) =>
   done(action, error, response);
 ```
 
-A policy must have an applyPoint attribute, so:
+A policy must have an **applyPoint** attribute, as the follow:
 
 ```js
 policy.applyPoint = 'beforeRequest' // (beforeRequest, onResponse)
 ```
 
-You can imagine, in the cases your policy has an applyPoint `'beforeRequest'`, you would only have access to  `action` object, unless another policy create and  `error` or `response` in the ``beforeRequest` chain.
+You can imagine, in the cases your policy has an applyPoint `'beforeRequest'`, you would only have access to  `action` object, unless another policy created an  `error` or `response` in the ``beforeRequest` chain.
 
-To use a policy, you do as the follow:
+To use a policy, you must do as the follow:
 
 ```js
 import { createApiActions, policies } from 'redux-arc';
