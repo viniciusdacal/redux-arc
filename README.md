@@ -220,7 +220,7 @@ We know there are sometimes when you need perform operations, changing a request
 A policy is basically another middleware, as the follow example:
 
 ```js
-const policy store => done => (action, error, response) =>
+const policy = store => done => (action, error, response) =>
   done(action, error, response);
 ```
 
@@ -246,8 +246,8 @@ const { creators, types } = createApiActions('myResource', {
 });
 
 // this is the policy
-function omitId(options) {
-  return store => done => (action, ...params) => {
+function omitId(store) {
+  return done => (action, ...params) => {
     const { id, ...restAction } = action;
     return done(restAction, ...params);
   }
