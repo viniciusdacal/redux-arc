@@ -9,7 +9,7 @@ import { createApiActions } from 'redux-arc';
 
 const baseUrl = 'http://localhost:4000/api';
 
-const { types, actions } = createApiActions('TODO', {
+const { types, actions } = createApiActions('todo', {
   create: {
     url: `${baseUrl}/todo`,
     method: 'post',

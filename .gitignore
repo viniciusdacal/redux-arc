@@ -31,5 +31,8 @@ jsconfig.json
 .tern-project
 .vscode
 
-
-
+dist
+lib
+es
+coverage
+_book
