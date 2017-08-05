@@ -1,7 +1,7 @@
 {
   "gitbook": "3.2.2",
-  "title": "Redux",
-  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs", "algolia"],
+  "title": "Redux Arc",
+  "plugins": ["edit-link", "prism", "-highlight", "github", "anchorjs"],
   "pluginsConfig": {
     "edit-link": {
       "base": "https://github.com/viniciusdacal/redux-arc/tree/master",
@@ -9,12 +9,6 @@
     },
     "github": {
       "url": "https://github.com/viniciusdacal/redux-arc/"
-    },
-    "algolia": {
-      "index": "redux-docs",
-      "applicationID": "BC2QB3G2G4",
-      "publicKey": "75eb88bb56d8cf8d17b6366a2c8e5fcd",
-      "freeAccount": "false"
     },
     "theme-default": {
       "styles": {
