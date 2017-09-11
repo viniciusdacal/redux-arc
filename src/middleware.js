@@ -27,7 +27,7 @@ function execAsyncTask(requestType, asyncTask) {
       : next(action, null, response);
 
     const options = { payload: action.payload, ...action.meta };
-    return asyncTask({ getState: store.getState })(done)(options);
+    return asyncTask(store)(done)(options);
   };
 }
 
