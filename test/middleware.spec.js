@@ -37,7 +37,7 @@ const asyncErrorTask = store => done => (action) => {
 };
 
 describe('createAsyncMiddleware', () => {
-  it('should throw if you dont provide an asyncTask function', () => {
+  it('should throw if you does not provide an asyncTask function', () => {
     expect(() => createAsyncMiddleware()).toThrow()
     expect(() => createAsyncMiddleware('test')).toThrow();
   });
@@ -116,4 +116,17 @@ describe('createAsyncMiddleware', () => {
     expect(storeApi.dispatch.mock.calls[1][0].type).toBe('RESPONSE_ACTION');
     expect(storeApi.dispatch.mock.calls[1][0].error).toBe(true);
   });
+
+  it('should call asyncTask with the store', () => {
+    const asyncTaskMock = jest.fn();
+    asyncTaskMock.mockReturnValue(() => () => {});
+    const apiMiddleware = createAsyncMiddleware(asyncTaskMock)(storeApi)(() => {});
+    const returnValue = apiMiddleware({
+      type: ['REQUEST_ACTION', 'RESPONSE_ACTION'],
+      meta: {},
+    });
+
+    expect(asyncTaskMock.mock.calls[0][0]).toBe(storeApi);
+    storeApi.dispatch.mockClear();
+  })
 });
