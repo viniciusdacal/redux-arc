@@ -14,13 +14,13 @@ const applyPoints = ['beforeRequest', 'onResponse'];
 
 export const globalPolicies = {};
 
-export const reset = () => {
+export function reset() {
   Object.keys(globalPolicies).forEach((key) => {
     delete globalPolicies[key];
   });
 };
 
-export const register = (name, policy) => {
+export function register(name, policy) {
   if (globalPolicies[name]) {
     throw new Error(`Called register with policy: ${name} more than once`);
   }
@@ -31,7 +31,7 @@ export const register = (name, policy) => {
     throw new Error(`${invalid} ${available}`);
   }
   Object.assign(globalPolicies, { [name]: policy })
-};
+}
 
 const get = policyNames => (applyPoint) => {
   const policies = policyNames
@@ -44,12 +44,20 @@ const get = policyNames => (applyPoint) => {
   };
 };
 
-export const getActionPolicies = (policies) => {
-  if (Array.isArray(policies)) {
-    const policyNames = Object.keys(globalPolicies).filter(key => policies.indexOf(key) >= 0);
-    return get(policyNames);
+export function validatePolicies(policies) {
+  policies.forEach(policyName => {
+    if (!globalPolicies[policyName]) {
+      throw new Error(`Policy ${policyName} not registered. Perhaps you forgot to import its file`)
+    }
+  });
+}
+
+export function getActionPolicies(policies) {
+  if (!Array.isArray(policies)) {
+    return get([]);
   }
-  return get([]);
+  validatePolicies(policies);
+  return get(policies);
 };
 
 export default {
