@@ -19,7 +19,9 @@ describe('parseUrl', () => {
   });
 
   it('should throw when it has an invalid parameter', () => {
-    expect(() => parseUrl('endpoint/:id', { id: {} })).toThrow();
+    expect(() => parseUrl('endpoint/:id', { id: {} })).toThrowError(
+      'Param id from url endpoint/:id, not found in params object'
+    );
   });
 });
 
