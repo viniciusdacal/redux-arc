@@ -81,6 +81,46 @@ describe('getActionPolicies', () => {
     const result = runner('beforeRequest')({})(callback)(myAction, null, null);
     expect(result).toBe(SINGULAR_VALUE);
   });
+
+  test('Should throw when trying to use a non registered policy', () => {
+    expect(
+      () => getActionPolicies(['nonRegisteredPolicy'])
+    ).toThrowError(
+      'Policy nonRegisteredPolicy not registered. Perhaps you forgot to import its file'
+    );
+  });
+
+  test('Should run the policies in the given order', (done) => {
+    const appendB = store => next => (action, error, response) =>
+      next({ ...action, payload: action.payload + 'B' }, error, response);
+
+    appendB.applyPoint = 'beforeRequest';
+
+    const appendC = store => next => (action, error, response) =>
+      next({ ...action, payload: action.payload + 'C' }, error, response);
+    appendC.applyPoint = 'beforeRequest';
+
+    const appendD = store => next => (action, error, response) =>
+      next({ ...action, payload: action.payload + 'D' }, error, response);
+
+    appendD.applyPoint = 'beforeRequest';
+
+
+    register('appendC', appendC);
+    register('appendB', appendB);
+    register('appendD', appendD);
+
+    const myAction = { type: 'REQUEST', payload: 'A' };
+    const runner = getActionPolicies(['appendB', 'appendC', 'appendD']);
+    const callback = (action) => {
+      expect(action.payload).toBe('ABCD');
+
+      done();
+      return action.payload;
+    };
+    const result = runner('beforeRequest')({})(callback)(myAction, null, null);
+    expect(result).toBe('ABCD');
+  })
 });
 
 
