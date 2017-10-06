@@ -1,6 +1,6 @@
 import { checkAction } from './helpers';
 import { compose } from 'redux';
-import { getActionPolicies } from './policies';
+import { getRequestMiddlewares } from './requestMiddlewares';
 
 /**
 * This is a standard Redux middleware that listens for async actions
@@ -71,13 +71,13 @@ export function createAsyncMiddleware(asyncTask) {
       throw new Error('Expected meta to be an object');
     }
 
-    const actionPolicies = getActionPolicies(action.meta.policies);
+    const requestMiddlewares = getRequestMiddlewares(action.meta.middlewares);
     const [requestType, responseType] = action.type;
 
     const chain = [
-      actionPolicies('beforeRequest'),
+      requestMiddlewares('beforeRequest'),
       execAsyncTask(requestType, asyncTask),
-      actionPolicies('onResponse'),
+      requestMiddlewares('onResponse'),
     ].map(middleware => middleware(store));
 
     const done = handleResponse(responseType)(store);

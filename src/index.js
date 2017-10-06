@@ -1,11 +1,11 @@
 import asyncActionHelpers from './asyncActionHelpers'
-import policies from './policies'
+import middlewares from './requestMiddlewares'
 import { createApiActions } from './apiActionCreator'
 import { createAsyncMiddleware } from './middleware'
 
 export {
   asyncActionHelpers,
-  policies,
+  middlewares,
   createApiActions,
   createAsyncMiddleware,
 };

@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import policies from '../src/policies';
+import middlewares from '../src/requestMiddlewares';
 import { createAsyncMiddleware } from '../src/middleware';
 
 
@@ -44,39 +44,43 @@ describe('Testing middleware on redux', () => {
     })
   });
 
-  it('should perform policies over the actions', (done) => {
+  it('should perform middlewares over the actions', (done) => {
     mockReducer.mockClear();
 
-    const beforeRequestPolice = store => done => (action, error, response) =>
+    const beforeRequestMiddleware = store => done => (action, error, response) =>
       done({
         ...action,
         meta: { ...action.meta, onRequest: true },
       }, error, response);
 
-    beforeRequestPolice.applyPoint = 'beforeRequest';
+    beforeRequestMiddleware.applyPoint = 'beforeRequest';
 
-    const onResponsePolice = store => done => (action, error, response) =>
+    const onResponseMiddleware = store => done => (action, error, response) =>
       done({
         ...action,
         meta: { ...action.meta, onResponse: true },
       }, error, response);
 
-    onResponsePolice.applyPoint = 'onResponse';
+    onResponseMiddleware.applyPoint = 'onResponse';
 
-    policies.register('beforeRequestPolice', beforeRequestPolice)
-    policies.register('onResponsePolice', onResponsePolice)
+    middlewares.register('beforeRequestMiddleware', beforeRequestMiddleware)
+    middlewares.register('onResponseMiddleware', onResponseMiddleware)
 
     const returnedValue = store.dispatch({
       type: ['REQUEST_ACTION', 'RESPONSE_ACTION'],
       payload: {},
-      meta: { url: 'test', policies: ['beforeRequestPolice', 'onResponsePolice'], extras: true },
+      meta: {
+        url: 'test',
+        middlewares: ['beforeRequestMiddleware', 'onResponseMiddleware'],
+        extras: true
+      },
     });
 
     expect(mockReducer.mock.calls[0][1]).toEqual({
       type: 'REQUEST_ACTION',
       meta: {
         url: 'test',
-        policies: ['beforeRequestPolice', 'onResponsePolice'],
+        middlewares: ['beforeRequestMiddleware', 'onResponseMiddleware'],
         extras: true,
         onRequest: true,
       },
@@ -86,9 +90,9 @@ describe('Testing middleware on redux', () => {
       type: 'RESPONSE_ACTION',
       meta: {
         url: 'test',
-        policies: ['beforeRequestPolice', 'onResponsePolice'],
+        middlewares: ['beforeRequestMiddleware', 'onResponseMiddleware'],
         extras: true, onResponse: true, onRequest: true,
-      }, // Passed through both policies
+      }, // Passed through both middlewares
       payload: SINGULAR_RESPONSE,
     });
 

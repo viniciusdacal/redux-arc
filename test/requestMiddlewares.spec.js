@@ -1,23 +1,23 @@
 import {
-  globalPolicies,
+  globalMiddlewares,
   register,
   reset,
-  getActionPolicies,
-} from '../src/policies';
+  getRequestMiddlewares,
+} from '../src/requestMiddlewares';
 
 beforeEach(() => {
   reset();
 });
 
 describe('reset', () => {
-  it('should reset the globalPolicies', () => {
+  it('should reset the globalMiddlewares', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
     police.applyPoint = 'beforeRequest';
-    register('mypolice', police);
+    register('myMiddleware', police);
 
-    expect(globalPolicies.mypolice).not.toBe(undefined);
+    expect(globalMiddlewares.myMiddleware).not.toBe(undefined);
     reset();
-    expect(globalPolicies.mypolice).toBe(undefined);
+    expect(globalMiddlewares.myMiddleware).toBe(undefined);
   });
 })
 
@@ -25,68 +25,68 @@ describe('register', () => {
   it('should register a police into global policies', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
     police.applyPoint = 'beforeRequest';
-    register('mypolice', police);
+    register('myMiddleware', police);
 
-    expect(globalPolicies.mypolice).toBe(police);
+    expect(globalMiddlewares.myMiddleware).toBe(police);
   });
 
   it('should throw when try to register a police more than once', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
     police.applyPoint = 'beforeRequest';
-    register('mypolice', police);
+    register('myMiddleware', police);
 
-    expect(() => register('mypolice', police)).toThrow();
+    expect(() => register('myMiddleware', police)).toThrow();
   });
 
   it('should validate a police', () => {
     // police without applyPoint
     const police = store => done => (action, error, response) => done(action, error, response);
-    expect(() => register('mypolice', police)).toThrow();
+    expect(() => register('myMiddleware', police)).toThrow();
     reset();
     //invalid applyPoing
     police.applyPoint = 'beforeReques';
-    expect(() => register('mypolice', police)).toThrow();
+    expect(() => register('myMiddleware', police)).toThrow();
   });
 });
 
-describe('getActionPolicies', () => {
+describe('getRequestMiddlewares', () => {
   const SINGULAR_VALUE = 'SINGULAR_VALUE';
   test('should get the police runner for the given police array', (done) => {
     const police = store => next => (action, error, response) => {
-      return next({ ...action, myPoliceWasHere: true }, error, response);
+      return next({ ...action, myMiddlewareWasHere: true }, error, response);
     };
     police.applyPoint = 'beforeRequest';
-    register('mypolice', police);
+    register('myMiddleware', police);
 
     const myAction = { type: 'REQUEST' };
-    const runner = getActionPolicies(['mypolice']);
+    const reqMiddlewares = getRequestMiddlewares(['myMiddleware']);
     const callback = (action) => {
-      expect(action.myPoliceWasHere).toBe(true);
+      expect(action.myMiddlewareWasHere).toBe(true);
 
       done();
       return SINGULAR_VALUE;
     };
-    const result = runner('beforeRequest')({})(callback)(myAction, null, null);
+    const result = reqMiddlewares('beforeRequest')({})(callback)(myAction, null, null);
     expect(result).toBe(SINGULAR_VALUE);
   });
 
   test('should run even without policies registered', (done) => {
     const myAction = { type: 'REQUEST' }
-    const runner = getActionPolicies(undefined);
+    const reqMiddlewares = getRequestMiddlewares(undefined);
     const callback = (action) => {
       expect(action).toBe(myAction);
       done();
       return SINGULAR_VALUE;
     };
-    const result = runner('beforeRequest')({})(callback)(myAction, null, null);
+    const result = reqMiddlewares('beforeRequest')({})(callback)(myAction, null, null);
     expect(result).toBe(SINGULAR_VALUE);
   });
 
   test('Should throw when trying to use a non registered policy', () => {
     expect(
-      () => getActionPolicies(['nonRegisteredPolicy'])
+      () => getRequestMiddlewares(['nonRegisteredMiddleware'])
     ).toThrowError(
-      'Policy nonRegisteredPolicy not registered. Perhaps you forgot to import its file'
+      'Middleware nonRegisteredMiddleware not registered. Perhaps you forgot to import its file'
     );
   });
 
@@ -111,7 +111,7 @@ describe('getActionPolicies', () => {
     register('appendD', appendD);
 
     const myAction = { type: 'REQUEST', payload: 'A' };
-    const runner = getActionPolicies(['appendB', 'appendC', 'appendD']);
+    const runner = getRequestMiddlewares(['appendB', 'appendC', 'appendD']);
     const callback = (action) => {
       expect(action.payload).toBe('ABCD');
 
