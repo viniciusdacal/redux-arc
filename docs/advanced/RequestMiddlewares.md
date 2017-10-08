@@ -25,7 +25,7 @@ middlewares.register('saveUserSession', saveUserSession);
 
 As we can observe in the above code, request middlewares are very similar to redux's middlewares. The big difference is that redux middlewares watches all application actions, while request middlewares you apply as you need, for specific requests.
 
-A middleware should also contain a property `applyPoint`, which should be either `'beforeRequest'` or `'onResponse'`. The applyPoint tells in which moment of the request the middleware will be executed. Considering we need the token that comes in the response, we use the applyPoint `'onResponse'`.
+A middleware should also contain a property `applyPoint`, which should be either `'onRequest'` or `'onResponse'`. The applyPoint tells in which moment of the request the middleware will be executed. Considering we need the token that comes in the response, we use the applyPoint `'onResponse'`.
 
 Notice we also register the middleware into Arc, using `middlewares.register`
 
@@ -85,10 +85,10 @@ dispatch(creators.login({
 In the code above, instead of apply the middleware to all login requests, we apply to the single call we are doing.
 
 ## Before request middlewares
-In the previous example we used the applyPoint `'onResponse'`, because we wanted to access the response value. In the following example, we are going to use the applyPoint `'beforeRequest'`, because we will process and change the payload before it goes to the request.
+In the previous example we used the applyPoint `'onResponse'`, because we wanted to access the response value. In the following example, we are going to use the applyPoint `'onRequest'`, because we will process and change the payload before it goes to the request.
 
 
-## Saving a user
+## Saving an user
 So, let's imagine you would like to create and update a user, but you wouldn't like to configure two different requests to do that. You would rather to config a single request named **save** and when you call it passing a user without an id, it would understand that you were intending to do a creation request, otherwise, it would assume you were trying to update the user, and would do the necessary changes on the request data to ensure the update would work. You could create a middleware to handle that scenario, and name it **createOrUpdate**. Let's do it.
 
 
@@ -108,16 +108,16 @@ function createOrUpdate() {
     const updateAction = {
       ...action,
       payload: user,
-      meta: { url: `meta.url/${id}`, method: 'put', id },
+      meta: { url: `${meta.url}/${id}`, method: 'put', id },
     };
     done(updateAction, error, response);
   }
 }
-createOrUpdate.applyPoint = 'beforeRequest' // 'beforeRequest' or 'onResponse'
+createOrUpdate.applyPoint = 'onRequest';
 middlewares.register('createOrUpdate', createOrUpdate);
 ```
 
-> In the cases your middleware has an applyPoint `beforeRequest`, you would have access only to the `action` object, unless another middleware created an  `error` or `response` in the `beforeRequest` chain.
+> In the cases your middleware has an applyPoint `onRequest`, you would have access only to the `action` object, unless another middleware created an  `error` or `response` in the `onRequest` chain.
 
 The first thing we do in the middleware, is check for the `payload.id`. If none is present, we assume this request intends to create an user and we assume the original request config is prepared to do that, having the method as `post`, and having the proper url for the creation. That said, we only need to let the request happens normally, calling the function **done**, passing the params we received.
 
@@ -156,6 +156,8 @@ First, we define the request as it would be for the creation, passing the url as
 
 In the first dispatching, the payload does not contain the id, so it will create an user. The second dispatch contains the id and will be an update.
 
-> Usually, for `beforeRequest` you would change only the action value, and for `onResponse`, you would change only the response. But feel free to change the action inside  `onResponse` cycle if that makes sense.
+> Usually, for `onRequest` you would change only the action value, and for `onResponse`, you would change only the response. But feel free to change the action inside  `onResponse` cycle if that makes sense.
 
-As you can see, request middlewares can be used in many different ways, adding flexibility to the requests.
+Remember that when you create a middleware, you can use it in different request. This last middleware for example, you could use to create and save todo items, or into any crud your application has.
+
+Request middlewares can be used in many different ways, adding flexibility to the requests.

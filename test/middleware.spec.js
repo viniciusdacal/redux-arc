@@ -94,7 +94,7 @@ describe('createAsyncMiddleware', () => {
 
     expect(returnValue).toBe(API_RESPONSE);
     expect(middlewaresMock.onCallApply.mock.calls.length).toBe(2);
-    expect(middlewaresMock.onCallApply.mock.calls[0][0]).toBe('beforeRequest');
+    expect(middlewaresMock.onCallApply.mock.calls[0][0]).toBe('onRequest');
     expect(middlewaresMock.onCallApply.mock.calls[1][0]).toBe('onResponse');
     storeApi.dispatch.mockClear();
   });

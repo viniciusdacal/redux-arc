@@ -75,7 +75,7 @@ export function createAsyncMiddleware(asyncTask) {
     const [requestType, responseType] = action.type;
 
     const chain = [
-      requestMiddlewares('beforeRequest'),
+      requestMiddlewares('onRequest'),
       execAsyncTask(requestType, asyncTask),
       requestMiddlewares('onResponse'),
     ].map(middleware => middleware(store));

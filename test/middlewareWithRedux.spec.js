@@ -47,13 +47,13 @@ describe('Testing middleware on redux', () => {
   it('should perform middlewares over the actions', (done) => {
     mockReducer.mockClear();
 
-    const beforeRequestMiddleware = store => done => (action, error, response) =>
+    const onRequestMiddleware = store => done => (action, error, response) =>
       done({
         ...action,
         meta: { ...action.meta, onRequest: true },
       }, error, response);
 
-    beforeRequestMiddleware.applyPoint = 'beforeRequest';
+    onRequestMiddleware.applyPoint = 'onRequest';
 
     const onResponseMiddleware = store => done => (action, error, response) =>
       done({
@@ -63,7 +63,7 @@ describe('Testing middleware on redux', () => {
 
     onResponseMiddleware.applyPoint = 'onResponse';
 
-    middlewares.register('beforeRequestMiddleware', beforeRequestMiddleware)
+    middlewares.register('onRequestMiddleware', onRequestMiddleware)
     middlewares.register('onResponseMiddleware', onResponseMiddleware)
 
     const returnedValue = store.dispatch({
@@ -71,7 +71,7 @@ describe('Testing middleware on redux', () => {
       payload: {},
       meta: {
         url: 'test',
-        middlewares: ['beforeRequestMiddleware', 'onResponseMiddleware'],
+        middlewares: ['onRequestMiddleware', 'onResponseMiddleware'],
         extras: true
       },
     });
@@ -80,7 +80,7 @@ describe('Testing middleware on redux', () => {
       type: 'REQUEST_ACTION',
       meta: {
         url: 'test',
-        middlewares: ['beforeRequestMiddleware', 'onResponseMiddleware'],
+        middlewares: ['onRequestMiddleware', 'onResponseMiddleware'],
         extras: true,
         onRequest: true,
       },
@@ -90,7 +90,7 @@ describe('Testing middleware on redux', () => {
       type: 'RESPONSE_ACTION',
       meta: {
         url: 'test',
-        middlewares: ['beforeRequestMiddleware', 'onResponseMiddleware'],
+        middlewares: ['onRequestMiddleware', 'onResponseMiddleware'],
         extras: true, onResponse: true, onRequest: true,
       }, // Passed through both middlewares
       payload: SINGULAR_RESPONSE,

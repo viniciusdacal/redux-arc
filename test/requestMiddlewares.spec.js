@@ -12,7 +12,7 @@ beforeEach(() => {
 describe('reset', () => {
   it('should reset the globalMiddlewares', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
-    police.applyPoint = 'beforeRequest';
+    police.applyPoint = 'onRequest';
     register('myMiddleware', police);
 
     expect(globalMiddlewares.myMiddleware).not.toBe(undefined);
@@ -24,7 +24,7 @@ describe('reset', () => {
 describe('register', () => {
   it('should register a police into global policies', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
-    police.applyPoint = 'beforeRequest';
+    police.applyPoint = 'onRequest';
     register('myMiddleware', police);
 
     expect(globalMiddlewares.myMiddleware).toBe(police);
@@ -32,7 +32,7 @@ describe('register', () => {
 
   it('should throw when try to register a police more than once', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
-    police.applyPoint = 'beforeRequest';
+    police.applyPoint = 'onRequest';
     register('myMiddleware', police);
 
     expect(() => register('myMiddleware', police)).toThrow();
@@ -55,7 +55,7 @@ describe('getRequestMiddlewares', () => {
     const police = store => next => (action, error, response) => {
       return next({ ...action, myMiddlewareWasHere: true }, error, response);
     };
-    police.applyPoint = 'beforeRequest';
+    police.applyPoint = 'onRequest';
     register('myMiddleware', police);
 
     const myAction = { type: 'REQUEST' };
@@ -66,7 +66,7 @@ describe('getRequestMiddlewares', () => {
       done();
       return SINGULAR_VALUE;
     };
-    const result = reqMiddlewares('beforeRequest')({})(callback)(myAction, null, null);
+    const result = reqMiddlewares('onRequest')({})(callback)(myAction, null, null);
     expect(result).toBe(SINGULAR_VALUE);
   });
 
@@ -78,7 +78,7 @@ describe('getRequestMiddlewares', () => {
       done();
       return SINGULAR_VALUE;
     };
-    const result = reqMiddlewares('beforeRequest')({})(callback)(myAction, null, null);
+    const result = reqMiddlewares('onRequest')({})(callback)(myAction, null, null);
     expect(result).toBe(SINGULAR_VALUE);
   });
 
@@ -94,16 +94,16 @@ describe('getRequestMiddlewares', () => {
     const appendB = store => next => (action, error, response) =>
       next({ ...action, payload: action.payload + 'B' }, error, response);
 
-    appendB.applyPoint = 'beforeRequest';
+    appendB.applyPoint = 'onRequest';
 
     const appendC = store => next => (action, error, response) =>
       next({ ...action, payload: action.payload + 'C' }, error, response);
-    appendC.applyPoint = 'beforeRequest';
+    appendC.applyPoint = 'onRequest';
 
     const appendD = store => next => (action, error, response) =>
       next({ ...action, payload: action.payload + 'D' }, error, response);
 
-    appendD.applyPoint = 'beforeRequest';
+    appendD.applyPoint = 'onRequest';
 
 
     register('appendC', appendC);
@@ -118,7 +118,7 @@ describe('getRequestMiddlewares', () => {
       done();
       return action.payload;
     };
-    const result = runner('beforeRequest')({})(callback)(myAction, null, null);
+    const result = runner('onRequest')({})(callback)(myAction, null, null);
     expect(result).toBe('ABCD');
   })
 });

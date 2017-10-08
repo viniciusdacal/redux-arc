@@ -7,10 +7,10 @@ import { compose } from 'redux';
 * A middleware is a middleware, and it should follow the signature bellow
 * store => done => (action, error, response) => done(action, error, response);
 * A middleware must have a applyPoint property. The available apply points are:
-* 'beforeRequest', 'onResponse'
+* 'onRequest', 'onResponse'
 */
 
-const applyPoints = ['beforeRequest', 'onResponse'];
+const applyPoints = ['onRequest', 'onResponse'];
 
 export const globalMiddlewares = {};
 
