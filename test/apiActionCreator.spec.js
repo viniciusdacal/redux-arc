@@ -7,7 +7,7 @@ import {
 const baseConfigs = {
   list: { url: 'endpoint', method: 'get' },
   read: { url: 'endpoint/:id', method: 'put' },
-  readWithExtras: { url: 'endpoint/:id', method: 'put', policies: ['police'], meta: {} },
+  readWithExtras: { url: 'endpoint/:id', method: 'put', middlewares: ['middleware'], meta: {} },
 };
 
 describe('parseUrl', () => {
@@ -101,7 +101,7 @@ describe('createApiActions', () => {
       url: 'endpoint/123',
       method: 'put',
       id: '123',
-      policies: ['police'],
+      middlewares: ['middleware'],
     },
   });
 });

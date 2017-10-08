@@ -26,12 +26,8 @@ export function apiActionCreatorFactory(config, types, namespace) {
       action.meta = { ...config.meta, ...action.meta };
     }
 
-    if (config.schema) {
-      action.meta.schema = config.schema;
-    }
-
-    if (config.policies) {
-      action.meta.policies = config.policies;
+    if (config.middlewares) {
+      action.meta.middlewares = config.middlewares;
     }
 
     return action;

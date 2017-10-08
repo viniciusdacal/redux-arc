@@ -50,7 +50,7 @@ This function is only a factory that returns the action creators and the action 
 ```js
 import { createApiActions } from 'redux-arc';
 
-const { types, actions } = createApiActions('MY_NAMESPACE', {
+const { types, actions } = createApiActions('myNamespace', {
   list: { url: 'path/to/list', method: 'get'},
 });
 ```
@@ -61,12 +61,10 @@ The second param is the requests definition object, which should respect the fol
 
 ```js
 {
-  // identifier
   list: {
     url: 'todo',
     method: 'get',
   },
-  //identifier
   update: {
     url: 'todo/:id',
     method: 'put',
@@ -76,25 +74,8 @@ The second param is the requests definition object, which should respect the fol
 
 As you can see, it's possible to define multiple requests in the same config object, you only need to give it an identifier. Let's explore the above schema:
 
- - **identifier** - It will be used to generate the action creators and also the action types. In the above example, we have `list` and `update`.
- - **url** - will be passed to `asyncTask` to perform the request. It also accept dynamic url so, you can define a url like this: `path/to/resource/:id`.
- - **method** - It will be passed to `asyncTask` as well, in this case, you can use any method your request lib supports `post|get|put|delete|`
-
-## Identifier
-The request identifier will be used on the following ways:
-
-### Action Creators
-> An action creator, is a function that when executed, returns an action.
-
-the `creators` you receive when you call `createApiActions`, is an object that contains action creators. Using the above example, your creators would look like this:
-
-```js
-  {
-    list: function (options) {},
-    update: function (options) {},
-  }
-```
-
-
+ - **identifier** - It's the name you give for each request. It will be used to generate the action creators and also the action types. In the above example, we have `list` and `update`.
+ - **url** - will be passed to `asyncTask` to perform the request. It also accepts dynamic urls, so, you can define a url such as `path/to/resource/:id`.
+ - **method** - It will be passed to `asyncTask` as well, in this case, you can use any method your request lib supports, the most common are `post`,`get`, `put` and `delete`.
 
 
