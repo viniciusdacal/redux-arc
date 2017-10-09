@@ -1,7 +1,7 @@
 {
   "name": "redux-arc",
-  "version": "0.2.2",
-  "description": "Declarative way to make api calls in redux",
+  "version": "0.3.0",
+  "description": "Abstraction layer to simplify rest api calls in redux",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
