@@ -6,9 +6,11 @@ import {
 } from '../src/asyncActionHelpers';
 import { apiActionCreatorFactory } from '../src/apiActionCreator';
 
+const urlFunction = (params) => `/${params.test}/`;
 
 const baseConfigs = {
   list: { url: 'endpoint', method: 'get' },
+  listWithUrlFunction: { url: urlFunction, method: 'get' },
   read: { url: 'endpoint/:id', method: 'put' },
   readWithExtras: {
     url: 'endpoint/:id',
@@ -20,6 +22,11 @@ const baseConfigs = {
 const baseTypes = {
   list: {
     uppercaseName: 'LIST',
+    REQUEST: 'MY_LIST_REQUEST',
+    RESPONSE: 'MY_LIST_RESPONSE',
+  },
+  listWithUrlFunction: {
+    uppercaseName: 'LIST_WITH_URL_FUNCTION',
     REQUEST: 'MY_LIST_REQUEST',
     RESPONSE: 'MY_LIST_RESPONSE',
   },
@@ -77,6 +84,15 @@ describe('createCreators', () => {
       },
     });
 
+    expect(creators.listWithUrlFunction({ test: 1232 })).toEqual({
+      type: [baseTypes.list.REQUEST, baseTypes.list.RESPONSE],
+      meta: {
+        url: urlFunction({ test: 1232 }),
+        method: 'get',
+        test: 1232,
+      },
+    });
+
     expect(creators.read({ id: '123' })).toEqual({
       type: [baseTypes.read.REQUEST, baseTypes.read.RESPONSE],
       meta: {
@@ -103,6 +119,10 @@ describe('reduceActionTypes', () => {
 
   expect(reducedTypes).toEqual({
     LIST: {
+      REQUEST: 'MY_LIST_REQUEST',
+      RESPONSE: 'MY_LIST_RESPONSE',
+    },
+    LIST_WITH_URL_FUNCTION: {
       REQUEST: 'MY_LIST_REQUEST',
       RESPONSE: 'MY_LIST_RESPONSE',
     },
