@@ -9,11 +9,15 @@ import {
 export function apiActionCreatorFactory(config, types, namespace) {
   function apiCreator(options) {
     const { payload, ...params } = parseOptions(options, config) || {};
+    const url = typeof config.url === 'function'
+      ? config.url(params)
+      : config.url;
+
     const action = {
       type: [types.REQUEST, types.RESPONSE],
       meta: {
         ...params,
-        url: parseUrl(config.url, params),
+        url: parseUrl(url, params),
         method: config.method,
       },
     };
@@ -60,12 +64,12 @@ export function validateConfig(namespace, configs) {
     const config = configs[creatorName];
     const configName = `${namespace}_${parseToUppercase(creatorName)}`;
 
-    if (typeof config.url !== 'string') {
+    if (typeof config.url !== 'string' && typeof config.url !== 'function') {
       throw new Error(
-        `Invalid url, ${config.url}, provided for ${configName}, it should be a string`,
+        `Invalid url, ${config.url}, provided for ${configName}, it should be a string or a function that returns a string`,
       );
     }
-    if (/:payload*/g.test(config.url)) {
+    if (typeof config.url === 'string' && /:payload*/g.test(config.url)) {
       throw new Error(
         `Invalid url, ${config.url}, provided for ${configName}, you cannot use payload as a param`,
       );
