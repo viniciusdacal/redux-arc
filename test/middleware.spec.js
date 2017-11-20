@@ -115,6 +115,7 @@ describe('createAsyncMiddleware', () => {
     expect(storeApi.dispatch.mock.calls[0][0].type).toBe('REQUEST_ACTION');
     expect(storeApi.dispatch.mock.calls[1][0].type).toBe('RESPONSE_ACTION');
     expect(storeApi.dispatch.mock.calls[1][0].error).toBe(true);
+    expect(storeApi.dispatch.mock.calls[1][0].payload).toBe(API_ERROR);
   });
 
   it('should call asyncTask with the store', () => {
