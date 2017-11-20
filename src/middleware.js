@@ -22,9 +22,7 @@ function execAsyncTask(requestType, asyncTask) {
   return store => next => (action) => {
     store.dispatch({ type: requestType, meta: action.meta });
 
-    const done = (err, response) => err
-      ? next(action, err, null)
-      : next(action, null, response);
+    const done = (err, response) => next(action, err, response);
 
     const options = { payload: action.payload, ...action.meta };
     return asyncTask(store)(done)(options);
@@ -39,7 +37,7 @@ function handleResponse(responseType) {
       payload: response,
     };
     if (err) {
-      const actionToDispatch = { ...responseAction, error: true };
+      const actionToDispatch = { ...responseAction, error: true, payload: err };
       store.dispatch(actionToDispatch);
       return err;
     }
