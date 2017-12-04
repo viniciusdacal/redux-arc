@@ -30,6 +30,7 @@ describe('Testing middleware on redux', () => {
     expect(mockReducer.mock.calls[0][1]).toEqual({
       type: 'REQUEST_ACTION',
       meta: { url: 'test' },
+      payload: {},
     });
 
     expect(mockReducer.mock.calls[1][1]).toEqual({
@@ -78,6 +79,7 @@ describe('Testing middleware on redux', () => {
 
     expect(mockReducer.mock.calls[0][1]).toEqual({
       type: 'REQUEST_ACTION',
+      payload: {},
       meta: {
         url: 'test',
         middlewares: ['onRequestMiddleware', 'onResponseMiddleware'],

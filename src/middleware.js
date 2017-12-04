@@ -20,7 +20,11 @@ import { getRequestMiddlewares } from './requestMiddlewares';
 
 function execAsyncTask(requestType, asyncTask) {
   return store => next => (action) => {
-    store.dispatch({ type: requestType, meta: action.meta });
+    store.dispatch({
+      type: requestType,
+      meta: action.meta,
+      payload: action.payload,
+    });
 
     const done = (err, response) => next(action, err, response);
 

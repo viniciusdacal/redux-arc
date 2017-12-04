@@ -46,7 +46,7 @@ describe('createAsyncMiddleware', () => {
     const nextMock = jest.fn();
     const apiMiddleware = createAsyncMiddleware(asyncTask)(storeApi)(nextMock);
 
-    apiMiddleware({ type: 'REGULAR_ACTION', meta: {} });
+    apiMiddleware({ type: 'REGULAR_ACTION', meta: {}, });
     expect(nextMock.mock.calls.length).toBe(1);
   });
 
