@@ -4,12 +4,26 @@ import replace from 'rollup-plugin-replace';
 import uglify from 'rollup-plugin-uglify';
 
 var env = process.env.NODE_ENV
-var config = {
-  format: 'umd',
-  moduleName: 'ReduxArc',
-  external: ['redux'],
-  globals: { 'redux': 'Redux' },
-  plugins: [
+
+const config = {
+  input: 'src/index.js',
+  plugins: []
+}
+
+if (env === 'es' || env === 'cjs') {
+  config.output = { format: env }
+  config.external = ['redux']
+  config.plugins.push(
+    babel({
+      plugins: ['external-helpers'],
+    })
+  )
+}
+
+if (env === 'development' || env === 'production') {
+  config.output = { format: 'umd' }
+  config.name = 'ReduxArc'
+  config.plugins.push(
     nodeResolve({
       jsnext: true
     }),
@@ -18,11 +32,12 @@ var config = {
         '**/node_modules/**',
         'src/__mocks__/**',
       ],
+      plugins: ['external-helpers'],
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify(env)
-    }),
-  ]
+    })
+  )
 }
 
 if (env === 'production') {
