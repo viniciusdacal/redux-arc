@@ -1,5 +1,5 @@
-import { checkAction } from './helpers';
 import { compose } from 'redux';
+import { checkAction } from '../utils';
 import { getRequestMiddlewares } from './requestMiddlewares';
 
 /**
@@ -50,7 +50,7 @@ function handleResponse(responseType) {
   };
 }
 
-export function createAsyncMiddleware(asyncTask) {
+export default function createAsyncMiddleware(asyncTask) {
   if (typeof asyncTask !== 'function') {
     const warning =
       'You must provide a asyncTask function to createAsyncMiddleware, with the following signature: ';
@@ -85,8 +85,4 @@ export function createAsyncMiddleware(asyncTask) {
     const done = handleResponse(responseType)(store);
     return compose(...chain)(done)(action);
   };
-}
-
-export default {
-  createAsyncMiddleware,
 }

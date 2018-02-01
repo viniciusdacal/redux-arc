@@ -1,0 +1,50 @@
+import parseOptions from '../parseOptions';
+
+export default function actionCreatorFactory(config, type) {
+  const normalizedConfig = config !== null && typeof config === 'object'
+    ? config
+    : {};
+
+  const { payload: configPayload, error: configError, ...configMeta } = config;
+
+  function actionCreator(options) {
+    const { payload, error, ...meta } = parseOptions(options, normalizedConfig.modifier);
+    const action = {
+      type,
+    };
+
+    const finalMeta = {
+      ...configMeta,
+      ...meta,
+    };
+
+
+    if (Object.keys(finalMeta).length) {
+      action.meta = finalMeta;
+    }
+
+    const finalPayload = payload !== undefined ? payload : configPayload;
+    if (finalPayload !== undefined) {
+      action.payload = finalPayload;
+    }
+
+    const finalError = error !== undefined ? error : configError;
+    if (finalError !== undefined) {
+      action.error = finalError;
+    }
+
+    return action;
+  }
+
+  Object.assign(actionCreator, normalizedConfig);
+  Object.defineProperty(
+    actionCreator,
+    'name',
+    {
+      value: `${type} action creator`,
+      writable: false
+    },
+  );
+
+  return actionCreator;
+}

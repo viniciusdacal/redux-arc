@@ -10,3 +10,5 @@ Table of Contents
 
 * [Advanced](/docs/advanced/README.md)
   * [Request Middlewares](/docs/advanced/RequestMiddlewares.md)
+
+* [Utilities](/docs/utilities/README.md)

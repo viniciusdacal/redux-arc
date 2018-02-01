@@ -1,6 +1,6 @@
 <img src="https://github.com/viniciusdacal/redux-arc/blob/master/arc-64.png?raw=true" height="64" />
 
-Arc is a dependency free, 2kb lib to handle async requests in redux.
+Arc is a dependency free lib to handle async requests in redux.
 
 [![build status](https://img.shields.io/travis/viniciusdacal/redux-arc/master.svg?style=flat-square)](https://travis-ci.org/viniciusdacal/redux-arc) [![npm version](https://img.shields.io/npm/v/redux-arc.svg?style=flat-square)](https://www.npmjs.com/package/redux-arc)
 [![Coverage Status](https://coveralls.io/repos/github/viniciusdacal/redux-arc/badge.svg?branch=master)](https://coveralls.io/github/viniciusdacal/redux-arc?branch=master)
@@ -9,6 +9,7 @@ Arc is a dependency free, 2kb lib to handle async requests in redux.
 Many applications are built with react and redux, and api calls are critical to this process. With the available alternatives, you end up writing and repeating code a lot.
 
 With a declarative way, you can write less code and make it easier to understand and maintain. All of it leads you to have less bugs and have a better code base. This is powerful and flexible. **We make things easier for you for the most common cases, and we allow you to take full control when you need!**
+
 
 **Oh, I forgot to mention, this is 100% covered by tests!**
 

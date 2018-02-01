@@ -1,10 +1,11 @@
 /* eslint-disable import/first */
-jest.mock('../src/requestMiddlewares', () => ({
+jest.mock('../../src/api/requestMiddlewares', () => ({
   globalMiddlewares: {},
   onCallApply: jest.fn((applyPoint) => store => done =>
   (action, error, response) => done(action, error, response))
 }));
-const middlewares = require('../src/requestMiddlewares');
+const middlewares = require('../../src/api/requestMiddlewares');
+
 const get = policeNames => middlewares.onCallApply;
 middlewares.getRequestMiddlewares = jest.fn((middlewares) => {
   if (Array.isArray(middlewares)) {
@@ -15,8 +16,8 @@ middlewares.getRequestMiddlewares = jest.fn((middlewares) => {
 
 
 // eslint-disable-next-line import/first
-import { createAsyncMiddleware } from '../src/middleware';
-import middlewaresMock from '../src/requestMiddlewares';
+import createAsyncMiddleware from '../../src/api/createAsyncMiddleware';
+import middlewaresMock from '../../src/api/requestMiddlewares';
 
 const storeApi = {
   dispatch: jest.fn(() => {}),

@@ -1,6 +1,6 @@
 {
   "name": "redux-arc",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Abstraction layer to simplify rest api calls in redux",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -70,7 +70,11 @@
   "license": "MIT",
   "jest": {
     "coverageDirectory": "./coverage",
-    "testRegex": "(/test/.*\\.spec.js)$"
+    "testRegex": "(/test/.*\\.spec.js)$",
+    "globals": {
+      "BABEL_ENV": "commonjs"
+    },
+    "modulePathIgnorePatterns": ["<rootDir>/_book/"]
   },
   "dependencies": {},
   "peerDependencies": {
