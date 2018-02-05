@@ -1,12 +1,8 @@
-import validateConfig from '../../src/api/validateConfig';
+import validateConfig from '../src/validateConfig';
 
 describe('validateConfig', () => {
-  it('throws when not provide an url', () => {
-    expect(() => validateConfig('my', { list: { method: 'get' } })).toThrow();
-  });
-
-  it('throws when provide payload as a url param', () => {
-    expect(() => validateConfig('my', { list: { url: 'path/:payload', method: 'get' } })).toThrow();
+  it('throws when provide a wrong url', () => {
+    expect(() => validateConfig('my', { list: { url: 1 } })).toThrow();
   });
 
   it('throws when not provide a method', () => {

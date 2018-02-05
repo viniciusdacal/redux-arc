@@ -115,7 +115,7 @@ We also have a function to help you create and organize your reducers, based on 
 
 ```
 
-Basically, you define a reducer for each action type, then you create a, object HANDLERS, with the keys being the action types and the values being the respective reducers.
+Basically, you define a reducer for each action type, then you create an object HANDLERS, with the keys being the action types and the values being the respective reducers.
 
 This approach allow you to split and organize better your state manipulation logic.
 

@@ -1,21 +1,17 @@
-import { parseToUppercase } from '../utils';
+import { parseToUppercase } from './utils';
 
 export default function validateConfig(namespace, configs) {
   Object.keys(configs).forEach((creatorName) => {
-    const config = configs[creatorName];
+    const config = configs[creatorName] || {};
     const configName = `${namespace}_${parseToUppercase(creatorName)}`;
 
-    if (typeof config.url !== 'string' && typeof config.url !== 'function') {
+    if (config.url && typeof config.url !== 'string' && typeof config.url !== 'function') {
       throw new Error(
         `Invalid url, ${config.url}, provided for ${configName}, it should be a string or a function that returns a string`,
       );
     }
-    if (typeof config.url === 'string' && /:payload*/g.test(config.url)) {
-      throw new Error(
-        `Invalid url, ${config.url}, provided for ${configName}, you cannot use payload as a param`,
-      );
-    }
-    if (typeof config.method !== 'string' || !config.method.length) {
+
+    if (config.url && (typeof config.method !== 'string' || !config.method.length)) {
       throw new Error(
         `Invalid method,  ${config.method}, provided for ${configName}, it should be a string`,
       );

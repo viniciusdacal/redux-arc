@@ -1,13 +1,12 @@
-import createActions from './fsa/createActions';
-import createApiActions from './api/createApiActions';
-import createAsyncMiddleware from './api/createAsyncMiddleware';
+import createActions from './createActions';
+import createAsyncMiddleware from './createAsyncMiddleware';
 import createReducers from './createReducers';
 import mergeTypesAndCreators from './mergeTypesAndCreators';
-import middlewares from './api/requestMiddlewares';
+import middlewares from './requestMiddlewares';
 
 export {
   createActions,
-  createApiActions,
+  createActions as createApiActions,
   createAsyncMiddleware,
   createReducers,
   mergeTypesAndCreators,

@@ -1,13 +1,28 @@
-function validateHandlers(handlers) {
-  Object.keys(handlers).forEach((key, index) => {
-    if (!key || key === 'undefined') {
-      throw new Error(`Error with handler key at index ${index}. All the keys must be defined.`);
-    }
+function visualValue(value) {
+  if (value === null) return 'null';
+  if (value === undefined) return 'undefined';
+  if (typeof value === 'string') return `'${value}'`;
+  return value;
+}
 
-    if (typeof handlers[key] !== 'function') {
-      throw new Error(`Error with reducer at index ${index}. All the handlers must be functions.`);
-    }
+function objToString(obj) {
+  if (!obj) {
+    return '';
+  }
+  let output = [];
+  Object.keys(obj).forEach((key) => {
+    output.push(`\t${key}: ${visualValue(obj[key])},`);
   });
+  return `{\t\n${output.join('\n')}\n}`;
+}
+
+function validateHandlers(handlers) {
+  const isInvalid = Object.keys(handlers).some((key, index) => {
+    return !key || key === 'undefined' || typeof handlers[key] !== 'function'
+  });
+  if (isInvalid) {
+    throw new Error(`All keys should be defined  values should be present:\n${objToString(handlers)}`);
+  }
 }
 
 export default function createReducers(initialState, handlers) {

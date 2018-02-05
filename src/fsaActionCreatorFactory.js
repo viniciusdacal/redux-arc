@@ -1,14 +1,11 @@
-import parseOptions from '../parseOptions';
-
 export default function actionCreatorFactory(config, type) {
   const normalizedConfig = config !== null && typeof config === 'object'
     ? config
     : {};
 
-  const { payload: configPayload, error: configError, ...configMeta } = config;
+  const { payload: configPayload, meta: configMeta, error: configError } = config;
 
-  function actionCreator(options) {
-    const { payload, error, ...meta } = parseOptions(options, normalizedConfig.modifier);
+  function actionCreator(payload, meta, error) {
     const action = {
       type,
     };
@@ -17,7 +14,6 @@ export default function actionCreatorFactory(config, type) {
       ...configMeta,
       ...meta,
     };
-
 
     if (Object.keys(finalMeta).length) {
       action.meta = finalMeta;

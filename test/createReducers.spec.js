@@ -23,15 +23,17 @@ describe('createReducers', () => {
   it('should throw when a key is not defined', () => {
     expect(() => {
       const key = undefined;
-      createReducers({}, { [key]: () => {} })
-    }).toThrow(`Error with handler key at index 0. All the keys must be defined.`);
+      createReducers({}, {
+        a: 'test',
+        [key]: function Test() {},
+      })
+    }).toThrow();
   });
 
   it('should throw when a reducer is not a function', () => {
     expect(() => {
-      const key = undefined;
       createReducers({}, { a: '' });
-    }).toThrow(`Error with reducer at index 0. All the handlers must be functions.`);
+    }).toThrow();
   });
 
   const reducer = createReducers(INITIAL_STATE, HANDLERS);

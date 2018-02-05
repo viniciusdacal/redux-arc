@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
-import middlewares from '../../src/api/requestMiddlewares';
-import createAsyncMiddleware from '../../src/api/createAsyncMiddleware';
+import middlewares from '../src/requestMiddlewares';
+import createAsyncMiddleware from '../src/createAsyncMiddleware';
 
 
 describe('Testing middleware on redux', () => {

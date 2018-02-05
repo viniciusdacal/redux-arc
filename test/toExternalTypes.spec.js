@@ -1,11 +1,22 @@
-import toTypesByActionNames from '../../src/api/toTypesByActionNames';
+import toExternalTypes from '../src/toExternalTypes';
 
-describe('toTypesByActionNames', () => {
-  const reducedTypes = toTypesByActionNames({
+const baseConfig = {
+  list: { url: 'test' },
+  listWithUrlFunction: { url: 'test' },
+  read: { url: 'test' },
+  readWithExtras: { url: 'test' },
+  fsaAction: null,
+  secondFsaAction: {},
+}
+
+describe('toExternalTypes', () => {
+  const reducedTypes = toExternalTypes(baseConfig, {
     list: 'MY_LIST',
     listWithUrlFunction: 'MY_LIST_WITH_URL_FUNCTION',
     read: 'MY_READ',
     readWithExtras: 'MY_READ_WITH_EXTRAS',
+    fsaAction: 'MY_FSA_ACTION',
+    secondFsaAction: 'MY_SECOND_FSA_ACTION',
   });
 
   it('should return the types formatted in async types, to be used by reducers', () => {
@@ -26,6 +37,8 @@ describe('toTypesByActionNames', () => {
         REQUEST: 'MY_READ_WITH_EXTRAS_REQUEST',
         RESPONSE: 'MY_READ_WITH_EXTRAS_RESPONSE',
       },
+      FSA_ACTION: 'MY_FSA_ACTION',
+      SECOND_FSA_ACTION: 'MY_SECOND_FSA_ACTION',
     });
   })
 });

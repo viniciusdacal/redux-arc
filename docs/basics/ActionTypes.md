@@ -1,10 +1,10 @@
 # Action Types
-Beyond creators, you also receive an object named **types** when you call `createApiActions`. This object contains all the respective types for your requests.
+Beyond creators, you also receive an object named **types** when you call `createActions`. This object contains all the respective types for your requests.
 
 Given the following config:
 
 ```js
-const { types } = createApiActions('myNamespace', {
+const { types } = createActions('myNamespace', {
   list: { url: 'todo', method: 'get' },
   update: { url: 'todo/:id', method: 'put' }
 })

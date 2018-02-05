@@ -1,25 +1,27 @@
-import { toAsyncTypes } from '../utils';
-import parseOptions from '../parseOptions';
+import { toAsyncTypes } from './utils';
 import parseUrl from './parseUrl';
 
 const normalizeUrl = (url, params) => typeof url === 'function' ? url(params) : url;
 
 export default function apiActionCreatorFactory(config, type) {
-  const { modifier, payload: configPayload, url: configUrl, meta, ...configMeta } = config;
+  const { payload: configPayload, url: configUrl, meta: configMeta, ...restMeta } = config;
   const asyncTypes = toAsyncTypes(type);
 
-  function apiActionCreator(options) {
-    const { payload, ...params } = parseOptions(options, config.modifier);
-    const url = normalizeUrl(configUrl, params);
+  function apiActionCreator(payload, meta) {
+    const url = normalizeUrl(configUrl, meta);
+
+    const finalMeta = {
+      ...(configMeta || {}),
+      ...(meta || {}),
+      ...restMeta,
+    };
 
     return {
       type: asyncTypes,
       payload: payload !== undefined ? payload : configPayload,
       meta: {
-        ...meta,
-        ...configMeta,
-        ...params,
-        url: parseUrl(url, params),
+        ...finalMeta,
+        url: parseUrl(url, finalMeta),
       },
     };
   }

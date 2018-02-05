@@ -1,4 +1,4 @@
-import createApiActions from '../../src/api/createApiActions';
+import createActions from '../src/createActions';
 
 const baseConfigs = {
   list: { url: 'endpoint', method: 'get' },
@@ -7,12 +7,23 @@ const baseConfigs = {
     url: 'endpoint/:id',
     method: 'put',
     middlewares: ['middleware'],
-    extraParam: 'EXTRA_PARAM',
+    meta: {
+      extraParam: 'EXTRA_PARAM',
+    }
   },
+  reset: null,
+  clear: null,
+  resetWithMeta: {
+    meta: {
+      a: 'TEST',
+      b: 'META_DATA',
+    },
+    payload: 'TEST_PAYLOAD',
+  }
 };
 
-describe('createApiActions', () => {
-  const { types, creators } = createApiActions('my', baseConfigs);
+describe('createActions', () => {
+  const { types, creators } = createActions('my', baseConfigs);
 
   it('should return the proper types object', () => {
     const expectedTypes = {
@@ -28,6 +39,9 @@ describe('createApiActions', () => {
         REQUEST: 'MY_READ_WITH_EXTRAS_REQUEST',
         RESPONSE: 'MY_READ_WITH_EXTRAS_RESPONSE',
       },
+      RESET: 'MY_RESET',
+      CLEAR: 'MY_CLEAR',
+      RESET_WITH_META: 'MY_RESET_WITH_META',
     };
 
     expect(types).toEqual(expectedTypes);
@@ -44,18 +58,19 @@ describe('createApiActions', () => {
   });
 
   it('should parse the url with provided params', () => {
-    expect(creators.read({ id: '123' })).toEqual({
+    expect(creators.read(null, { id: '123' })).toEqual({
       type: [types.READ.REQUEST, types.READ.RESPONSE],
       meta: {
         url: 'endpoint/123',
         method: 'put',
         id: '123',
       },
+      payload: null,
     });
   });
 
   it('should return middlewares and any extra param inside meta', () => {
-    expect(creators.readWithExtras({ id: '123', payload: { test: 'TEST' } })).toEqual({
+    expect(creators.readWithExtras({ test: 'TEST' }, { id: '123' })).toEqual({
       type: [types.READ_WITH_EXTRAS.REQUEST, types.READ_WITH_EXTRAS.RESPONSE],
       payload: { test: 'TEST' },
       meta: {

@@ -3,7 +3,7 @@ import {
   register,
   reset,
   getRequestMiddlewares,
-} from '../../src/api/requestMiddlewares';
+} from '../src/requestMiddlewares';
 
 beforeEach(() => {
   reset();

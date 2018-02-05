@@ -1,5 +1,5 @@
 import { compose } from 'redux';
-import { checkAction } from '../utils';
+import { checkAction } from './utils';
 import { getRequestMiddlewares } from './requestMiddlewares';
 
 /**

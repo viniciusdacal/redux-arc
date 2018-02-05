@@ -1,5 +1,5 @@
 import createCreators from '../src/createCreators';
-import apiActionCreatorFactory from '../src/api/apiActionCreatorFactory';
+import apiActionCreatorFactory from '../src/apiActionCreatorFactory';
 
 const urlFunction = (params) => `/${params.test}/`;
 
@@ -24,7 +24,6 @@ const BASE_CONFIGS = {
 
 describe('createCreators', () => {
   it('should return an action creator', () => {
-
     const creators = createCreators(BASE_CONFIGS, BASE_TYPES, apiActionCreatorFactory);
 
     expect(creators.list()).toEqual({
@@ -33,9 +32,10 @@ describe('createCreators', () => {
         url: 'endpoint',
         method: 'get',
       },
+      payload: undefined,
     });
 
-    expect(creators.listWithUrlFunction({ test: 1232 })).toEqual({
+    expect(creators.listWithUrlFunction(null, { test: 1232 })).toEqual({
       type: [
         'MY_LIST_WITH_URL_FUNCTION_REQUEST',
         'MY_LIST_WITH_URL_FUNCTION_RESPONSE'
@@ -45,18 +45,20 @@ describe('createCreators', () => {
         method: 'get',
         test: 1232,
       },
+      payload: null,
     });
 
-    expect(creators.read({ id: '123' })).toEqual({
+    expect(creators.read(null, { id: '123' })).toEqual({
       type: ['MY_READ_REQUEST', 'MY_READ_RESPONSE'],
       meta: {
         url: 'endpoint/123',
         method: 'put',
         id: '123',
       },
+      payload: null
     });
 
-    expect(creators.readWithExtras({ id: '123' })).toEqual({
+    expect(creators.readWithExtras(null, { id: '123' })).toEqual({
       type: ['MY_READ_WITH_EXTRAS_REQUEST', 'MY_READ_WITH_EXTRAS_RESPONSE'],
       meta: {
         url: 'endpoint/123',
@@ -64,6 +66,7 @@ describe('createCreators', () => {
         id: '123',
         middlewares: ['myMiddleware'],
       },
+      payload: null,
     });
   });
 });

@@ -1,4 +1,4 @@
-import parseUrl from '../../src/api/parseUrl';
+import parseUrl from '../src/parseUrl';
 
 
 describe('parseUrl', () => {
