@@ -1,6 +1,6 @@
 {
   "name": "redux-arc",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Abstraction layer to simplify rest api calls in redux",
   "main": "lib/index.js",
   "module": "es/index.js",
