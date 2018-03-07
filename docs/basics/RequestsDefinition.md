@@ -5,11 +5,11 @@ Arc provides a declarative interface to define your requests, that allows you to
 First of all, let's see how would look a todo list crud definition, considering a restfull api:
 
 ```js
-import { createApiActions } from 'redux-arc';
+import { createActions } from 'redux-arc';
 
 const baseUrl = 'http://localhost:4000/api';
 
-const { types, actions } = createApiActions('todo', {
+const { types, actions } = createActions('todo', {
   create: {
     url: `${baseUrl}/todo`,
     method: 'post',
@@ -39,18 +39,18 @@ types.READ.RESPONSE // TODO_READ_RESPONSE
 
 ```
 
-> In the above example, we defined a variable called baseUrl to be used in our Url's definitions. If you are using a lib like axios, you can set the baseUrl in its config, so, the url definition of `read`, for example, could look like this: `todo/:id` instead of this:`${baseUrl}/todo/:id`
+> In the above example, we defined a variable called baseUrl to be used in our Url's definitions. If you are using a lib like axios, you can set the **baseUrl** in its config, so, the url definition of `read`, for example, could look like this: `todo/:id` instead of this:`${baseUrl}/todo/:id`
 
 Let's step back and explore each part of this request definition.
 
-#createApiActions
+#createActions
 
 This function is only a factory that returns the action creators and the action types.
 
 ```js
-import { createApiActions } from 'redux-arc';
+import { createActions } from 'redux-arc';
 
-const { types, actions } = createApiActions('myNamespace', {
+const { types, actions } = createActions('myNamespace', {
   list: { url: 'path/to/list', method: 'get'},
 });
 ```

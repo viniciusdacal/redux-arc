@@ -22,7 +22,7 @@ describe('reset', () => {
 })
 
 describe('register', () => {
-  it('should register a police into global policies', () => {
+  it('should register a police into global middlewares', () => {
     const police = store => done => (action, error, response) => done(action, error, response);
     police.applyPoint = 'onRequest';
     register('myMiddleware', police);
@@ -70,7 +70,7 @@ describe('getRequestMiddlewares', () => {
     expect(result).toBe(SINGULAR_VALUE);
   });
 
-  test('should run even without policies registered', (done) => {
+  test('should run even without middlewares registered', (done) => {
     const myAction = { type: 'REQUEST' }
     const reqMiddlewares = getRequestMiddlewares(undefined);
     const callback = (action) => {
@@ -90,7 +90,7 @@ describe('getRequestMiddlewares', () => {
     );
   });
 
-  test('Should run the policies in the given order', (done) => {
+  test('Should run the middlewares in the given order', (done) => {
     const appendB = store => next => (action, error, response) =>
       next({ ...action, payload: action.payload + 'B' }, error, response);
 
