@@ -1,65 +1,15 @@
-import {
-  globalMiddlewares,
-  register,
-  reset,
-  getRequestMiddlewares,
-} from '../src/requestMiddlewares';
-
-beforeEach(() => {
-  reset();
-});
-
-describe('reset', () => {
-  it('should reset the globalMiddlewares', () => {
-    const police = store => done => (action, error, response) => done(action, error, response);
-    police.applyPoint = 'onRequest';
-    register('myMiddleware', police);
-
-    expect(globalMiddlewares.myMiddleware).not.toBe(undefined);
-    reset();
-    expect(globalMiddlewares.myMiddleware).toBe(undefined);
-  });
-})
-
-describe('register', () => {
-  it('should register a police into global middlewares', () => {
-    const police = store => done => (action, error, response) => done(action, error, response);
-    police.applyPoint = 'onRequest';
-    register('myMiddleware', police);
-
-    expect(globalMiddlewares.myMiddleware).toBe(police);
-  });
-
-  it('should throw when try to register a police more than once', () => {
-    const police = store => done => (action, error, response) => done(action, error, response);
-    police.applyPoint = 'onRequest';
-    register('myMiddleware', police);
-
-    expect(() => register('myMiddleware', police)).toThrow();
-  });
-
-  it('should validate a police', () => {
-    // police without applyPoint
-    const police = store => done => (action, error, response) => done(action, error, response);
-    expect(() => register('myMiddleware', police)).toThrow();
-    reset();
-    //invalid applyPoing
-    police.applyPoint = 'beforeReques';
-    expect(() => register('myMiddleware', police)).toThrow();
-  });
-});
+import { getRequestMiddlewares } from '../src/requestMiddlewares';
 
 describe('getRequestMiddlewares', () => {
   const SINGULAR_VALUE = 'SINGULAR_VALUE';
   test('should get the police runner for the given police array', (done) => {
-    const police = store => next => (action, error, response) => {
+    const myMiddleware = store => next => (action, error, response) => {
       return next({ ...action, myMiddlewareWasHere: true }, error, response);
     };
-    police.applyPoint = 'onRequest';
-    register('myMiddleware', police);
+    myMiddleware.applyPoint = 'onRequest';
 
     const myAction = { type: 'REQUEST' };
-    const reqMiddlewares = getRequestMiddlewares(['myMiddleware']);
+    const reqMiddlewares = getRequestMiddlewares([myMiddleware]);
     const callback = (action) => {
       expect(action.myMiddlewareWasHere).toBe(true);
 
@@ -82,11 +32,13 @@ describe('getRequestMiddlewares', () => {
     expect(result).toBe(SINGULAR_VALUE);
   });
 
-  test('Should throw when trying to use a non registered policy', () => {
+  test('Should throw when trying to use a invalid middleware', () => {
+    const invalidMiddleware = {};
+
     expect(
-      () => getRequestMiddlewares(['nonRegisteredMiddleware'])
+      () => getRequestMiddlewares(['invalidMiddlewareString', invalidMiddleware])
     ).toThrowError(
-      'Middleware nonRegisteredMiddleware not registered. Perhaps you forgot to import its file'
+      `All middlewares should be functions: [invalidMiddlewareString,[object Object]]`
     );
   });
 
@@ -105,13 +57,8 @@ describe('getRequestMiddlewares', () => {
 
     appendD.applyPoint = 'onRequest';
 
-
-    register('appendC', appendC);
-    register('appendB', appendB);
-    register('appendD', appendD);
-
     const myAction = { type: 'REQUEST', payload: 'A' };
-    const runner = getRequestMiddlewares(['appendB', 'appendC', 'appendD']);
+    const runner = getRequestMiddlewares([appendB, appendC, appendD]);
     const callback = (action) => {
       expect(action.payload).toBe('ABCD');
 

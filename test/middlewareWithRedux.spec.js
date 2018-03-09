@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware } from 'redux';
-import middlewares from '../src/requestMiddlewares';
 import createAsyncMiddleware from '../src/createAsyncMiddleware';
 
 
@@ -64,15 +63,12 @@ describe('Testing middleware on redux', () => {
 
     onResponseMiddleware.applyPoint = 'onResponse';
 
-    middlewares.register('onRequestMiddleware', onRequestMiddleware)
-    middlewares.register('onResponseMiddleware', onResponseMiddleware)
-
     const returnedValue = store.dispatch({
       type: ['REQUEST_ACTION', 'RESPONSE_ACTION'],
       payload: {},
       meta: {
         url: 'test',
-        middlewares: ['onRequestMiddleware', 'onResponseMiddleware'],
+        middlewares: [onRequestMiddleware, onResponseMiddleware],
         extras: true
       },
     });
@@ -82,7 +78,7 @@ describe('Testing middleware on redux', () => {
       payload: {},
       meta: {
         url: 'test',
-        middlewares: ['onRequestMiddleware', 'onResponseMiddleware'],
+        middlewares: [onRequestMiddleware, onResponseMiddleware],
         extras: true,
         onRequest: true,
       },
@@ -92,7 +88,7 @@ describe('Testing middleware on redux', () => {
       type: 'RESPONSE_ACTION',
       meta: {
         url: 'test',
-        middlewares: ['onRequestMiddleware', 'onResponseMiddleware'],
+        middlewares: [onRequestMiddleware, onResponseMiddleware],
         extras: true, onResponse: true, onRequest: true,
       }, // Passed through both middlewares
       payload: SINGULAR_RESPONSE,
@@ -101,6 +97,6 @@ describe('Testing middleware on redux', () => {
     returnedValue.then((value) => {
       done();
       expect(value).toBe(SINGULAR_RESPONSE);
-    })
+    });
   });
 });

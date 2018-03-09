@@ -9,8 +9,7 @@ Let's take a look into the whole code for that and then go through it, step by s
 Below you can see the middleware's code:
 
 ```js
-import { middlewares } from 'redux-arc';
-
+// saveUserSession.js
 function saveUserSession() {
   return done => (action, error, response) => {
     done(action, error, response);
@@ -20,7 +19,8 @@ function saveUserSession() {
   };
 }
 saveUserSession.applyPoint = 'onResponse';
-middlewares.register('saveUserSession', saveUserSession);
+
+export default saveUserSession;
 ```
 
 As we can observe in the above code, request middlewares are very similar to redux's middlewares. The big difference is that redux middlewares watches all application actions, while request middlewares you apply as you need, for specific requests.
@@ -39,13 +39,13 @@ To use a middleware, is fairly simple, you only need to define a property **midd
 
 
 ```js
-import './saveUserSession';
+import saveUserSession from  './saveUserSession';
 
 const { types, creators } = createApiActions('user', {
   login: {
     url: 'user/login',
     method: 'post',
-    middlewares: ['saveUserSession']
+    middlewares: [saveUserSession],
   },
 });
 
@@ -62,7 +62,7 @@ We are defining a login request, and we are applying the middleware we created t
 providing the middleware in the config, makes the middleware run every time you call that request. But let's say you would like to apply the middleware in a single call to that request, then you could do the following:
 
 ```js
-import './saveUserSession';
+import saveUserSession from  './saveUserSession';
 
 const { types, creators } = createApiActions('user', {
   login: {
@@ -75,7 +75,7 @@ dispatch(creators.login({
   payload: {
     email: 'user@test.com',
     password: '123',
-    middlewares: ['saveUserSession']
+    middlewares: [saveUserSession],
   },
 }));
 ```
@@ -91,8 +91,6 @@ So, let's imagine you would like to create and update a user, but you wouldn't l
 
 
 ```js
-import { middlewares } from 'redux-arc';
-
 function createOrUpdate() {
   return done => (action, error, response) => {
     const { payload, meta } = action;
@@ -112,7 +110,8 @@ function createOrUpdate() {
   }
 }
 createOrUpdate.applyPoint = 'onRequest';
-middlewares.register('createOrUpdate', createOrUpdate);
+
+export default createOrUpdate;
 ```
 
 > In the cases your middleware has an applyPoint `onRequest`, you would have access only to the `action` object, unless another middleware created an  `error` or `response` in the `onRequest` chain.
@@ -124,13 +123,13 @@ If there's an id present, we create another action, modifying the **url** to inc
 And that's it, our **createOrUpdate** middleware is done. Now, let's take a look on how to use it.
 
 ```js
-import './createOrUpdate';
+import createOrUpdate from  './createOrUpdate';
 
 const { types, creators } = createApiActions('user', {
   save: {
     url: 'user',
     method: 'post',
-    middlewares: ['createOrUpdate']
+    middlewares: [createOrUpdate]
   },
 });
 

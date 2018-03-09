@@ -3,7 +3,6 @@ import {
   createActions,
   createAsyncMiddleware,
   createReducers,
-  mergeTypesAndCreators,
   middlewares,
 } from '../src';
 
@@ -12,7 +11,6 @@ const publicNames = [
   'createActions',
   'createAsyncMiddleware',
   'createReducers',
-  'mergeTypesAndCreators',
   'middlewares',
 ]
 
@@ -22,7 +20,6 @@ describe('publicApi', () => {
     createActions,
     createAsyncMiddleware,
     createReducers,
-    mergeTypesAndCreators,
     middlewares,
   ].map((value, index) => {
     it(`should ${publicNames[index]} be present`, () => {

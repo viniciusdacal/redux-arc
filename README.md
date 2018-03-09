@@ -1,6 +1,5 @@
 <img src="https://github.com/viniciusdacal/redux-arc/blob/master/arc-64.png?raw=true" height="64" />
 
-
 Create scalable, no-boilerplate redux Apps!
 
 Arc is an abstraction layer to help you reduce boilerplate on redux-apps and also, organize better your code. Additionally, it has utilities to handle async requests.
@@ -84,6 +83,10 @@ We don't intend to recreate the wheel, instead, we tried to use what the communi
   types.ADD.RESPONSE // JEDI_ADD_RESPONSE
 ```
 > createActions creates both, regular and **Async Actions**. Async types has **REQUEST** and **RESPONSE** type, respectively to when a request starts and when it finishes.
+
+
+## Demo Project
+Take a look at the demo project using Arc to build a Contacts CRUD: [github.com/redux-arc/redux-arc-demo](https://github.com/redux-arc/redux-arc-demo)
 
 # Getting started
 
@@ -338,7 +341,10 @@ const asyncTask = store => done => (options) => {
   const { method, url, payload } = options;
   const params = method === 'get' ? { params: payload } : payload;
 
-  axios[method](url, params).then((error, response) => done(error, response));
+  axios[method](url, params).then(
+    response => done(null, response),
+    error => done(error, null),
+  );
 };
 
 // create the async middleware
