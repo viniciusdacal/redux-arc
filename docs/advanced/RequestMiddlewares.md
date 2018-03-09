@@ -9,7 +9,7 @@ Let's take a look into the whole code for that and then go through it, step by s
 Below you can see the middleware's code:
 
 ```js
-import { middlewares, createApiActions } from 'redux-arc';
+import { middlewares } from 'redux-arc';
 
 function saveUserSession() {
   return done => (action, error, response) => {
@@ -50,10 +50,8 @@ const { types, creators } = createApiActions('user', {
 });
 
 dispatch(creators.login({
-  payload: {
-    email: 'user@test.com',
-    password: '123',
-  },
+  email: 'user@test.com',
+  password: '123',
 }));
 ```
 
