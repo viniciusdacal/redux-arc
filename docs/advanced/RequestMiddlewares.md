@@ -1,5 +1,5 @@
 # Request Middlewares
-Request middlewares, as the name says, are middlewares that you can apply to specifics requests. Lets say you want to format your payload before the request, but only in a few cases. Or you would like to process some response, before it goes to the reducers. For all these edge cases, you can use a request middleware.
+Request middlewares, as the name says, are middlewares that you can apply to specific requests. Lets say you want to format your payload before the request, but only in a few cases. Or you would like to process some response, before it goes to the reducers. For all these edge cases, you can use a request middleware.
 
 # Saving a session token into localStorage
 Let's imagine you have a login request, that returns a session token in case of success. On the response, you need to get that token and save it to the browser's localStorage. That could be fairly easy to handle with a middleware.
@@ -12,10 +12,10 @@ Below you can see the middleware's code:
 // saveUserSession.js
 function saveUserSession() {
   return done => (action, error, response) => {
-    done(action, error, response);
     if (response && response.token) {
       localStorage.setItem('$token', response.token);
     }
+    return done(action, error, response);
   };
 }
 saveUserSession.applyPoint = 'onResponse';
@@ -27,15 +27,13 @@ As we can observe in the above code, request middlewares are very similar to red
 
 A middleware should also contain a property `applyPoint`, which should be either `'onRequest'` or `'onResponse'`. The applyPoint tells in which moment of the request the middleware will be executed. Considering we need the token that comes in the response, we use the applyPoint `'onResponse'`.
 
-Notice we also register the middleware into Arc, using `middlewares.register`
-
-Going to the code inside the middleware, the first thing we do, is call the function **done**, passing the same params we received. We do that because we don't want to intercept the action or modify the response, we only intend to use the response value.
+Going to the code inside the middleware, we call the function **done**, passing the same params we received. We do that because we don't want to intercept the action or modify the response, we only intend to use the response value. But we still do a **return** of the result of **done**, to not break the promise chain.
 
 After that, we check if the response is valid and then we save the token in the localStorage.
 
 
 ## Applying middlewares to requests
-To use a middleware, is fairly simple, you only need to define a property **middlewares** in your request, whose the value should be an array with the middlewares's names to be applied. Take a look at the following example:
+To use a middleware, is fairly simple, you only need to *import* and include it in an array under a property **middlewares** in the action config. Take a look at the following example:
 
 
 ```js
@@ -55,7 +53,6 @@ dispatch(creators.login({
 }));
 ```
 
-> Notice we are importing the middleware's file. You only need to do that once in the application, in order to register the middleware into Arc.
 
 We are defining a login request, and we are applying the middleware we created to it. Then, we use the creator to dispatch the action that will start the request, passing the email and password in the payload.
 
@@ -82,7 +79,7 @@ dispatch(creators.login({
 
 In the code above, instead of apply the middleware to all login requests, we apply to the single call we are doing.
 
-## Before request middlewares
+## onRequest middlewares
 In the previous example we used the applyPoint `'onResponse'`, because we wanted to access the response value. In the following example, we are going to use the applyPoint `'onRequest'`, because we will process and change the payload before it goes to the request.
 
 
@@ -106,7 +103,7 @@ function createOrUpdate() {
       payload: user,
       meta: { url: `${meta.url}/${id}`, method: 'put', id },
     };
-    done(updateAction, error, response);
+    return done(updateAction, error, response);
   }
 }
 createOrUpdate.applyPoint = 'onRequest';
