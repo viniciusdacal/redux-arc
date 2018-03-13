@@ -3,7 +3,7 @@ import createReducers from '../src/createReducers';
 const expectedToThrow = `All keys must be valid types and all values should be functions:
 {
   a: 👉  'test',
-👉  undefined: function Test() { ... },
+👉  undefined: function Test(state, action) { ... },
   b: function b() { ... },
   c: function c() { ... },
   d: 👉  null,
@@ -33,19 +33,42 @@ describe('createReducers', () => {
     expect(() => {
       const key = undefined;
       createReducers({}, {
-        a: 'test',
-        [key]: function Test() {},
-        b: () => {},
-        c: function() {},
-        d: null,
+        [key]: function() {},
       })
-    }).toThrow(expectedToThrow);
+    }).toThrow();
+  });
+
+  it('should throw when a key is invalid', () => {
+    expect(() => {
+      const key = { foo: 'bar' };
+      createReducers({}, {
+        [key]: function() {},
+      })
+    }).toThrow();
   });
 
   it('should throw when a reducer is not a function', () => {
     expect(() => {
       createReducers({}, { a: '' });
     }).toThrow();
+  });
+
+  it('should proper format the error message', () => {
+    expect(() => {
+      const key = undefined;
+      createReducers({}, {
+        a: 'test',
+        [key]: function Test(state, action) {
+          return {
+            ...state,
+            foo: 'bar',
+          }
+        },
+        b: () => {},
+        c: function() {},
+        d: null,
+      })
+    }).toThrow(expectedToThrow);
   });
 
   const reducer = createReducers(INITIAL_STATE, HANDLERS);

@@ -10,7 +10,7 @@ function visualValue(value) {
   if (value === undefined) return 'undefined';
   if (typeof value === 'string') return `'${value}'`;
   if (typeof value === 'function') {
-    return value.toString().replace(/\n/, '').replace(/{(.*)}/g, '{ ... }');
+    return value.toString().replace(/\n/g, '').replace(/{(.*)}/g, '{ ... }');
   }
   return value;
 }
@@ -27,8 +27,10 @@ function objToString(obj) {
 }
 
 function validateHandlers(handlers) {
-  const isInvalid = Object.keys(handlers).some((key, index) =>
-    (typeof key !== 'symbol' && typeof key !== 'string') ||
+  const isInvalid = Object.keys(handlers).some((key) =>
+    key === '[object Object]' ||
+    key === 'undefined' ||
+    key === 'null' ||
     typeof handlers[key] !== 'function'
   );
 
