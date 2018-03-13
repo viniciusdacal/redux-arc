@@ -1,5 +1,14 @@
 import createReducers from '../src/createReducers';
 
+const expectedToThrow = `All keys must be valid types and all values should be functions:
+{
+  a: 👉  'test',
+👉  undefined: function Test() { ... },
+  b: function b() { ... },
+  c: function c() { ... },
+  d: 👉  null,
+}`;
+
 describe('createReducers', () => {
   const INCLUDE_C = 'INCLUDE_C';
   const INCLUDE_D = 'INCLUDE_D';
@@ -26,8 +35,11 @@ describe('createReducers', () => {
       createReducers({}, {
         a: 'test',
         [key]: function Test() {},
+        b: () => {},
+        c: function() {},
+        d: null,
       })
-    }).toThrow();
+    }).toThrow(expectedToThrow);
   });
 
   it('should throw when a reducer is not a function', () => {

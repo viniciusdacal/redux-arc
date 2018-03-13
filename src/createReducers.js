@@ -1,7 +1,17 @@
+function insertEmojis (string) {
+  const searches = [': null', ': undefined', ': \'', '  undefined:'];
+  const replacers = [': 👉  null', ': 👉  undefined', ': 👉  \'', '👉  undefined:'];
+  return searches.reduce((str, search, index) =>
+    str.replace(search, replacers[index]), string);
+}
+
 function visualValue(value) {
   if (value === null) return 'null';
   if (value === undefined) return 'undefined';
   if (typeof value === 'string') return `'${value}'`;
+  if (typeof value === 'function') {
+    return value.toString().replace(/\n/, '').replace(/{(.*)}/g, '{ ... }');
+  }
   return value;
 }
 
@@ -11,17 +21,21 @@ function objToString(obj) {
   }
   let output = [];
   Object.keys(obj).forEach((key) => {
-    output.push(`\t${key}: ${visualValue(obj[key])},`);
+    output.push(`  ${key}: ${visualValue(obj[key])},`);
   });
-  return `{\t\n${output.join('\n')}\n}`;
+  return `{\n${output.join('\n')}\n}`;
 }
 
 function validateHandlers(handlers) {
-  const isInvalid = Object.keys(handlers).some((key, index) => {
-    return !key || key === 'undefined' || typeof handlers[key] !== 'function'
-  });
+  const isInvalid = Object.keys(handlers).some((key, index) =>
+    (typeof key !== 'symbol' && typeof key !== 'string') ||
+    typeof handlers[key] !== 'function'
+  );
+
   if (isInvalid) {
-    throw new Error(`All keys should be defined  values should be present:\n${objToString(handlers)}`);
+    throw new Error(
+      `All keys must be valid types and all values should be functions:\n${insertEmojis(objToString(handlers))}
+    `);
   }
 }
 
