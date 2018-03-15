@@ -1,4 +1,4 @@
-<img src="https://github.com/viniciusdacal/redux-arc/blob/master/arc-64.png?raw=true" height="64" />
+<img src="https://github.com/viniciusdacal/redux-arc/blob/master/arc-64.png?raw=true" witdh="200" />
 
 Create scalable, no-boilerplate redux Apps!
 
