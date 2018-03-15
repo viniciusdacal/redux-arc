@@ -1,6 +1,6 @@
-# Connecting Arc into Redux
+# Creating Async Middleware
 
-The first step to start using Arc, is to create the AsyncMiddleware and set it to the store.
+The first step to start using Arc's async actions, is to create the AsyncMiddleware and set it to the store.
 
 
 ```js
