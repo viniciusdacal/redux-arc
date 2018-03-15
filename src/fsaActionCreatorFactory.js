@@ -19,12 +19,18 @@ export default function actionCreatorFactory(config, type) {
       action.meta = finalMeta;
     }
 
-    const finalPayload = payload !== undefined ? payload : configPayload;
+    const finalPayload = payload !== undefined
+      ? payload
+      : configPayload;
+
     if (finalPayload !== undefined) {
       action.payload = finalPayload;
     }
 
-    const finalError = error !== undefined ? error : configError;
+    const finalError = error !== undefined
+      ? error
+      : configError;
+
     if (finalError !== undefined) {
       action.error = finalError;
     }

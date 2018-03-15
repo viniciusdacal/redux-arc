@@ -12,7 +12,8 @@ const baseConfigs = {
     }
   },
   reset: null,
-  clear: null,
+  clear: 1,
+  withDefaults: { payload: '1', meta: { foo: 'bar' }, error: true },
   resetWithMeta: {
     meta: {
       a: 'TEST',
@@ -40,6 +41,7 @@ describe('createActions', () => {
         RESPONSE: 'MY_READ_WITH_EXTRAS_RESPONSE',
       },
       RESET: 'MY_RESET',
+      WITH_DEFAULTS: 'MY_WITH_DEFAULTS',
       CLEAR: 'MY_CLEAR',
       RESET_WITH_META: 'MY_RESET_WITH_META',
     };
@@ -55,6 +57,10 @@ describe('createActions', () => {
         method: 'get',
       },
     });
+
+    expect(creators.reset()).toEqual({
+      type: types.RESET,
+    });
   });
 
   it('should parse the url with provided params', () => {
@@ -66,6 +72,29 @@ describe('createActions', () => {
         id: '123',
       },
       payload: null,
+    });
+
+  });
+
+  it('should return the final action with given payload, meta and error', () => {
+    expect(creators.reset(null, { id: '123' }, false)).toEqual({
+      type: types.RESET,
+      meta: {
+        id: '123',
+      },
+      payload: null,
+      error: false,
+    });
+  });
+
+  it('should return the action with defaults values if configured', () => {
+    expect(creators.withDefaults()).toEqual({
+      type: types.WITH_DEFAULTS,
+      meta: {
+        foo: 'bar',
+      },
+      payload: '1',
+      error: true,
     });
   });
 

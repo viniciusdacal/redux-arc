@@ -2,11 +2,14 @@ import createReducers from '../src/createReducers';
 
 const expectedToThrow = `All keys must be valid types and all values should be functions:
 {
-  a: 👉  'test',
-👉  undefined: function Test(state, action) { ... },
+  a: 👉 'test',
+  👉 undefined: function Test(state, action) { ... },
   b: function b() { ... },
   c: function c() { ... },
-  d: 👉  null,
+  d: 👉 null,
+  👉 [object Object]: 👉 null,
+  e: 👉 1,
+  f: 👉 undefined,
 }`;
 
 describe('createReducers', () => {
@@ -53,6 +56,12 @@ describe('createReducers', () => {
     }).toThrow();
   });
 
+  it('should throw if handlers is empty', () => {
+    expect(() => {
+      createReducers({}, null);
+    }).toThrow('Invalid handler: null');
+  });
+
   it('should proper format the error message', () => {
     expect(() => {
       const key = undefined;
@@ -67,6 +76,9 @@ describe('createReducers', () => {
         b: () => {},
         c: function() {},
         d: null,
+        [{}]: null,
+        e: 1,
+        f: undefined,
       })
     }).toThrow(expectedToThrow);
   });
@@ -79,6 +91,14 @@ describe('createReducers', () => {
 
   it('should provide the correct state', () => {
     expect(reducer({ z: 'z', y: 'y'}, { type: ACTION_NOT_REGISTERED })).toEqual({ z: 'z', y: 'y'});
+  });
+
+  it('should return the current state if there is no action', () => {
+    expect(reducer({ z: 'z', y: 'y'})).toEqual({ z: 'z', y: 'y'});
+  });
+
+  it('should return assume INITIAL_STATE when no state is provided', () => {
+    expect(reducer()).toEqual(INITIAL_STATE);
   });
 
   it('should call only the reducer registered for the action', () => {

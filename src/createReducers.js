@@ -1,8 +1,14 @@
 function insertEmojis (string) {
-  const searches = [': null', ': undefined', ': \'', '  undefined:'];
-  const replacers = [': 👉  null', ': 👉  undefined', ': 👉  \'', '👉  undefined:'];
-  return searches.reduce((str, search, index) =>
-    str.replace(search, replacers[index]), string);
+  const searches = [
+    ' undefined',
+    ' null',
+    ' \'',
+    ' \\[object Object\\]',
+    ' \[0-9\].*',
+  ];
+
+  return searches.reduce(
+    (str, search, index) => str.replace(new RegExp(`(${search})`, 'g'), ` 👉$1`), string)
 }
 
 function visualValue(value) {
@@ -16,9 +22,6 @@ function visualValue(value) {
 }
 
 function objToString(obj) {
-  if (!obj) {
-    return '';
-  }
   let output = [];
   Object.keys(obj).forEach((key) => {
     output.push(`  ${key}: ${visualValue(obj[key])},`);
@@ -27,6 +30,9 @@ function objToString(obj) {
 }
 
 function validateHandlers(handlers) {
+  if (!handlers) {
+    throw new Error(`Invalid handler: ${handlers}`);
+  }
   const isInvalid = Object.keys(handlers).some((key) =>
     key === '[object Object]' ||
     key === 'undefined' ||
