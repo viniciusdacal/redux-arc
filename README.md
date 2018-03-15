@@ -341,8 +341,8 @@ const asyncTask = store => done => (options) => {
   const { method, url, payload } = options;
   const params = method === 'get' ? { params: payload } : payload;
 
-  axios[method](url, params).then(
-    response => done(null, response),
+  return axios[method](url, params).then(
+    response => done(null, response.data),
     error => done(error, null),
   );
 };
