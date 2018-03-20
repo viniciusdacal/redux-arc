@@ -41,7 +41,7 @@ We don't intend to recreate the wheel, instead, we tried to use what the communi
 
   const HANDLERS = {
     [types.ADD]: onAdd,
-    [types.onReset]: onReset,
+    [types.RESET]: onReset,
   };
 
   export default createReducers(INITIAL_STATE, HANDLERS);
