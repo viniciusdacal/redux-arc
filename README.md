@@ -188,7 +188,7 @@ Also, when you do a console.log to see its content, you can see that we prefix t
 
 > We decided to have the namespace, to not stop you from having actions with the same name in different modules. Don't worry, you will be able to differ them easily when using redux-dev-tools, just remember to provide unique namespaces.
 
-#Reducers
+# Reducers
 
 Beyond types and action creators, we also have reducers. There are a few ways to deal with them, some approaches use `switch case`, some others use multiple `IFs`. With most of them, you end up having a lot of code inside the same function, which makes maintenance and focusing hard. I know some approaches mention that you can split your code into small functions when it gets bigger, but why do not start from something that is easy to scale and also allow you to focus on each action separately?
 
