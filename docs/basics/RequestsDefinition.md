@@ -4,7 +4,7 @@ Arc provides a declarative interface to define async actions, that allows you to
 
 First of all, let's see how would look a todo list crud definition, considering a rest api:
 
-Let's consider you base url as `/api`:
+Let's consider our base url as `/api`:
 
 ```js
 import { createActions } from 'redux-arc';
@@ -28,19 +28,19 @@ types.READ.RESPONSE // TODO_READ_RESPONSE
 
 Let's step back and explore each part of this request definition.
 
-#createActions
+# createApiActions
 
 This function is only a factory that returns the action creators and the action types.
 
 ```js
-import { createActions } from 'redux-arc';
+import { createApiActions } from 'redux-arc';
 
-const { types, actions } = createActions('myNamespace', {
+const { types, actions } = createApiActions('myNamespace', {
   list: { url: 'path/to/list', method: 'get'},
 });
 ```
 
-As its first param, `createApiAction` expects a namespace, that will be used as a prefix of your types.
+As its first param, `createApiActions` expects a namespace, that will be used as a prefix of your types.
 
 The second param is the requests definition object, which should respect the following pattern:
 
