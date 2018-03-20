@@ -4,7 +4,7 @@ Arc provides a declarative interface to define async actions, that allows you to
 
 First of all, let's see how would look a todo list crud definition, considering a rest api:
 
-Let's consider you base url as `/api`:
+Let's consider your base url as `/api`:
 
 ```js
 import { createActions } from 'redux-arc';
