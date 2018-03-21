@@ -4,7 +4,7 @@ When you start a request, dispatching an async action, There are two different a
 Let's observe the following example:
 
 ```js
-const { creators, types } = createApiActions('todo', {
+const { creators, types } = createActions('todo', {
   update: { url: 'todo/:id', method: 'put' }
 })
 ```

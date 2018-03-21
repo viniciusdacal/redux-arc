@@ -9,7 +9,7 @@ function getFactory(singleConfig) {
 const DEFAULT_CONFIG = {};
 
 /*
-  @param {Object} config - original config object provided to createApiActions
+  @param {Object} config - original config object provided to createActions
   @param {Object} actionTypes - action types object with keys being the original names and the value
   being the uppercased namespace + uppercased name.
 */

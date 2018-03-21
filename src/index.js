@@ -5,7 +5,6 @@ import middlewares from './requestMiddlewares';
 
 export {
   createActions,
-  createActions as createApiActions,
   createAsyncMiddleware,
   createReducers,
   middlewares,

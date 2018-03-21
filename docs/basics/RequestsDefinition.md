@@ -4,7 +4,7 @@ Arc provides a declarative interface to define async actions, that allows you to
 
 First of all, let's see how would look a todo list crud definition, considering a rest api:
 
-Let's consider you base url as `/api`:
+Let's consider our base url as `/api`:
 
 ```js
 import { createActions } from 'redux-arc';
@@ -17,14 +17,17 @@ const { types, actions } = createActions('todo', {
   list:   { url: '/api/todo',     method: 'get'  },
 });
 
-actions.read({ id: '123'}); //dispatch read action
+const payload = null;
+const meta = { id: '123' };
+
+actions.read(payload, meta); //dispatch read action
 
 types.READ.REQUEST // TODO_READ_REQUEST
 types.READ.RESPONSE // TODO_READ_RESPONSE
 
 ```
 
-> In the above example, we have our baseUrl as `/api`. If you are using a lib like axios, you can set the **baseUrl** in its config, so, the url definition of `read`, for example, could look like this: `todo/:id` instead of this:`api/todo/:id`
+> In the above example, we have our baseUrl as `/api`. If you are using a lib like axios, you can set the **baseUrl** in its config, so, the url definition of `read`, for example, could look like this: `todo/:id` instead of this:`/api/todo/:id`
 
 Let's step back and explore each part of this request definition.
 
@@ -40,9 +43,9 @@ const { types, actions } = createActions('myNamespace', {
 });
 ```
 
-As its first param, `createApiAction` expects a namespace, that will be used as a prefix of your types.
+`createActions` expects a namespace as its first argument, that will be used to prefix the action types.
 
-The second param is the requests definition object, which should respect the following pattern:
+The second argument is the requests definition object, which should respect the following pattern:
 
 ```js
 {

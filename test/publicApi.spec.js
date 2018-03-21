@@ -1,5 +1,4 @@
 import {
-  createApiActions,
   createActions,
   createAsyncMiddleware,
   createReducers,
@@ -7,23 +6,21 @@ import {
 } from '../src';
 
 const publicNames = [
-  'createApiActions',
   'createActions',
   'createAsyncMiddleware',
   'createReducers',
   'middlewares',
-]
+];
 
 describe('publicApi', () => {
   [
-    createApiActions,
     createActions,
     createAsyncMiddleware,
     createReducers,
     middlewares,
   ].map((value, index) => {
     it(`should ${publicNames[index]} be present`, () => {
-      expect(!!value).toBe(true)
+      expect(!!value).toBe(true);
     });
   });
 });

@@ -37,9 +37,10 @@ To use a middleware, is fairly simple, you only need to *import* and include it 
 
 
 ```js
+import { createActions } from 'redux-arc';
 import saveUserSession from  './saveUserSession';
 
-const { types, creators } = createApiActions('user', {
+const { types, creators } = createActions('user', {
   login: {
     url: 'user/login',
     method: 'post',
@@ -61,7 +62,7 @@ providing the middleware in the config, makes the middleware run every time you 
 ```js
 import saveUserSession from  './saveUserSession';
 
-const { types, creators } = createApiActions('user', {
+const { types, creators } = createActions('user', {
   login: {
     url: 'user/login',
     method: 'post',
@@ -120,9 +121,10 @@ If there's an id present, we create another action, modifying the **url** to inc
 And that's it, our **createOrUpdate** middleware is done. Now, let's take a look on how to use it.
 
 ```js
+import { createActions } from 'redux-arc';
 import createOrUpdate from  './createOrUpdate';
 
-const { types, creators } = createApiActions('user', {
+const { types, creators } = createActions('user', {
   save: {
     url: 'user',
     method: 'post',
