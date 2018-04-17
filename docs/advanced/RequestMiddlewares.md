@@ -70,11 +70,9 @@ const { types, creators } = createActions('user', {
 });
 
 dispatch(creators.login({
-  payload: {
-    email: 'user@test.com',
-    password: '123',
-    middlewares: [saveUserSession],
-  },
+  email: 'user@test.com',
+  password: '123',
+  middlewares: [saveUserSession],
 }));
 ```
 
@@ -133,18 +131,14 @@ const { types, creators } = createActions('user', {
 });
 
 dispatch(creators.save({
-  payload: {
-    name: 'My New user',
-    email: 'user@redux-arc.org',
-  },
+  name: 'My New user',
+  email: 'user@redux-arc.org',
 }));
 
 dispatch(creators.save({
-  payload: {
-    id: '123'
-    name: 'My Edited user',
-    email: 'user@redux-arc.org',
-  },
+  id: '123'
+  name: 'My Edited user',
+  email: 'user@redux-arc.org',
 }));
 ```
 
