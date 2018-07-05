@@ -132,13 +132,13 @@ const { types, creators } = createActions('user', {
 
 dispatch(creators.save({
   name: 'My New user',
-  email: 'user@redux-arc.org',
+  email: 'user@redux-arc.js.org',
 }));
 
 dispatch(creators.save({
   id: '123'
   name: 'My Edited user',
-  email: 'user@redux-arc.org',
+  email: 'user@redux-arc.js.org',
 }));
 ```
 

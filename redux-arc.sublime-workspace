@@ -519,50 +519,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "test/requestMiddlewares.spec.js",
-			"settings":
-			{
-				"buffer_size": 2548,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "test/middlewareWithRedux.spec.js",
-			"settings":
-			{
-				"buffer_size": 2803,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "redux-arc.sublime-project",
-			"settings":
-			{
-				"buffer_size": 0,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "package.json",
-			"settings":
-			{
-				"buffer_size": 3245,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/requestMiddlewares.js",
-			"settings":
-			{
-				"buffer_size": 1679,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -612,6 +568,10 @@
 				"File: Close All"
 			],
 			[
+				"babel",
+				"Set Syntax: JavaScript (Babel)"
+			],
+			[
 				"bl",
 				"Git Blame"
 			],
@@ -646,10 +606,6 @@
 			[
 				"java",
 				"Set Syntax: Java"
-			],
-			[
-				"babel",
-				"Set Syntax: JavaScript (Babel)"
 			],
 			[
 				"low",
@@ -1041,8 +997,12 @@
 	],
 	"file_history":
 	[
-		"/Users/viniciusdacal/github/redux-arc/README.md",
+		"/Users/viniciusdacal/github/redux-arc/test/requestMiddlewares.spec.js",
+		"/Users/viniciusdacal/github/redux-arc/test/middlewareWithRedux.spec.js",
+		"/Users/viniciusdacal/github/redux-arc/redux-arc.sublime-project",
+		"/Users/viniciusdacal/github/redux-arc/docs/advanced/RequestMiddlewares.md",
 		"/Users/viniciusdacal/github/redux-arc/src/requestMiddlewares.js",
+		"/Users/viniciusdacal/github/redux-arc/README.md",
 		"/Users/viniciusdacal/ben/app/web/src/components/Tools/MediaValueCalculator/AdditionalFields/AdditionalFields.jsx",
 		"/Users/viniciusdacal/ben/app/web/src/components/Tools/MediaValueCalculator/MediaValueCalculator.jsx",
 		"/Users/viniciusdacal/ben/app/web/src/components/Tools/MediaValueCalculator/connector.js",
@@ -1164,15 +1124,11 @@
 		"/Users/viniciusdacal/ben/app/web/src/components/QueuedJobs/List/schema.js",
 		"/Users/viniciusdacal/ben/app/web/src/components/User/List/connector.jsx",
 		"/Users/viniciusdacal/ben/app/web/src/utils/filtersWithUrl/selectors.js",
-		"/Users/viniciusdacal/ben/app/web/src/utils/filtersWithUrl/filtersWithUrl.js",
-		"/Users/viniciusdacal/ben/app/web/src/components/QueuedJobs/List/connector.jsx",
-		"/Users/viniciusdacal/ben/app/web/src/components/QueuedJobs/actions.js",
-		"/Users/viniciusdacal/ben/app/web/src/utils/filtersWithUrl/utils.js",
-		"/Users/viniciusdacal/ben/app/web/src/components/Opportunity/Content/Content.jsx"
+		"/Users/viniciusdacal/ben/app/web/src/utils/filtersWithUrl/filtersWithUrl.js"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 157.0
 	},
 	"find_in_files":
 	{
@@ -1186,6 +1142,8 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"payload:",
+			"payload",
 			"jest",
 			"middlewares",
 			"police",
@@ -1209,176 +1167,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "test/requestMiddlewares.spec.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2548,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1542,
-								1542
-							]
-						],
-						"settings":
-						{
-							"SL.489.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 334.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "test/middlewareWithRedux.spec.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2803,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								121,
-								121
-							]
-						],
-						"settings":
-						{
-							"SL.493.region_keys":
-							[
-								"sublime_linter.protected_regions"
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1119.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "redux-arc.sublime-project",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"open_with_edit": true,
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "package.json",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 3245,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2067,
-								2071
-							]
-						],
-						"settings":
-						{
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 835.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "src/requestMiddlewares.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1679,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								673,
-								673
-							]
-						],
-						"settings":
-						{
-							"SL.490.region_keys":
-							[
-							],
-							"git_gutter_is_enabled": true,
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 224.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1446,6 +1236,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"request",
+				"docs/advanced/RequestMiddlewares.md"
+			],
 			[
 				"placement/redu",
 				"web/src/components/Placement/reducers.js"
@@ -1953,10 +1747,6 @@
 			[
 				"buttongrou",
 				"web/src/components/Form/ButtonGroup/ButtonGroup.jsx"
-			],
-			[
-				"filterswith",
-				"web/src/utils/filtersWithUrl/filtersWithUrl.js"
 			]
 		],
 		"width": 0.0

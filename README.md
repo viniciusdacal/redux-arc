@@ -359,7 +359,7 @@ const store = createStore(
 
 >In the above example, we are using axios, but you can use whatever you want to perform the request, just make sure you call done, passing error and response when the request has finished.
 
-For more info about **asyncTask** and **createAsyncMiddleware**, read [Connecting Arc Into Redux](http://redux-arc.org/docs/basics/ConnectingArcIntoRedux.html)
+For more info about **asyncTask** and **createAsyncMiddleware**, read [Connecting Arc Into Redux](http://redux-arc.js.org/docs/basics/ConnectingArcIntoRedux.html)
 
 
 ## Async actions in Reducers

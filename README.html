@@ -1206,7 +1206,7 @@ const store = createStore(
 <blockquote>
 <p>In the above example, we are using axios, but you can use whatever you want to perform the request, just make sure you call done, passing error and response when the request ends.</p>
 </blockquote>
-<p>For more info about <strong>asyncTask</strong> and <strong>createAsyncMiddleware</strong>, read <a href="http://redux-arc.org/docs/basics/ConnectingArcIntoRedux.html">Connecting Arc Into Redux</a></p>
+<p>For more info about <strong>asyncTask</strong> and <strong>createAsyncMiddleware</strong>, read <a href="http://redux-arc.js.org/docs/basics/ConnectingArcIntoRedux.html">Connecting Arc Into Redux</a></p>
 <h1 id="reducers"><a name="user-content-reducers" href="#reducers" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Reducers</h1>
 <p>Beyond types and action creators, we also have reducers. There are a few ways to deal with them, some approaches use <code>switch case</code>, some others use multiple <code>IFs</code>. With most of them, you end up having a lot of code inside the same function, which makes maintenance and focusing hard. I know some approaches mention that you can split your code into small functions when it gets bigger, but why do not start from something that is easy to scale and also allow you to focus on each action separately?</p>
 <p>Thinking about that, we created the function <code>createReducers</code></p>

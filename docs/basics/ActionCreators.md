@@ -113,7 +113,7 @@ As you can see, the api is nearly the same, you just need to provide the params 
 
  - **url**: an endpoint to make the requests. It also accepts dynamic params, as you can see in the config to **update** request. We defined a `:id` which will be parsed when we call the creator providing the actual param.
  - **method**: Any http method your request lib supports. ('get', 'post', etc...)
- - **middlewares**: Arc also accepts middlewares in the action config, to give you flexibility to handle edge cases. You can check them at: [Request Middlewares](http://redux-arc.org/docs/advanced/RequestMiddlewares.html)
+ - **middlewares**: Arc also accepts middlewares in the action config, to give you flexibility to handle edge cases. You can check them at: [Request Middlewares](http://redux-arc.js.org/docs/advanced/RequestMiddlewares.html)
 
 
 Given the above config, to start a list request, you could just do the following:
