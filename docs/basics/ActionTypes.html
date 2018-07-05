@@ -1,0 +1,407 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Action Types · Redux Arc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../build/gitbook.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="CreatingAsyncMiddleware.html" />
+    
+    
+    <link rel="prev" href="ActionCreators.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Basics
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="ActionCreators.html">
+            
+                <a href="ActionCreators.html">
+            
+                    
+                    Action Creators
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.2" data-path="ActionTypes.html">
+            
+                <a href="ActionTypes.html">
+            
+                    
+                    Action Types
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="CreatingAsyncMiddleware.html">
+            
+                <a href="CreatingAsyncMiddleware.html">
+            
+                    
+                    Creating Async Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="RequestsDefinition.html">
+            
+                <a href="RequestsDefinition.html">
+            
+                    
+                    Requests Definition
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../advanced/">
+            
+                <a href="../advanced/">
+            
+                    
+                    Advanced
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../advanced/RequestMiddlewares.html">
+            
+                <a href="../advanced/RequestMiddlewares.html">
+            
+                    
+                    Request Middlewares
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Action Types</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="action-types">Action Types</h1>
+<p>Beyond creators, you also receive an object named <strong>types</strong> when you call <code>createActions</code>. This object contains all the respective types for your actions.</p>
+<p>Given the following config:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> types <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;myNamespace&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  list<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  update<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;todo/:id&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;put&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  reset<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Your action types would look exactly like this:</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  LIST<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    REQUEST<span class="token punctuation">:</span> <span class="token string">&apos;MY_NAMESPACE_LIST_REQUEST&apos;</span><span class="token punctuation">,</span>
+    RESPONSE<span class="token punctuation">:</span> <span class="token string">&apos;MY_NAMESPACE_LIST_RESPONSE&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  UPDATE<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    REQUEST<span class="token punctuation">:</span> <span class="token string">&apos;MY_NAMESPACE_UPDATE_REQUEST&apos;</span><span class="token punctuation">,</span>
+    RESPONSE<span class="token punctuation">:</span> <span class="token string">&apos;MY_NAMESPACE_UPDATE_RESPONSE&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  RESET<span class="token punctuation">:</span> <span class="token string">&apos;MY_NAMESPACE_RESET&apos;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Considering the code above, to get the type for your list response action, you could do the following:</p>
+<pre class="language-"><code class="lang-js">  types<span class="token punctuation">.</span>LIST<span class="token punctuation">.</span>RESPONSE <span class="token comment" spellcheck="true">// MY_NAMESPACE_LIST_RESPONSE</span>
+</code></pre>
+<p><strong>The logic we use to define the types, is basically:</strong></p>
+<p>Convert the action name to Upper Case, splitting words by underscore <code>_</code> and use it as the root keys of our action types object:</p>
+<pre class="language-"><code class="lang-js">  <span class="token comment" spellcheck="true">// list -&gt; LIST</span>
+  <span class="token punctuation">{</span>
+    LIST<span class="token punctuation">,</span>
+    UPDATE<span class="token punctuation">,</span>
+    RESET<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>For async types, we add the keys <code>REQUEST</code> and <code>RESPONSE</code> to all types objects:</p>
+<pre class="language-"><code class="lang-js">  <span class="token comment" spellcheck="true">// list -&gt;</span>
+  <span class="token punctuation">{</span>
+    LIST<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      REQUEST<span class="token punctuation">,</span>
+      RESPONSE<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    UPDATE<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      REQUEST<span class="token punctuation">,</span>
+      RESPONSE<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    RESET<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>The final value for the action type, begins with the namespace uppercased, followed by the action name uppercased.  For <strong>Async Actions</strong>, we append respectively, the words <code>REQUEST</code> and <code>RESPONSE</code>).</p>
+<pre class="language-"><code>  myNamespace -&gt; MY_NAMESPACE
+  list -&gt; LIST
+  reset -&gt; RESET
+
+  MY_NAMESPACE_LIST_REQUEST
+  MY_NAMESPACE_LIST_RESPONSE
+
+  MY_NAMESPACE_RESET
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="ActionCreators.html" class="navigation navigation-prev " aria-label="Previous page: Action Creators">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="CreatingAsyncMiddleware.html" class="navigation navigation-next " aria-label="Next page: Creating Async Middleware">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Action Types","level":"1.2.2","depth":2,"next":{"title":"Creating Async Middleware","level":"1.2.3","depth":2,"path":"docs/basics/CreatingAsyncMiddleware.md","ref":"docs/basics/CreatingAsyncMiddleware.md","articles":[]},"previous":{"title":"Action Creators","level":"1.2.1","depth":2,"path":"docs/basics/ActionCreators.md","ref":"docs/basics/ActionCreators.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/viniciusdacal/redux-arc/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Redux Arc","base":"https://github.com/viniciusdacal/redux-arc/tree/master"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Arc","gitbook":"3.2.2"},"file":{"path":"docs/basics/ActionTypes.md","mtime":"2018-03-07T22:00:49.923Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-07-05T17:32:18.626Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

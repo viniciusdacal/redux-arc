@@ -1,0 +1,464 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Request Middlewares · Redux Arc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../build/gitbook.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../basics/">
+            
+                <a href="../basics/">
+            
+                    
+                    Basics
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../basics/ActionCreators.html">
+            
+                <a href="../basics/ActionCreators.html">
+            
+                    
+                    Action Creators
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../basics/ActionTypes.html">
+            
+                <a href="../basics/ActionTypes.html">
+            
+                    
+                    Action Types
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../basics/CreatingAsyncMiddleware.html">
+            
+                <a href="../basics/CreatingAsyncMiddleware.html">
+            
+                    
+                    Creating Async Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../basics/RequestsDefinition.html">
+            
+                <a href="../basics/RequestsDefinition.html">
+            
+                    
+                    Requests Definition
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Advanced
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.3.1" data-path="RequestMiddlewares.html">
+            
+                <a href="RequestMiddlewares.html">
+            
+                    
+                    Request Middlewares
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Request Middlewares</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="request-middlewares">Request Middlewares</h1>
+<p>Request middlewares, as the name says, are middlewares that you can apply to specific requests. Lets say you want to format your payload before the request, but only in a few cases. Or you would like to process some response, before it goes to the reducers. For all these edge cases, you can use a request middleware.</p>
+<h1 id="saving-a-session-token-into-localstorage">Saving a session token into localStorage</h1>
+<p>Let&apos;s imagine you have a login request, that returns a session token in case of success. On the response, you need to get that token and save it to the browser&apos;s localStorage. That could be fairly easy to handle with a middleware.</p>
+<p>Let&apos;s take a look into the whole code for that and then go through it, step by step.</p>
+<p>Below you can see the middleware&apos;s code:</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// saveUserSession.js</span>
+<span class="token keyword">function</span> <span class="token function">saveUserSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> done <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>action<span class="token punctuation">,</span> error<span class="token punctuation">,</span> response<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>response <span class="token operator">&amp;&amp;</span> response<span class="token punctuation">.</span>token<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">&apos;$token&apos;</span><span class="token punctuation">,</span> response<span class="token punctuation">.</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token function">done</span><span class="token punctuation">(</span>action<span class="token punctuation">,</span> error<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+saveUserSession<span class="token punctuation">.</span>applyPoint <span class="token operator">=</span> <span class="token string">&apos;onResponse&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> saveUserSession<span class="token punctuation">;</span>
+</code></pre>
+<p>As we can observe in the above code, request middlewares are very similar to redux&apos;s middlewares. The big difference is that redux middlewares watches all application actions, while request middlewares you apply as you need, for specific requests.</p>
+<p>A middleware should also contain a property <code>applyPoint</code>, which should be either <code>&apos;onRequest&apos;</code> or <code>&apos;onResponse&apos;</code>. The applyPoint tells in which moment of the request the middleware will be executed. Considering we need the token that comes in the response, we use the applyPoint <code>&apos;onResponse&apos;</code>.</p>
+<p>Going to the code inside the middleware, we call the function <strong>done</strong>, passing the same params we received. We do that because we don&apos;t want to intercept the action or modify the response, we only intend to use the response value. But we still do a <strong>return</strong> of the result of <strong>done</strong>, to not break the promise chain.</p>
+<p>After that, we check if the response is valid and then we save the token in the localStorage.</p>
+<h2 id="applying-middlewares-to-requests">Applying middlewares to requests</h2>
+<p>To use a middleware, is fairly simple, you only need to <em>import</em> and include it in an array under a property <strong>middlewares</strong> in the action config. Take a look at the following example:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> saveUserSession <span class="token keyword">from</span>  <span class="token string">&apos;./saveUserSession&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">{</span> types<span class="token punctuation">,</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;user&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  login<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> <span class="token string">&apos;user/login&apos;</span><span class="token punctuation">,</span>
+    method<span class="token punctuation">:</span> <span class="token string">&apos;post&apos;</span><span class="token punctuation">,</span>
+    middlewares<span class="token punctuation">:</span> <span class="token punctuation">[</span>saveUserSession<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  email<span class="token punctuation">:</span> <span class="token string">&apos;user@test.com&apos;</span><span class="token punctuation">,</span>
+  password<span class="token punctuation">:</span> <span class="token string">&apos;123&apos;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>We are defining a login request, and we are applying the middleware we created to it. Then, we use the creator to dispatch the action that will start the request, passing the email and password in the payload.</p>
+<p>providing the middleware in the config, makes the middleware run every time you call that request. But let&apos;s say you would like to apply the middleware in a single call to that request, then you could do the following:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> saveUserSession <span class="token keyword">from</span>  <span class="token string">&apos;./saveUserSession&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">{</span> types<span class="token punctuation">,</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;user&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  login<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> <span class="token string">&apos;user/login&apos;</span><span class="token punctuation">,</span>
+    method<span class="token punctuation">:</span> <span class="token string">&apos;post&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  email<span class="token punctuation">:</span> <span class="token string">&apos;user@test.com&apos;</span><span class="token punctuation">,</span>
+  password<span class="token punctuation">:</span> <span class="token string">&apos;123&apos;</span><span class="token punctuation">,</span>
+  middlewares<span class="token punctuation">:</span> <span class="token punctuation">[</span>saveUserSession<span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>In the code above, instead of apply the middleware to all login requests, we apply to the single call we are doing.</p>
+<h2 id="onrequest-middlewares">onRequest middlewares</h2>
+<p>In the previous example we used the applyPoint <code>&apos;onResponse&apos;</code>, because we wanted to access the response value. In the following example, we are going to use the applyPoint <code>&apos;onRequest&apos;</code>, because we will process and change the payload before it goes to the request.</p>
+<h2 id="saving-an-user">Saving an user</h2>
+<p>So, let&apos;s imagine you would like to create and update a user, but you wouldn&apos;t like to configure two different requests to do that. You would rather to config a single request named <strong>save</strong> and when you call it passing a user without an id, it would understand that you were intending to do a creation request, otherwise, it would assume you were trying to update the user, and would do the necessary changes on the request data to ensure the update would work. You could create a middleware to handle that scenario, and name it <strong>createOrUpdate</strong>. Let&apos;s do it.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">function</span> <span class="token function">createOrUpdate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> done <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>action<span class="token punctuation">,</span> error<span class="token punctuation">,</span> response<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> payload<span class="token punctuation">,</span> meta <span class="token punctuation">}</span> <span class="token operator">=</span> action<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>payload<span class="token punctuation">.</span>id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">done</span><span class="token punctuation">(</span>action<span class="token punctuation">,</span> error<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> id<span class="token punctuation">,</span> <span class="token operator">...</span>user <span class="token punctuation">}</span> <span class="token operator">=</span> payload<span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> updateAction <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>action<span class="token punctuation">,</span>
+      payload<span class="token punctuation">:</span> user<span class="token punctuation">,</span>
+      meta<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>meta<span class="token punctuation">.</span>url<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;put&apos;</span><span class="token punctuation">,</span> id <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">done</span><span class="token punctuation">(</span>updateAction<span class="token punctuation">,</span> error<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+createOrUpdate<span class="token punctuation">.</span>applyPoint <span class="token operator">=</span> <span class="token string">&apos;onRequest&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> createOrUpdate<span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>In the cases your middleware has an applyPoint <code>onRequest</code>, you would have access only to the <code>action</code> object, unless another middleware created an  <code>error</code> or <code>response</code> in the <code>onRequest</code> chain.</p>
+</blockquote>
+<p>The first thing we do in the middleware, is check for the <code>payload.id</code>. If none is present, we assume this request intends to create an user and we assume the original request config is prepared to do that, having the method as <code>post</code>, and having the proper url for the creation. That said, we only need to let the request happens normally, calling the function <strong>done</strong>, passing the params we received.</p>
+<p>If there&apos;s an id present, we create another action, modifying the <strong>url</strong> to include the <strong>id</strong> and also changing the method, to <code>put</code>. Once we do that, we only need to call <strong>done</strong>, providing modified action.</p>
+<p>And that&apos;s it, our <strong>createOrUpdate</strong> middleware is done. Now, let&apos;s take a look on how to use it.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> createOrUpdate <span class="token keyword">from</span>  <span class="token string">&apos;./createOrUpdate&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">{</span> types<span class="token punctuation">,</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;user&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  save<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> <span class="token string">&apos;user&apos;</span><span class="token punctuation">,</span>
+    method<span class="token punctuation">:</span> <span class="token string">&apos;post&apos;</span><span class="token punctuation">,</span>
+    middlewares<span class="token punctuation">:</span> <span class="token punctuation">[</span>createOrUpdate<span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">&apos;My New user&apos;</span><span class="token punctuation">,</span>
+  email<span class="token punctuation">:</span> <span class="token string">&apos;user@redux-arc.js.org&apos;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  id<span class="token punctuation">:</span> <span class="token string">&apos;123&apos;</span>
+  name<span class="token punctuation">:</span> <span class="token string">&apos;My Edited user&apos;</span><span class="token punctuation">,</span>
+  email<span class="token punctuation">:</span> <span class="token string">&apos;user@redux-arc.js.org&apos;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>First, we define the request as it would be for the creation, passing the url as <code>user</code> and the method as <code>post</code>. Then, we add the middleware to it.</p>
+<p>In the first dispatching, the payload does not contain the id, so it will create an user. The second dispatch contains the id and will be an update.</p>
+<blockquote>
+<p>Usually, for <code>onRequest</code> you would change only the action value, and for <code>onResponse</code>, you would change only the response. But feel free to change the action inside  <code>onResponse</code> cycle if that makes sense.</p>
+</blockquote>
+<p>Remember that when you create a middleware, you can use it in different request. This last middleware for example, you could use to create and save todo items, or into any crud your application has.</p>
+<p>Request middlewares can be used in many different ways, adding flexibility to the requests.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Advanced">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Request Middlewares","level":"1.3.1","depth":2,"previous":{"title":"Advanced","level":"1.3","depth":1,"path":"docs/advanced/README.md","ref":"docs/advanced/README.md","articles":[{"title":"Request Middlewares","level":"1.3.1","depth":2,"path":"docs/advanced/RequestMiddlewares.md","ref":"docs/advanced/RequestMiddlewares.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/viniciusdacal/redux-arc/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Redux Arc","base":"https://github.com/viniciusdacal/redux-arc/tree/master"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Arc","gitbook":"3.2.2"},"file":{"path":"docs/advanced/RequestMiddlewares.md","mtime":"2018-07-05T17:31:12.484Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-07-05T17:32:18.626Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,85 @@
+{
+  "name": "redux-arc",
+  "version": "0.7.3",
+  "description": "Abstraction layer to help you reduce boilerplate on redux-apps",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "redux",
+    "redux-arc",
+    "react",
+    "async"
+  ],
+  "scripts": {
+    "clean": "rimraf lib dist es coverage",
+    "lint": "eslint src test build",
+    "test": "cross-env BABEL_ENV=commonjs jest",
+    "test:watch": "yarn test -- --watch",
+    "test:cov": "yarn test -- --coverage",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:umd": "cross-env BABEL_ENV=es NODE_ENV=development rollup -c -i src/index.js -o dist/redux.js",
+    "build:umd:min": "cross-env BABEL_ENV=es NODE_ENV=production rollup -c -i src/index.js -o dist/redux.min.js",
+    "build": "yarn run build:commonjs && yarn run build:es && yarn run build:umd && yarn run build:umd:min",
+    "prepare": "yarn run clean && yarn run lint && yarn test && yarn run build",
+    "examples:lint": "eslint examples",
+    "examples:test": "cross-env CI=true babel-node examples/testAll.js",
+    "docs:clean": "rimraf _book",
+    "docs:prepare": "gitbook install",
+    "docs:build": "yarn run docs:prepare && gitbook build -g viniciusdacal/redux-arc && cp logo/apple-touch-icon.png _book/gitbook/images/apple-touch-icon-precomposed-152.png && cp logo/favicon.ico _book/gitbook/images",
+    "docs:watch": "yarn run docs:prepare && gitbook serve",
+    "docs:publish": "yarn run docs:clean && yarn run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:viniciusdacal/redux-arc gh-pages --force"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.0",
+    "babel-eslint": "8.2.2",
+    "babel-jest": "22.4.1",
+    "babel-plugin-external-helpers": "6.22.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "babel-register": "6.26.0",
+    "cross-env": "5.1.0",
+    "eslint": "4.9.0",
+    "eslint-config-react-app": "2.0.1",
+    "eslint-plugin-flowtype": "2.39.1",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.4.0",
+    "gitbook-cli": "2.3.2",
+    "glob": "7.1.1",
+    "jest": "22.4.2",
+    "prettier": "1.8.2",
+    "redux": "3.7.1",
+    "rimraf": "2.6.2",
+    "rollup": "0.51.8",
+    "rollup-plugin-babel": "3.0.2",
+    "rollup-plugin-node-resolve": "3.0.0",
+    "rollup-plugin-replace": "2.0.0",
+    "rollup-plugin-uglify": "2.0.1"
+  },
+  "authors": [
+    "Vinicius Dacal <viniciusldacal@gmail.com> (https://github.com/viniciusdacal)"
+  ],
+  "license": "MIT",
+  "jest": {
+    "coverageDirectory": "./coverage",
+    "testRegex": "(/test/.*\\.spec.js)$",
+    "globals": {
+      "BABEL_ENV": "commonjs"
+    },
+    "modulePathIgnorePatterns": [
+      "<rootDir>/_book/"
+    ]
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "redux": ">= 3.7.1"
+  }
+}

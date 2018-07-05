@@ -1,0 +1,698 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Read Me · Redux Arc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="build/gitbook.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="docs/basics/" />
+    
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter active" data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="docs/basics/">
+            
+                <a href="docs/basics/">
+            
+                    
+                    Basics
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="docs/basics/ActionCreators.html">
+            
+                <a href="docs/basics/ActionCreators.html">
+            
+                    
+                    Action Creators
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="docs/basics/ActionTypes.html">
+            
+                <a href="docs/basics/ActionTypes.html">
+            
+                    
+                    Action Types
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="docs/basics/CreatingAsyncMiddleware.html">
+            
+                <a href="docs/basics/CreatingAsyncMiddleware.html">
+            
+                    
+                    Creating Async Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="docs/basics/RequestsDefinition.html">
+            
+                <a href="docs/basics/RequestsDefinition.html">
+            
+                    
+                    Requests Definition
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="docs/advanced/">
+            
+                <a href="docs/advanced/">
+            
+                    
+                    Advanced
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="docs/advanced/RequestMiddlewares.html">
+            
+                <a href="docs/advanced/RequestMiddlewares.html">
+            
+                    
+                    Request Middlewares
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Read Me</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <p><img src="https://github.com/viniciusdacal/redux-arc/blob/master/arc-64.png?raw=true" width="200"></p>
+<p>Create scalable, no-boilerplate redux Apps!</p>
+<p>Arc is an abstraction layer to help you reduce boilerplate on redux-apps and also, organize better your code. Additionally, it has utilities to handle async requests.</p>
+<p><a href="https://travis-ci.org/viniciusdacal/redux-arc" target="_blank"><img src="https://img.shields.io/travis/viniciusdacal/redux-arc/master.svg?style=flat-square" alt="build status"></a> <a href="https://www.npmjs.com/package/redux-arc" target="_blank"><img src="https://img.shields.io/npm/v/redux-arc.svg?style=flat-square" alt="npm version"></a>
+<a href="https://coveralls.io/github/viniciusdacal/redux-arc?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/viniciusdacal/redux-arc/badge.svg?branch=master" alt="Coverage Status"></a></p>
+<h2 id="why">Why</h2>
+<p>Redux is awesome! But people often complain about how much boilerplate they have to write when using it. Part of this problem, is because they feel unproductive defining constants, action creators and big reducers, but also because they don&apos;t have a clear idea on how to organize their project, or even how to proper handle async requests. This project, intends to help on all that aspects!</p>
+<p>We don&apos;t intend to recreate the wheel, instead, we tried to use what the community are used with, and build up some approaches together in order to clarify the things about the project architecture, code splitting and the things around actions.</p>
+<h2 id="action-creators-and-types-generated-by-a-config">Action creators and types generated by a config</h2>
+<pre class="language-"><code class="lang-js">  <span class="token comment" spellcheck="true">// actions.js</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">export</span> <span class="token punctuation">{</span> types<span class="token punctuation">,</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;jedi&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    add<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+    reset<span class="token punctuation">:</span> <span class="token keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="create-reducers-reusing-types-and-without-switch-cases">Create reducers reusing types and without switch cases:</h2>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> createReducers <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> types <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./actions&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> INITIAL_STATE <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> onAdd <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+    <span class="token operator">...</span>state<span class="token punctuation">,</span>
+    action<span class="token punctuation">.</span>payload<span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> onReset <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> INITIAL_STATE<span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> HANDLERS <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>types<span class="token punctuation">.</span>ADD<span class="token punctuation">]</span><span class="token punctuation">:</span> onAdd<span class="token punctuation">,</span>
+    <span class="token punctuation">[</span>types<span class="token punctuation">.</span>RESET<span class="token punctuation">]</span><span class="token punctuation">:</span> onReset<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">createReducers</span><span class="token punctuation">(</span>INITIAL_STATE<span class="token punctuation">,</span> HANDLERS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="call-the-creators-providing-payload-and-meta">Call the creators providing payload and meta</h2>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> creators <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./actions&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> payload <span class="token operator">=</span> <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">&apos;Luke&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> meta <span class="token operator">=</span> <span class="token punctuation">{</span> foo<span class="token punctuation">:</span> <span class="token string">&apos;bar&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>payload<span class="token punctuation">,</span> meta<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/*
+  {
+    type: &apos;JEDI_ADD&apos;,
+    payload: { name: &apos;luke&apos; },
+    meta: { foo: &apos;bar&apos; },
+  }
+  */</span>
+
+  <span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// { type: &apos;JEDI_RESET&apos; }</span>
+</code></pre>
+<h2 id="create-async-actions">Create Async Actions</h2>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">export</span> <span class="token punctuation">{</span> types<span class="token punctuation">,</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;jedi&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    add<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/api/jedi&apos;</span> method<span class="token punctuation">:</span> <span class="token string">&apos;post&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>payload<span class="token punctuation">,</span> meta<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  types<span class="token punctuation">.</span>ADD<span class="token punctuation">.</span>REQUEST <span class="token comment" spellcheck="true">// JEDI_ADD_REQUEST</span>
+  types<span class="token punctuation">.</span>ADD<span class="token punctuation">.</span>RESPONSE <span class="token comment" spellcheck="true">// JEDI_ADD_RESPONSE</span>
+</code></pre>
+<blockquote>
+<p>createActions creates both, regular and <strong>Async Actions</strong>. Async types has <strong>REQUEST</strong> and <strong>RESPONSE</strong> type, respectively to when a request starts and when it finishes.</p>
+</blockquote>
+<h2 id="demo-project">Demo Project</h2>
+<p>Take a look at the demo project using Arc to build a Contacts CRUD: <a href="https://github.com/redux-arc/redux-arc-demo" target="_blank">github.com/redux-arc/redux-arc-demo</a></p>
+<h1 id="getting-started">Getting started</h1>
+<pre class="language-"><code class="lang-bash">yarn add redux-arc
+</code></pre>
+<p>or</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">npm</span> i --save redux-arc
+</code></pre>
+<p>To understand this docs, you should have a good understand of redux: what are Action creators, what are reducers, middlewares and also, what is a Flux Standard Action. So please, if you need a recap on those concepts, read the links bellow:</p>
+<p><a href="https://redux.js.org/" target="_blank">Redux Docs</a>
+<a href="https://github.com/acdlite/flux-standard-action" target="_blank">Flux Standard Action</a></p>
+<h1 id="action-creators-and-types">Action creators and Types</h1>
+<p>When you have to create a new action on redux, the first 2 steps you usually do is defining a <strong>const</strong> to you <em>action type</em> and then defining an <em>action creator</em>.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> ADD_JEDI <span class="token operator">=</span> <span class="token string">&apos;ADD_JEDI&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> addJedi <span class="token operator">=</span> <span class="token punctuation">(</span>payload<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  type<span class="token punctuation">:</span> ADD_JEDI<span class="token punctuation">,</span>
+  payload<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The above code is fine, but the problem is, you have dozens or hundreds of action in an application, and you are always writing the same code. Also, if you are not strict on code review, you end up having situations where your action type has a name different from your action creator:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> ADD_JEDI <span class="token operator">=</span> <span class="token string">&apos;ADD_JEDI&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> addJedi <span class="token operator">=</span> <span class="token punctuation">(</span>payload<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  type<span class="token punctuation">:</span> ADD_JEDI<span class="token punctuation">,</span>
+  payload<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Thinking in the above issues, Arc has a <code>createAction</code> function, that you use to define your actions and it generates the types and action creators automatically for you. Take a look:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> types<span class="token punctuation">,</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;yourNamespace&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    addJedi<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  types<span class="token punctuation">.</span>addJedi <span class="token comment" spellcheck="true">// YOUR_NAMESPACE_ADD_JEDI</span>
+
+  <span class="token keyword">const</span> payload <span class="token operator">=</span> <span class="token punctuation">{</span>
+    master<span class="token punctuation">:</span> <span class="token string">&apos;Yoda&apos;</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span> <span class="token string">&apos;Luke&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  creators<span class="token punctuation">.</span><span class="token function">addJedi</span><span class="token punctuation">(</span>payload<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/*
+  {
+    type: &apos;YOUR_NAMESPACE_ADD_JEDI&apos;,
+    payload: {
+      master: &apos;Yoda&apos;,
+      name: &apos;Luke&apos;,
+    }
+  }
+  */</span>
+</code></pre>
+<p>The <code>createActions</code> method, expects a namespace as its first argument, this will be uppercased and will serve as a prefix for the actions. As the second parameter, we need to provide a config object, which the key is the action name and the value is an object with default values for <strong>payload</strong> and <strong>meta</strong>, or <code>null</code> if you don&apos;t want to provide defaults. Then, it will return <strong>creators</strong> and <strong>types</strong>.</p>
+<p>Both creators and types are objects, the first one contains the action creators for the actions you defined. As in the case above we defined an action addJedi, then we have a creator at <code>creators.addJedi</code>.</p>
+<p>Creators accepts until three arguments:</p>
+<ul>
+<li>payload: could be of any type. Will become the <code>action.payload</code></li>
+<li>meta: could be of any type. Will become the <code>action.meta</code></li>
+<li>error: boolean. Indicates if the action has an error or not. You can omit it if the action has no error.</li>
+</ul>
+<blockquote>
+<p>The api was designed following the flux-standard-action concepts. It can be strict about how your action should look like, but this will help you creating better actions. Also, now you can be sure that the first parameter you provide to the action creator, will become the action.payload.</p>
+</blockquote>
+<p>The types is an object that contains strings. Its keys are the action names, but different from the creators, here they are uppercased:</p>
+<pre class="language-"><code class="lang-js">  types<span class="token punctuation">.</span>ADD_JEDI
+</code></pre>
+<p>Also, when you do a console.log to see its content, you can see that we prefix the actions with the namespace you provided:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">const</span> <span class="token punctuation">{</span> types <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;yourNamespace&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    addJedi<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  types<span class="token punctuation">.</span>ADD_JEDI <span class="token comment" spellcheck="true">// -&gt; YOUR_NAMESPACE_ADD_JEDI</span>
+</code></pre>
+<blockquote>
+<p>We decided to have the namespace, to not stop you from having actions with the same name in different modules. Don&apos;t worry, you will be able to differ them easily when using redux-dev-tools, just remember to provide unique namespaces.</p>
+</blockquote>
+<h1 id="reducers">Reducers</h1>
+<p>Beyond types and action creators, we also have reducers. There are a few ways to deal with them, some approaches use <code>switch case</code>, some others use multiple <code>IFs</code>. With most of them, you end up having a lot of code inside the same function, which makes maintenance and focusing hard. I know some approaches mention that you can split your code into small functions when it gets bigger, but why do not start from something that is easy to scale and also allow you to focus on each action separately?</p>
+<p>Thinking about that, we created the function <code>createReducers</code></p>
+<h2 id="createreducers">createReducers</h2>
+<p>This factory was created to work standalone, it doesn&apos;t require you to use any other feature from Arc. If you like, you can continue creating your actions and types as you always did. Take a look at the example below:</p>
+<pre class="language-"><code class="lang-js">  <span class="token comment" spellcheck="true">// vanillaActions.js</span>
+  <span class="token keyword">export</span> <span class="token keyword">const</span> ADD_TODO <span class="token operator">=</span> <span class="token string">&apos;ADD_TODO&apos;</span><span class="token punctuation">;</span>
+  <span class="token keyword">export</span> <span class="token keyword">const</span> RESET_TODOS <span class="token operator">=</span> <span class="token string">&apos;RESET_TODOS&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">export</span> <span class="token keyword">const</span> addTodo <span class="token operator">=</span> <span class="token punctuation">(</span>title<span class="token punctuation">,</span> completed<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+    type<span class="token punctuation">:</span> ADD_TODO<span class="token punctuation">,</span>
+    payload<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      title<span class="token punctuation">,</span>
+      completed<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">export</span> <span class="token keyword">const</span> resetTodos <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+    type<span class="token punctuation">:</span> RESET_TODOS<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Above we defined our type and action creator using pure JavaScript. Below, you can see how we could use it with <strong>createReducers</strong>:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> createReducers <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> ADD_TODO<span class="token punctuation">,</span> RESET_TODOS <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./vanillaActions&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> INITIAL_STATE <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> onAddTodo <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+    <span class="token operator">...</span>state<span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> name<span class="token punctuation">:</span> action<span class="token punctuation">.</span>name<span class="token punctuation">,</span> master<span class="token punctuation">:</span> action<span class="token punctuation">.</span>master <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> onResetTodos <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> INITIAL_STATE<span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> HANDLERS <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>ADD_TODO<span class="token punctuation">]</span><span class="token punctuation">:</span> onAddTodo
+    <span class="token punctuation">[</span>RESET_TODOS<span class="token punctuation">]</span><span class="token punctuation">:</span> onResetTodos
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">createReducers</span><span class="token punctuation">(</span>INITIAL_STATE<span class="token punctuation">,</span> HANDLERS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>You must provide an <code>INITIAL_STATE</code> and a <code>HANDLERS</code> object, which the keys should be action types and the values should be reducers.</p>
+<p><strong>Using createReducers with arc&apos;s types object</strong>
+As types generated from Arc is a simple JavaScript object, with strings, it fits perfectly with <strong>createReducers</strong>. Take a look below:</p>
+<p><strong>actions.js</strong>:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">const</span> <span class="token punctuation">{</span> creators<span class="token punctuation">,</span> types <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    addTodo<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+    resetTodos<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>reducers.js</strong></p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createReducers <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> types <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./actions&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> INITIAL_STATE <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> onAddTodo <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+  <span class="token operator">...</span>state<span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> name<span class="token punctuation">:</span> action<span class="token punctuation">.</span>name<span class="token punctuation">,</span> master<span class="token punctuation">:</span> action<span class="token punctuation">.</span>master <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> onResetTodos <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> INITIAL_STATE<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> HANDLERS <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">[</span>types<span class="token punctuation">.</span>ADD_TODO<span class="token punctuation">]</span><span class="token punctuation">:</span> onAddTodo
+  <span class="token punctuation">[</span>types<span class="token punctuation">.</span>RESET_TODOS<span class="token punctuation">]</span><span class="token punctuation">:</span> onResetTodos
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">createReducers</span><span class="token punctuation">(</span>INITIAL_STATE<span class="token punctuation">,</span> HANDLERS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>As you can see, you can use <strong>createReducers</strong> either standalone or with types generated by Arc.</p>
+<p>It helps you organize your logic and focus on how each action will affect the state;</p>
+<p>Also, it runs some validations over the config you provided. For example: If you commit a typo when providing the action type, it will throw a friendly descriptive error for you.</p>
+<h1 id="async-actions">Async Actions</h1>
+<p>Originally, Arc was created to be an abstraction layer to handle async request in Redux. So, it has all you need about that. The api to generate async action creators and types is the same we use for regular actions, you only need to provide some additional params in the action config object. Take a look below:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> creators<span class="token punctuation">,</span> types <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    list<span class="token punctuation">:</span>   <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo&apos;</span><span class="token punctuation">,</span>     method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span>  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    read<span class="token punctuation">:</span>   <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo/:id&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span>  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    create<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo&apos;</span><span class="token punctuation">,</span>     method<span class="token punctuation">:</span> <span class="token string">&apos;post&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    update<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo/:id&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;put&apos;</span>  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Above are defined four actions: <code>list</code>, <code>read</code>, <code>create</code> and <code>update</code>.</p>
+<p>Two params are required in an async action config, <code>url</code> and <code>method</code>.</p>
+<ul>
+<li><strong>url</strong>: You can define any url you want and it also accepts dynamic params, as you can see in the <code>read</code> action. We defined a dynamic param <strong>id</strong>, inserting <code>:id</code>.</li>
+<li><strong>method</strong>: Generally speaking, any http method your request lib supports. This will be used only by you in the <strong>asyncMiddleware</strong> that you will configure.</li>
+</ul>
+<h3 id="async-creators-and-async-types">Async Creators and Async Types</h3>
+<p>An async creator is very similar to a simple creator. It accepts <strong>payload</strong> and <strong>meta</strong> as arguments. They will further become the <code>action.payload</code> and <code>action.meta</code>, as in a regular creator. The difference here, is that the meta, should be an object, and its values will be also used to parse dynamic urls. Considering that, the creator <strong>read</strong> should be used like that:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">const</span> payload <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> meta <span class="token operator">=</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&apos;123&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  creators<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>payload<span class="token punctuation">,</span> meta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>With the above code, the final url to our read request, would be <code>api/todo/123</code>.</p>
+<p>The async types differ a little bit from the regular ones as well. First, as a api call has two moments (request and response), we need two different types to use inside our reducers. Considering that, Arc returns an object for each type, containing a <code>REQUEST</code> and a <code>RESPONSE</code> key with the respective types:</p>
+<pre class="language-"><code class="lang-js">  types<span class="token punctuation">.</span>READ<span class="token punctuation">.</span>REQUEST <span class="token operator">==</span> <span class="token string">&apos;TODO_READ_REQUEST&apos;</span><span class="token punctuation">;</span>
+  types<span class="token punctuation">.</span>READ<span class="token punctuation">.</span>RESPONSE <span class="token operator">==</span> <span class="token string">&apos;TODO_READ_RESPONSE&apos;</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="async-middleware">Async Middleware</h3>
+<p>Arc doesn&apos;t intend to be a request lib, so, you need to tell it how you want to make your requests, and you do that by configuring the asyncMiddleware.</p>
+<p>It&apos;s quite simple, take a look below in an example using axios:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createAsyncMiddleware <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">&apos;axios&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> asyncTask <span class="token operator">=</span> store <span class="token operator">=</span><span class="token operator">&gt;</span> done <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span>options<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> method<span class="token punctuation">,</span> url<span class="token punctuation">,</span> payload <span class="token punctuation">}</span> <span class="token operator">=</span> options<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> params <span class="token operator">=</span> method <span class="token operator">===</span> <span class="token string">&apos;get&apos;</span> <span class="token operator">?</span> <span class="token punctuation">{</span> params<span class="token punctuation">:</span> payload <span class="token punctuation">}</span> <span class="token punctuation">:</span> payload<span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> axios<span class="token punctuation">[</span>method<span class="token punctuation">]</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> params<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>
+    response <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">done</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> response<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    error <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">done</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// create the async middleware</span>
+<span class="token keyword">const</span> asyncMiddleware <span class="token operator">=</span> <span class="token function">createAsyncMiddleware</span><span class="token punctuation">(</span>asyncTask<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// set it to the Store</span>
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token function">createStore</span><span class="token punctuation">(</span>
+  reducer<span class="token punctuation">,</span>
+  <span class="token function">applyMiddleware</span><span class="token punctuation">(</span>asyncMiddleware<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<blockquote>
+<p>In the above example, we are using axios, but you can use whatever you want to perform the request, just make sure you call done, passing error and response when the request has finished.</p>
+</blockquote>
+<p>For more info about <strong>asyncTask</strong> and <strong>createAsyncMiddleware</strong>, read <a href="http://redux-arc.js.org/docs/basics/ConnectingArcIntoRedux.html" target="_blank">Connecting Arc Into Redux</a></p>
+<h2 id="async-actions-in-reducers">Async actions in Reducers</h2>
+<p>In reducers, you have to define two different handlers for each request definition, one to handle the state change when the request starts an another when it finishes.</p>
+<p>Considering the following config:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> creators<span class="token punctuation">,</span> types <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    list<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>We would have a reducers like this:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createReducers <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> types <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;./actions&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> INITIAL_STATE <span class="token operator">=</span> <span class="token punctuation">{</span>
+  listResult<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  listIsLoading<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  listError<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> onListRequest <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token operator">...</span>state<span class="token punctuation">,</span>
+  listIsLoading<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  listError<span class="token punctuation">:</span> INITIAL_STATE<span class="token punctuation">.</span>listError<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> onListResponse <span class="token operator">=</span> <span class="token punctuation">(</span>state<span class="token punctuation">,</span> action<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>state<span class="token punctuation">,</span>
+      listIsLoading<span class="token punctuation">:</span> INITIAL_STATE<span class="token punctuation">.</span>listIsLoading<span class="token punctuation">,</span>
+      listError<span class="token punctuation">:</span> action<span class="token punctuation">.</span>payload<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>state<span class="token punctuation">,</span>
+    listIsLoading<span class="token punctuation">:</span> INITIAL_STATE<span class="token punctuation">.</span>listIsLoading<span class="token punctuation">,</span>
+    listResult<span class="token punctuation">:</span> action<span class="token punctuation">.</span>payload
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> onReset <span class="token operator">=</span> state <span class="token operator">=</span><span class="token operator">&gt;</span> INITIAL_STATE<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> HANDLERS <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">[</span>types<span class="token punctuation">.</span>LIST<span class="token punctuation">.</span>REQUEST<span class="token punctuation">]</span><span class="token punctuation">:</span> onListRequest<span class="token punctuation">,</span>
+  <span class="token punctuation">[</span>types<span class="token punctuation">.</span>LIST<span class="token punctuation">.</span>RESPONSE<span class="token punctuation">]</span><span class="token punctuation">:</span> onListResponse<span class="token punctuation">,</span>
+  <span class="token punctuation">[</span>types<span class="token punctuation">.</span>RESET<span class="token punctuation">]</span><span class="token punctuation">:</span> onReset<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">createReducers</span><span class="token punctuation">(</span>INITIAL_STATE<span class="token punctuation">,</span> HANDLERS<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="response-action">Response action:</h3>
+<p>When the request is done, an action with the response will be dispatched. Considering the list example, the response action would look like this:</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  type<span class="token punctuation">:</span> <span class="token string">&apos;JEDI_LIST_RESPONSE&apos;</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// types.LIST.RESPONSE,</span>
+  meta<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo&apos;</span><span class="token punctuation">,</span>
+    method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  payload<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment" spellcheck="true">// resource list</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="error-handling">Error handling</h3>
+<p>The above example is a response with success. Accordingly to <strong>FSA</strong>, errors should be treated as a <a href="https://github.com/redux-utilities/flux-standard-action#errors-as-a-first-class-concept" target="_blank"><strong>First class concept</strong></a>. In that case, when you got some error in an async request, the response action will come with the error property as <code>true</code> and the payload will be the actual error. Just like the example below:</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  type<span class="token punctuation">:</span> <span class="token string">&apos;JEDI_LIST_RESPONSE&apos;</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// types.LIST.RESPONSE,</span>
+  meta<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo&apos;</span><span class="token punctuation">,</span>
+    method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  payload<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">&apos;the request error&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  error<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="docs/basics/" class="navigation navigation-next navigation-unique" aria-label="Next page: Basics">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Read Me","level":"1.1","depth":1,"next":{"title":"Basics","level":"1.2","depth":1,"path":"docs/basics/README.md","ref":"docs/basics/README.md","articles":[{"title":"Action Creators","level":"1.2.1","depth":2,"path":"docs/basics/ActionCreators.md","ref":"docs/basics/ActionCreators.md","articles":[]},{"title":"Action Types","level":"1.2.2","depth":2,"path":"docs/basics/ActionTypes.md","ref":"docs/basics/ActionTypes.md","articles":[]},{"title":"Creating Async Middleware","level":"1.2.3","depth":2,"path":"docs/basics/CreatingAsyncMiddleware.md","ref":"docs/basics/CreatingAsyncMiddleware.md","articles":[]},{"title":"Requests Definition","level":"1.2.4","depth":2,"path":"docs/basics/RequestsDefinition.md","ref":"docs/basics/RequestsDefinition.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/viniciusdacal/redux-arc/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Redux Arc","base":"https://github.com/viniciusdacal/redux-arc/tree/master"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Arc","gitbook":"3.2.2"},"file":{"path":"README.md","mtime":"2018-07-05T17:31:05.691Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-07-05T17:32:18.626Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

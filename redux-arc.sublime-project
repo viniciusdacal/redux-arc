@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+  "build_systems":
+  [
+    {
+      "name": "Jest",
+      "shell_cmd": "jest --colors $file",
+      "selector": "source.js",
+      "file_regex": ".*.(spec|stories).js(?x)",
+      "target": "ansi_color_build",
+      "syntax": "Packages/ANSIescape/ANSI.tmLanguage"
+    }
+  ]
+}

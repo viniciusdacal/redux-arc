@@ -1,0 +1,406 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Requests Definition · Redux Arc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../build/gitbook.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../advanced/" />
+    
+    
+    <link rel="prev" href="CreatingAsyncMiddleware.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Basics
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="ActionCreators.html">
+            
+                <a href="ActionCreators.html">
+            
+                    
+                    Action Creators
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="ActionTypes.html">
+            
+                <a href="ActionTypes.html">
+            
+                    
+                    Action Types
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="CreatingAsyncMiddleware.html">
+            
+                <a href="CreatingAsyncMiddleware.html">
+            
+                    
+                    Creating Async Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.4" data-path="RequestsDefinition.html">
+            
+                <a href="RequestsDefinition.html">
+            
+                    
+                    Requests Definition
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../advanced/">
+            
+                <a href="../advanced/">
+            
+                    
+                    Advanced
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../advanced/RequestMiddlewares.html">
+            
+                <a href="../advanced/RequestMiddlewares.html">
+            
+                    
+                    Request Middlewares
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Requests Definition</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="async-actions-definition">Async actions Definition</h1>
+<p>Arc provides a declarative interface to define async actions, that allows you to do this in a few lines of code. If you are used with any route system, you will feel like home, if you don&apos;t, it will take minutes for you to understand how it works.</p>
+<p>First of all, let&apos;s see how would look a todo list crud definition, considering a rest api:</p>
+<p>Let&apos;s consider our base url as <code>/api</code>:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">{</span> types<span class="token punctuation">,</span> actions <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  create<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/api/todo&apos;</span><span class="token punctuation">,</span>     method<span class="token punctuation">:</span> <span class="token string">&apos;post&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  read<span class="token punctuation">:</span>   <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/api/todo/:id&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span>  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  update<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/api/todo/:id&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;put&apos;</span>  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  list<span class="token punctuation">:</span>   <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/api/todo&apos;</span><span class="token punctuation">,</span>     method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span>  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  list<span class="token punctuation">:</span>   <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;/api/todo&apos;</span><span class="token punctuation">,</span>     method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span>  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> payload <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> meta <span class="token operator">=</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&apos;123&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+actions<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span>payload<span class="token punctuation">,</span> meta<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//dispatch read action</span>
+
+types<span class="token punctuation">.</span>READ<span class="token punctuation">.</span>REQUEST <span class="token comment" spellcheck="true">// TODO_READ_REQUEST</span>
+types<span class="token punctuation">.</span>READ<span class="token punctuation">.</span>RESPONSE <span class="token comment" spellcheck="true">// TODO_READ_RESPONSE</span>
+</code></pre>
+<blockquote>
+<p>In the above example, we have our baseUrl as <code>/api</code>. If you are using a lib like axios, you can set the <strong>baseUrl</strong> in its config, so, the url definition of <code>read</code>, for example, could look like this: <code>todo/:id</code> instead of this:<code>/api/todo/:id</code></p>
+</blockquote>
+<p>Let&apos;s step back and explore each part of this request definition.</p>
+<h1 id="createactions">createActions</h1>
+<p>This function is only a factory that returns the action creators and the action types.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token punctuation">{</span> types<span class="token punctuation">,</span> actions <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;myNamespace&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  list<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;path/to/list&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><code>createActions</code> expects a namespace as its first argument, that will be used to prefix the action types.</p>
+<p>The second argument is the requests definition object, which should respect the following pattern:</p>
+<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
+  list<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> <span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span>
+    method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  update<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> <span class="token string">&apos;todo/:id&apos;</span><span class="token punctuation">,</span>
+    method<span class="token punctuation">:</span> <span class="token string">&apos;put&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>As you can see, it&apos;s possible to define multiple requests in the same config object, you only need to give it an action name. Considering the above config:</p>
+<ul>
+<li><p><strong>action name</strong> - It&apos;s the name you give for each async action. It will be used to generate the action creator and also the action type. In the above example, we have <code>list</code> and <code>update</code>.</p>
+</li>
+<li><p><strong>url</strong> - will be passed to <code>asyncTask</code> to perform the request. It also accepts dynamic urls, so, you can define an url such as <code>path/to/resource/:id</code>.</p>
+</li>
+<li><p><strong>method</strong> - It will be passed to <code>asyncTask</code> as well, in this case, you can use any method your request lib supports, the most common are <code>post</code>,<code>get</code>, <code>put</code> and <code>delete</code>.</p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="CreatingAsyncMiddleware.html" class="navigation navigation-prev " aria-label="Previous page: Creating Async Middleware">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../advanced/" class="navigation navigation-next " aria-label="Next page: Advanced">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Requests Definition","level":"1.2.4","depth":2,"next":{"title":"Advanced","level":"1.3","depth":1,"path":"docs/advanced/README.md","ref":"docs/advanced/README.md","articles":[{"title":"Request Middlewares","level":"1.3.1","depth":2,"path":"docs/advanced/RequestMiddlewares.md","ref":"docs/advanced/RequestMiddlewares.md","articles":[]}]},"previous":{"title":"Creating Async Middleware","level":"1.2.3","depth":2,"path":"docs/basics/CreatingAsyncMiddleware.md","ref":"docs/basics/CreatingAsyncMiddleware.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/viniciusdacal/redux-arc/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Redux Arc","base":"https://github.com/viniciusdacal/redux-arc/tree/master"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Arc","gitbook":"3.2.2"},"file":{"path":"docs/basics/RequestsDefinition.md","mtime":"2018-03-21T02:23:17.436Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-07-05T17:32:18.626Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

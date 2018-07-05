@@ -1,0 +1,491 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Action Creators · Redux Arc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+        <link rel="stylesheet" href="../../build/gitbook.css">
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="ActionTypes.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Read Me
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Basics
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="ActionCreators.html">
+            
+                <a href="ActionCreators.html">
+            
+                    
+                    Action Creators
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="ActionTypes.html">
+            
+                <a href="ActionTypes.html">
+            
+                    
+                    Action Types
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="CreatingAsyncMiddleware.html">
+            
+                <a href="CreatingAsyncMiddleware.html">
+            
+                    
+                    Creating Async Middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="RequestsDefinition.html">
+            
+                <a href="RequestsDefinition.html">
+            
+                    
+                    Requests Definition
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../advanced/">
+            
+                <a href="../advanced/">
+            
+                    
+                    Advanced
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../advanced/RequestMiddlewares.html">
+            
+                <a href="../advanced/RequestMiddlewares.html">
+            
+                    
+                    Request Middlewares
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Action Creators</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="action-creators">Action Creators</h1>
+<p>An action creator, is a function that returns an action. Simple action creators should look just like this:</p>
+<pre class="language-"><code class="lang-js">
+  <span class="token keyword">const</span> add <span class="token operator">=</span> payload <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+    type<span class="token punctuation">:</span> <span class="token string">&apos;TODO_ADD&apos;</span><span class="token punctuation">,</span>
+    payload<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> reset <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+    type<span class="token punctuation">:</span> <span class="token string">&apos;TODO_RESET&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The problem is, when you are in a real project, you will have far more actions than only two, and you always have to define these creators.</p>
+<p>99% of times, they are just like the code above. You always have to define a name for your <strong>creator</strong>, then you have to define a <strong>type</strong> that has (or at least should) the same name as the <strong>creator</strong>, but uppercased. Then you receive some arguments in the function, inject them in the action and return the action. This process is too repetitive.</p>
+<p>To solve that issue, Arc has the <code>createActions</code> method, which generates types and action creator for you, based on a config.</p>
+<p>Take a look at the example below:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> createActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&apos;redux-arc&apos;</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    add<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+    reset<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>The above config would generate a <strong>creators</strong>, similar to the object below:</p>
+<pre class="language-"><code class="lang-js">  <span class="token punctuation">{</span>
+    add<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> meta<span class="token punctuation">,</span> error<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    reset<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>payload<span class="token punctuation">,</span> meta<span class="token punctuation">,</span> error<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>Those action creators can be used the same way as regular action creators are. So, having access to <code>dispatch</code> function, you can just do the following:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">const</span> payload <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// any payload</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> meta <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// any meta</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>payload<span class="token punctuation">,</span> meta<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">/*
+  {
+    type: &apos;TODO_ADD&apos;,
+    payload: {},
+    meta: {},
+  }
+  */</span>
+</code></pre>
+<p>The arguments <code>payload</code> and <code>meta</code> are not required. To dispatch a <em>reset action</em>, for example, as we are not going to use either <strong>payload</strong> neither <strong>meta</strong> inside our reducers, we can call the creator straight away, without passing any argument:</p>
+<pre class="language-"><code class="lang-js">  <span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">/*
+  {
+    type: &apos;TODO_RESET&apos;,
+  }
+  */</span>
+</code></pre>
+<h2 id="providing-default-payload-and-meta-for-the-action">Providing default payload and meta for the action</h2>
+<p>You may be asking yourself why we always have to provide a <code>null</code> in the action config. One of the reasons, is because we accept some extra options to generate the actions. You could provide a default <code>payload</code>, a default <code>meta</code> or a default <code>error</code>, for example:</p>
+<pre class="language-"><code class="lang-js">
+  <span class="token keyword">const</span> anyDefaultPayload <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> anyDefaultMeta <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    add<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      payload<span class="token punctuation">:</span> anyDefaultPayload<span class="token punctuation">,</span>
+      meta<span class="token punctuation">:</span> anyDefaultMeta<span class="token punctuation">,</span>
+      error<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// always a boolean;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    reset<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Besides a default values, Arc also accepts a param <code>url</code>, which will create a different kind of action, a <strong>async action</strong>.</p>
+<h1 id="async-action">Async Action</h1>
+<p>By Arc&apos;s point of view, a async action that contains the necessary information to trigger a async request. It has some additional info, as <code>url</code> and <code>method</code> and it also has two types instead of just one.</p>
+<p>Through the <code>createActions</code> factory, Arc allows you to create <strong>async creators</strong> and <strong>async types</strong> too, in order to make your life easier when you need to deal with this subject. The way you generate them is very similar to regular actions. Take a look below:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  list<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  update<span class="token punctuation">:</span> <span class="token punctuation">{</span> url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo/:id&apos;</span><span class="token punctuation">,</span> method<span class="token punctuation">:</span> <span class="token string">&apos;put&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  reset<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>As you can see, the api is nearly the same, you just need to provide the params <code>url</code> and <code>method</code> to make it work.</p>
+<ul>
+<li><strong>url</strong>: an endpoint to make the requests. It also accepts dynamic params, as you can see in the config to <strong>update</strong> request. We defined a <code>:id</code> which will be parsed when we call the creator providing the actual param.</li>
+<li><strong>method</strong>: Any http method your request lib supports. (&apos;get&apos;, &apos;post&apos;, etc...)</li>
+<li><strong>middlewares</strong>: Arc also accepts middlewares in the action config, to give you flexibility to handle edge cases. You can check them at: <a href="http://redux-arc.js.org/docs/advanced/RequestMiddlewares.html" target="_blank">Request Middlewares</a></li>
+</ul>
+<p>Given the above config, to start a list request, you could just do the following:</p>
+<pre class="language-"><code class="lang-js">  <span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">list</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>First, <code>creators.list</code> will return the following action:</p>
+<pre class="language-"><code class="lang-js">  <span class="token punctuation">{</span>
+    type<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;MY_NAMESPACE_LIST_REQUEST&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;MY_NAMESPACE_LIST_RESPONSE&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    meta<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      url<span class="token punctuation">:</span> <span class="token string">&apos;api/todo&apos;</span><span class="token punctuation">,</span>
+      method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>And then, the function dispatch, will dispatch it for redux.</p>
+<p>The way we use <code>creators.update</code> is very similar, the only two differences are:</p>
+<ul>
+<li>We need to provide a <strong>payload</strong>, that will be the request&apos;s payload itself.</li>
+<li>We need to provide a param <strong>id</strong>, that will be used to parse the dynamic url.</li>
+</ul>
+<p>Take a look in the example below:</p>
+<pre class="language-"><code class="lang-js">  <span class="token keyword">const</span> payload <span class="token operator">=</span> <span class="token punctuation">{</span>
+    description<span class="token punctuation">:</span> <span class="token string">&apos;Implement Arc in the project&apos;</span><span class="token punctuation">,</span>
+    date<span class="token punctuation">:</span> <span class="token string">&apos;2017-10-03&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> meta <span class="token operator">=</span> <span class="token punctuation">{</span> id<span class="token punctuation">:</span> <span class="token string">&apos;123&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token function">dispatch</span><span class="token punctuation">(</span>creators<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>payload<span class="token punctuation">,</span> meta<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The above creator, generates the following action:</p>
+<pre class="language-"><code class="lang-js">  <span class="token punctuation">{</span>
+    type<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;MY_NAMESPACE_UPDATE_REQUEST&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;MY_NAMESPACE_UPDATE_RESPONSE&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    payload<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      description<span class="token punctuation">:</span> <span class="token string">&apos;Implement Arc in the project&apos;</span><span class="token punctuation">,</span>
+      date<span class="token punctuation">:</span> <span class="token string">&apos;2017-10-03&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    meta<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      url<span class="token punctuation">:</span> <span class="token string">&apos;todo/123&apos;</span><span class="token punctuation">,</span>
+      method<span class="token punctuation">:</span> <span class="token string">&apos;put&apos;</span><span class="token punctuation">,</span>
+      id<span class="token punctuation">:</span> <span class="token string">&apos;123&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>When the above action is dispatched, Arc&apos;s middleware intercepts it, parses the values and passes the options to <strong>asyncTask</strong> perform the request.</p>
+</blockquote>
+<p>Notice that, those actions generated by Arc&apos;s creators, have an array containing two strings instead of being only a simple string. That&apos;s how Arc&apos;s middleware identifies them as Async Actions. Also, the first type is used in the action dispatched right before the request starts and the second is used to dispatch an action right after we get a response.</p>
+<h2 id="providing-url-as-function">Providing url as function</h2>
+<p>Arc also supports url as a function that expects params as its first argument and returns a string, as the following example:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> creators <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">createActions</span><span class="token punctuation">(</span><span class="token string">&apos;todo&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  read<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    url<span class="token punctuation">:</span> params <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token template-string"><span class="token string">`todo/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>params<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">,</span>
+    method<span class="token punctuation">:</span> <span class="token string">&apos;get&apos;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Basics">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="ActionTypes.html" class="navigation navigation-next " aria-label="Next page: Action Types">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Action Creators","level":"1.2.1","depth":2,"next":{"title":"Action Types","level":"1.2.2","depth":2,"path":"docs/basics/ActionTypes.md","ref":"docs/basics/ActionTypes.md","articles":[]},"previous":{"title":"Basics","level":"1.2","depth":1,"path":"docs/basics/README.md","ref":"docs/basics/README.md","articles":[{"title":"Action Creators","level":"1.2.1","depth":2,"path":"docs/basics/ActionCreators.md","ref":"docs/basics/ActionCreators.md","articles":[]},{"title":"Action Types","level":"1.2.2","depth":2,"path":"docs/basics/ActionTypes.md","ref":"docs/basics/ActionTypes.md","articles":[]},{"title":"Creating Async Middleware","level":"1.2.3","depth":2,"path":"docs/basics/CreatingAsyncMiddleware.md","ref":"docs/basics/CreatingAsyncMiddleware.md","articles":[]},{"title":"Requests Definition","level":"1.2.4","depth":2,"path":"docs/basics/RequestsDefinition.md","ref":"docs/basics/RequestsDefinition.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs"],"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/viniciusdacal/redux-arc/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Redux Arc","base":"https://github.com/viniciusdacal/redux-arc/tree/master"},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Redux Arc","gitbook":"3.2.2"},"file":{"path":"docs/basics/ActionCreators.md","mtime":"2018-07-05T17:31:11.633Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-07-05T17:32:18.626Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
