@@ -39,14 +39,6 @@ export default function actionCreatorFactory(config, type) {
   }
 
   Object.assign(actionCreator, normalizedConfig);
-  Object.defineProperty(
-    actionCreator,
-    'name',
-    {
-      value: `${type} action creator`,
-      writable: false
-    },
-  );
 
   return actionCreator;
 }

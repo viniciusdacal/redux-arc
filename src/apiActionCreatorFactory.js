@@ -28,14 +28,5 @@ export default function apiActionCreatorFactory(config, type) {
 
   Object.assign(apiActionCreator, config);
 
-  Object.defineProperty(
-    apiActionCreator,
-    'name',
-    {
-      value: `${type} apiActionCreator`,
-      writable: false
-    },
-  );
-
   return apiActionCreator;
 }
