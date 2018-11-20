@@ -81,5 +81,19 @@ describe('createActions', () => {
         extraParam: 'EXTRA_PARAM',
       },
     });
+  });
+
+  it('should prefer the meta provided in the call ranther than the one from config', () => {
+    expect(creators.readWithExtras({ test: 'TEST' }, { id: '123', middlewares: ['override'] })).toEqual({
+      type: [types.READ_WITH_EXTRAS.REQUEST, types.READ_WITH_EXTRAS.RESPONSE],
+      payload: { test: 'TEST' },
+      meta: {
+        url: 'endpoint/123',
+        method: 'put',
+        id: '123',
+        middlewares: ['override'],
+        extraParam: 'EXTRA_PARAM',
+      },
+    });
   })
 });

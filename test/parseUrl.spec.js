@@ -15,4 +15,11 @@ describe('parseUrl', () => {
   it('should parse params', () => {
     expect(parseUrl('endpoint/:myparam', { myparam: 'hey-ho'})).toBe('endpoint/hey-ho');
   });
+
+  it('should ignore the begning of a absolute url', () => {
+    expect(() => parseUrl('https://ds.devel.goben.rocks/api:8080', {})).not.toThrow();
+
+    expect(parseUrl('https://ds.devel.goben.rocks/api:8080', {}))
+      .toBe('https://ds.devel.goben.rocks/api:8080');
+  });
 });
