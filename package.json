@@ -1,6 +1,6 @@
 {
   "name": "redux-arc",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Abstraction layer to help you reduce boilerplate on redux-apps",
   "main": "lib/index.js",
   "module": "es/index.js",

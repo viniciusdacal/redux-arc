@@ -11,9 +11,9 @@ export default function apiActionCreatorFactory(config, type) {
     const url = normalizeUrl(configUrl, meta);
 
     const finalMeta = {
+      ...restMeta,
       ...(configMeta || {}),
       ...(meta || {}),
-      ...restMeta,
     };
 
     return {
